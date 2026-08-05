@@ -1,0 +1,129 @@
+// 树
+ul.wok-ui-ext-tree {
+  font-size: var(--font-size-small);
+  line-height: 1.5;
+  user-select: none;
+  list-style: none;
+
+  // 节点
+  li.wok-ui-ext-tree-node {
+    margin-top: 4px;
+    overflow: hidden;
+
+    // 节点信息
+    .wok-ui-ext-node-info {
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      padding: 10px 12px 10px 8px;
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-size: var(--font-size-small);
+      transition: background var(--transition-speed) ease;
+      gap: 8px;
+
+      // 折叠图标
+      .wok-ui-ext-icon-fold {
+        text-align: center;
+        color: var(--color-primary);
+        font-size: 15px;
+        cursor: pointer;
+        transition: color var(--transition-speed);
+        flex-shrink: 0;
+      }
+
+      // 标题
+      .wok-ui-ext-node-name {
+        flex: 1;
+        word-wrap: break-word;
+        word-break: break-all;
+        white-space: normal;
+      }
+
+      // 操作图标
+      .wok-ui-ext-icon-manage {
+        display: none;
+        color: var(--text-muted);
+        cursor: pointer;
+      }
+
+      &:hover {
+        background-color: var(--bg-hover);
+
+        .wok-ui-ext-icon-manage {
+          display: block;
+        }
+      }
+    }
+
+    & > ul.wok-ui-ext-sub-nodes {
+      transition: height 0.3s ease-out;
+      padding-left: 32px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    &.wok-ui-ext-unselectable > .wok-ui-ext-node-info {
+      color: var(--text-disabled);
+    }
+
+    &.wok-ui-ext-selected > .wok-ui-ext-node-info {
+      background: var(--bg-active);
+      color: var(--text-primary);
+      font-weight: var(--font-weight-medium);
+      box-shadow: inset 3px 0 0 var(--color-primary);
+    }
+
+    &.wok-ui-ext-folded > ul.wok-ui-ext-sub-nodes {
+      height: 0 !important;
+      overflow: hidden;
+    }
+  }
+
+  // 拖动图标，顶点是事件的坐标点，通过偏移变换，将图标展示在中间
+  .wok-ui-ext-tree-node-dragging-img {
+    position: fixed;
+    padding: 10px 12px 10px 24px;
+    text-align: center;
+    min-width: 150px;
+    font-size: 1rem;
+    opacity: 0.8;
+    cursor: move;
+    user-select: none;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    border-radius: var(--radius-md);
+    border: 1px dashed var(--color-primary);
+    color: var(--color-primary);
+    display: none;
+    z-index: 1000;
+  }
+
+  // 拖动中
+  &.wok-ui-ext-dragging {
+    .wok-ui-ext-tree-node-dragging-img {
+      display: block;
+    }
+
+    .wok-ui-ext-tree-node .wok-ui-ext-node-info {
+      // 移动中的样式
+      &.wok-ui-ext-moving-before {
+        border-top: 2px solid var(--color-primary);
+      }
+
+      &.wok-ui-ext-moving-after {
+        border-bottom: 2px solid var(--color-primary);
+      }
+
+      &.wok-ui-ext-moving-in {
+        background-color: var(--color-primary);
+        border-radius: var(--radius-md);
+        color: white;
+
+        .wok-ui-ext-icon-fold {
+          color: white !important;
+        }
+      }
+    }
+  }
+}

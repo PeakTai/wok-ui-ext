@@ -1,0 +1,80 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-family);
+
+  &:focus-visible {
+    outline: var(--shadow-sm);
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+body,
+html {
+  height: 100%;
+  width: 100%;
+  background: var(--bg-body);
+  font-size: var(--font-size-body);
+}
+
+// 覆盖 wok-ui 自带的输入框样式
+.wok-ui-input,
+select.wok-ui-select {
+  width: 100% !important;
+  padding: 9px 36px 9px 18px !important;
+  border: 1px solid var(--border-medium) !important;
+  border-radius: var(--radius-xl) !important;
+  font-size: var(--font-size-body) !important;
+  background-color: var(--bg-content) !important;
+  outline: none;
+
+  &:focus-visible,
+  &.focused {
+    border-color: var(--color-primary) !important;
+    box-shadow: var(--shadow-sm);
+    outline: none;
+  }
+
+  /* 对webkit内核浏览器设置placeholder颜色 */
+  &::-webkit-input-placeholder {
+    color: var(--text-placeholder);
+  }
+
+  /* 对Gecko内核浏览器（例如Firefox设置placeholder颜色 */
+  &::-moz-placeholder {
+    color: var(--text-placeholder);
+  }
+
+  /* 对Webkit内核和Gecko内核浏览器设置placeholder颜色 */
+  &:-ms-input-placeholder {
+    color: var(--text-placeholder);
+  }
+
+  /* 对所有浏览器设置placeholder颜色 */
+  &::placeholder {
+    color: var(--text-placeholder);
+  }
+}
+
+// 让链接默认没有下划线，悬浮才出现
+.wok-ui-link {
+  text-decoration: none;
+  color: var(--text-primary);
+
+  &:hover {
+    color: var(--text-secondary);
+    text-decoration: underline;
+  }
+
+  &:visited {
+    color: var(--color-primary) !important;
+  }
+}
+
+.wok-ui-radio:disabled {
+  opacity: 1 !important;
+}

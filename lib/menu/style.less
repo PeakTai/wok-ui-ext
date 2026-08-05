@@ -1,0 +1,156 @@
+// ─── 导航菜单 ──────────────────────────────────────
+// 使用主题变量，跟随浅色/深色主题自动切换
+
+.wok-ui-ext-menu {
+  background: var(--bg-card);
+  width: 240px;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.25s ease;
+  overflow: hidden;
+  user-select: none;
+  border-right: 1px solid var(--border-medium);
+
+  // ─── 菜单项（通用） ──────────────────────────
+  .wok-ui-ext-menu-item {
+    display: flex;
+    align-items: center;
+    height: 44px;
+    padding: 0 16px;
+    cursor: pointer;
+    transition: background var(--transition-speed), color var(--transition-speed);
+    color: var(--text-secondary);
+    gap: 12px;
+    white-space: nowrap;
+    position: relative;
+
+    &:hover {
+      background: var(--bg-hover);
+      color: var(--text-primary);
+    }
+
+    // 选中态
+    &.selected {
+      color: var(--color-primary);
+      background: var(--bg-hover);
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 6px;
+        bottom: 6px;
+        width: 3px;
+        background: var(--color-primary);
+        border-radius: 0 3px 3px 0;
+      }
+    }
+
+    // 子菜单头部 — 有子节点选中时高亮
+    &.sub-active {
+      color: var(--text-primary);
+    }
+
+    // 禁用态
+    &.disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+
+      &:hover {
+        background: transparent;
+        color: var(--text-secondary);
+      }
+    }
+  }
+
+  // ─── 图标 ────────────────────────────────────
+  .wok-ui-ext-menu-item-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    font-size: 18px;
+  }
+
+  // ─── 标签 ────────────────────────────────────
+  .wok-ui-ext-menu-item-label {
+    flex: 1;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  // ─── 展开箭头 ───────────────────────────────
+  .wok-ui-ext-menu-item-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    font-size: 14px;
+    color: var(--text-placeholder);
+    transition: transform 0.2s ease;
+  }
+
+  // ─── 子节点缩进 ─────────────────────────────
+  .wok-ui-ext-menu-item[data-level='1'] {
+    padding-left: 48px; // icon(20) + gap(12) + padding(16)
+  }
+
+  .wok-ui-ext-menu-item[data-level='2'] {
+    padding-left: 64px;
+  }
+
+  .wok-ui-ext-menu-submenu[data-level='1'] {
+    .wok-ui-ext-menu-item {
+      padding-left: 48px;
+    }
+  }
+
+  // ─── 折叠模式 ──────────────────────────────
+  &.wok-ui-ext-menu-collapsed {
+    width: 56px;
+
+    .wok-ui-ext-menu-item {
+      justify-content: center;
+      padding: 0 8px;
+    }
+
+    .wok-ui-ext-menu-item-label,
+    .wok-ui-ext-menu-item-arrow {
+      display: none;
+    }
+
+    .wok-ui-ext-menu-submenu-children {
+      display: none !important; // 折叠模式下不展开
+    }
+
+    .wok-ui-ext-menu-item.selected::before {
+      left: auto;
+      right: 0;
+      width: 3px;
+    }
+  }
+}
+
+// ─── 子菜单容器 ──────────────────────────────────
+.wok-ui-ext-menu-submenu {
+  display: flex;
+  flex-direction: column;
+
+  .wok-ui-ext-menu-submenu-children {
+    overflow: hidden;
+    transition: display 0.2s ease;
+  }
+
+  // 子菜单级别的分割线
+  & + & {
+    .wok-ui-ext-menu-item {
+      border-top: none;
+    }
+  }
+}

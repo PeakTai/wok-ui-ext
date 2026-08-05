@@ -1,0 +1,24 @@
+ // Empty 空状态
+ .wok-ui-ext-empty-state {
+   text-align: center;
+   padding: 36px 20px;
+   background: var(--bg-content);
+   border-radius: 32px;
+   border: 1px dashed var(--border-medium);
+
+   // 加一种没有边框和背景色的样式，用于嵌入其它的组件中
+   &.no-border {
+     border: none;
+     background: none;
+   }
+
+   .wok-ui-svg-icon {
+     font-size: 56px;
+     color: var(--text-disabled);
+   }
+
+   p.desc {
+     font-size: var(--font-size-small);
+     color: var(--text-tertiary);
+   }
+ }

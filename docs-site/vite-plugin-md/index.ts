@@ -1,0 +1,211 @@
+import { Plugin } from 'vite'
+import fs from 'node:fs'
+import path from 'node:path'
+import matter from 'gray-matter'
+import { parseFragments } from './parser'
+import { generateCode } from './generator'
+import { DEFAULT_LANG, htmlShell, scanMdPages, type PageEntry } from './virtual-html'
+
+/**
+ * mdToPagePlugin - 将 Markdown 文件自动转换为多语言文档站点的 Vite 插件。
+ *
+ * ## 功能概述
+ *
+ * 该插件扫描项目 `pages/` 目录下各语言子目录（如 `zh-CN/`、`en/`）的所有 .md 文件，
+ * 将其转换为带导航侧边栏和顶部 Header 的文档页面。
+ * 每个 .md 文件对应一个独立页面，支持 frontmatter 元信息（title/order/description）和
+ * 内嵌的 ```demo 代码示例块。
+ *
+ * ## 目录结构
+ *
+ * ```
+ *   pages/
+ *     zh-CN/           ← 默认语言
+ *       index.md
+ *       button/index.md
+ *     en/
+ *       index.md
+ * ```
+ *
+ * ## 构建流程
+ *
+ * ```
+ *   config() 钩子
+ *     │
+ *     ├─ 1. scanMdPages(root) 扫描 pages/ 下各语言子目录
+ *     │      收集所有 .md 文件，提取 frontmatter + lang 生成 PageEntry 列表
+ *     │
+ *     ├─ 2. 将 .md 文件作为 rollup 入口（扁平 key）
+ *     │      确保 Rollup 为每个页面单独打包为 JS chunk
+ *     │
+ *     ▼
+ *   load() 钩子                 ← 拦截 .md 文件
+ *     │
+ *     ├─ gray-matter 解析 frontmatter
+ *     ├─ parseFragments() 按 ```demo 块拆分
+ *     ├─ 从 allPages 中匹配当前页的 lang 和 name
+ *     └─ generateCode() 注入 lang + 全部语言 pages，
+ *            DocsLayout 内部按 lang 过滤 sidebar，支持语言切换
+ *     │
+ *     ▼
+ *   writeBundle() 钩子           ← JS 写入磁盘后
+ *     │
+ *     └─ 为每个页面生成 HTML 文件到输出目录的子目录中
+ *           （如 dist/zh-CN/index.html, dist/zh-CN/button.html）
+ *     │
+ *     ▼
+ *   configureServer() 钩子      ← 开发服务器中间件
+ *     │
+ *     ├─ /                      → 302 重定向到 /zh-CN/index.html
+ *     └─ /{lang}/{name}.html    → 渲染对应语言页面的 HTML shell
+ *           浏览器解析后会再次进入 load()，将 .md 转换为组件代码
+ * ```
+ *
+ * ## 页面 URL 规则
+ *
+ * - /zh-CN/index.html  → pages/zh-CN/index.md
+ * - /zh-CN/button.html → pages/zh-CN/button/index.md
+ * - /en/index.html     → pages/en/index.md
+ * - /                  → 302 → /zh-CN/index.html（默认中文）
+ */
+export function mdToPagePlugin(): Plugin {
+  let allPages: PageEntry[] = []
+  let outDir = ''
+
+  return {
+    name: 'md-to-page',
+
+    /**
+     * config 钩子：在 Vite 解析配置阶段执行。
+     * 1. 扫描 pages/ 下各语言子目录的所有 .md 文件，收集页面元信息。
+     * 2. 将 .md 文件直接作为 rollup entry（扁平 key），
+     *    确保 Rollup 为每个页面单独打包为 JS chunk。
+     */
+    config(_config, env) {
+      const root = _config.root || process.cwd()
+      allPages = scanMdPages(root)
+      console.log(`[md-plugin] pages: ${allPages.map(p => `${p.lang}/${p.name}(${p.meta.title})`).join(', ') || '(none)'}`)
+
+      const input: Record<string, string> = {}
+      for (const p of allPages) {
+        input[p.flatKey] = p.absPath
+      }
+
+      // 记录输出目录（writeBundle 时需写入 HTML 文件）
+      // _config.build?.outDir 可能为相对路径，解析为绝对路径
+      const configOutDir = _config.build?.outDir as string | undefined
+      outDir = configOutDir ? path.resolve(root, configOutDir) : path.resolve(root, 'dist')
+
+      // 构建时才注入 rollup input（开发模式下由 configureServer 处理）
+      if (env.command === 'build') {
+        return {
+          build: {
+            rollupOptions: { input },
+          },
+        }
+      }
+    },
+
+    /**
+     * load 钩子：加载 .md 文件。
+     * 将其转换为包含 DocsLayout（Header + 侧边栏导航 + 内容区）的完整页面组件代码。
+     */
+    load(id) {
+      if (!id.endsWith('.md')) return null
+
+      const raw = fs.readFileSync(id, 'utf-8')
+      const { content } = matter(raw)
+      const fragments = parseFragments(content)
+      const entry = allPages.find(p => p.absPath === id)
+      const activePage = entry?.name || ''
+      const lang = entry?.lang || DEFAULT_LANG
+      return generateCode(fragments, activePage, lang, allPages)
+    },
+
+    /**
+     * writeBundle 钩子：构建完成后写入 HTML 文件。
+     * 为每个页面生成 HTML，写到输出目录下的子目录中。
+     */
+    writeBundle(_opts, bundle) {
+      if (!allPages.length || !outDir) return
+
+      for (const entry of allPages) {
+        // 找到该页面对应的 JS chunk
+        for (const [, chunk] of Object.entries(bundle)) {
+          if (chunk.type === 'chunk' && chunk.name === entry.flatKey) {
+            // script src 使用以 / 开头的绝对路径（base: '/'）
+            // chunk.fileName 如 "assets/zh-CN_index-[hash].js"
+            const scriptSrc = '/' + chunk.fileName
+            const html = htmlShell(entry, scriptSrc)
+
+            // 写入到输出目录的子目录: dist/zh-CN/index.html
+            const htmlDir = path.join(outDir, entry.lang)
+            const htmlPath = path.join(htmlDir, entry.name + '.html')
+            fs.mkdirSync(htmlDir, { recursive: true })
+            fs.writeFileSync(htmlPath, html, 'utf-8')
+            console.log(`[md-plugin] emitted ${entry.lang}/${entry.name}.html → ${scriptSrc}`)
+            break
+          }
+        }
+      }
+
+      // 在根目录生成 index.html，重定向到默认语言首页
+      // 避免静态托管时访问 / 返回 404
+      const redirectHtml = `<!DOCTYPE html>
+<html lang="${DEFAULT_LANG}">
+<head><meta charset="UTF-8"><meta http-equiv="refresh" content="0;url=/${DEFAULT_LANG}/index.html"><title>wok-ui-ext</title></head>
+<body>
+<a href="/${DEFAULT_LANG}/index.html">wok-ui-ext</a>
+</body>
+</html>`
+      fs.writeFileSync(path.join(outDir, 'index.html'), redirectHtml, 'utf-8')
+      console.log(`[md-plugin] emitted index.html → redirect to /${DEFAULT_LANG}/index.html`)
+    },
+
+    /**
+     * configureServer 钩子：在开发服务器启动时注册中间件。
+     *
+     * 拦截 HTTP 请求，将 URL 映射到对应的文档页面：
+     * - /                       → 302 重定向到 /zh-CN/index.html
+     * - /{lang}/{name}.html     → 渲染对应语言页面的 HTML shell
+     *
+     * HTML shell 中的 <script type="module" src="xxx.md"> 会再次进入 load()，
+     * 将 .md 文件编译为完整的页面组件代码。
+     */
+    configureServer(server) {
+      /**
+       * 根据语言和页面名称返回对应的 HTML 文档。
+       * @returns 找到并响应返回 true，未找到返回 false
+       */
+      function servePage(lang: string, name: string, res: any): boolean {
+        const entry = allPages.find(p => p.lang === lang && p.name === name)
+        if (!entry) return false
+        // 开发模式下 script src 指向 .md 源文件，由 Vite 转译
+        const scriptSrc = entry.relPath
+        res.setHeader('Content-Type', 'text/html')
+        res.end(htmlShell(entry, scriptSrc))
+        return true
+      }
+
+      server.middlewares.use((req, res, next) => {
+        const url = new URL(req.url!, `http://${req.headers.host}`)
+
+        // 根路径 → 302 重定向到默认语言首页
+        if (url.pathname === '/' || url.pathname === '/index.html') {
+          res.writeHead(302, { Location: `/${DEFAULT_LANG}/index.html` })
+          res.end()
+          return
+        }
+
+        // /{lang}/{name}.html → 匹配对应文档页面
+        const htmlMatch = url.pathname.match(/^\/([^/]+)\/(.+)\.html$/)
+        if (!htmlMatch) return next()
+
+        const lang = htmlMatch[1]
+        const name = htmlMatch[2]
+        if (servePage(lang, name, res)) return
+        next()
+      })
+    },
+  }
+}

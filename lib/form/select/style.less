@@ -1,0 +1,36 @@
+// wok-ui-ext 的 Select：内部用一层 wrapper 只包裹原生 select，主题色箭头挂在 wrapper 上
+.wok-ui-ext-select-wrap {
+  position: relative;
+
+  // 覆盖 wok-ui 原生的固定灰色箭头（data URI SVG 无法使用 CSS 变量控制颜色）
+  > select.wok-ui-select {
+    background-image: none;
+
+    & > option,
+    & > optgroup {
+      color: var(--text-primary);
+    }
+  }
+
+  // 下拉箭头：wrapper 只包裹 select 本身，invalid-feedback 在 wrapper 之外，
+  // 因此校验反馈出现时箭头仍保持在 select 的垂直中心，不会偏移
+  &::after {
+    content: '';
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background-color: var(--color-primary);
+    pointer-events: none;
+    mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath d='M3,5 L8,11 L13,5' fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'/%3e%3c/svg%3e");
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+    -webkit-mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath d='M3,5 L8,11 L13,5' fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'/%3e%3c/svg%3e");
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: contain;
+  }
+}

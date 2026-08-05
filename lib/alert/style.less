@@ -1,0 +1,146 @@
+.wok-ui-ext-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  font-size: var(--font-size-small);
+  line-height: 1.6;
+  position: relative;
+  transition: opacity var(--transition-speed), transform var(--transition-speed);
+
+  // 图标区域
+  &-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  // 内容区域
+  &-body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &-title {
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-body);
+    margin-bottom: 4px;
+  }
+
+  &-content {
+    color: inherit;
+    opacity: 0.85;
+  }
+
+  // 关闭按钮
+  &-close {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    opacity: 0.6;
+    transition: opacity var(--transition-speed), background var(--transition-speed);
+    padding: 0;
+    margin-top: -2px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+      pointer-events: none;
+    }
+
+    &:hover {
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.08);
+    }
+
+    &:active {
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.14);
+    }
+  }
+
+  // ===== success =====
+  &.wok-ui-ext-alert-success {
+    background-color: var(--color-success-light);
+    border-color: var(--color-success);
+    color: var(--color-success);
+
+    .wok-ui-ext-alert-icon svg {
+      stroke: var(--color-success);
+    }
+
+    .wok-ui-ext-alert-close {
+      color: var(--color-success);
+    }
+  }
+
+  // ===== warning =====
+  &.wok-ui-ext-alert-warning {
+    background-color: var(--color-warning-light);
+    border-color: var(--color-warning);
+    color: var(--color-warning);
+
+    .wok-ui-ext-alert-icon svg {
+      stroke: var(--color-warning);
+    }
+
+    .wok-ui-ext-alert-close {
+      color: var(--color-warning);
+    }
+  }
+
+  // ===== danger / error =====
+  &.wok-ui-ext-alert-danger {
+    background-color: var(--color-danger-light);
+    border-color: var(--color-danger);
+    color: var(--color-danger);
+
+    .wok-ui-ext-alert-icon svg {
+      stroke: var(--color-danger);
+    }
+
+    .wok-ui-ext-alert-close {
+      color: var(--color-danger);
+    }
+  }
+
+  // ===== info =====
+  &.wok-ui-ext-alert-info {
+    background-color: var(--color-info-light);
+    border-color: var(--color-info);
+    color: var(--color-info);
+
+    .wok-ui-ext-alert-icon svg {
+      stroke: var(--color-info);
+    }
+
+    .wok-ui-ext-alert-close {
+      color: var(--color-info);
+    }
+  }
+
+  // 关闭动画
+  &.wok-ui-ext-alert-dismissing {
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+  }
+}

@@ -1,0 +1,50 @@
+ /* Uploader */
+ .wok-ui-ext-uploader-area {
+   border: 2px dashed var(--color-primary-soft);
+   border-radius: var(--radius-xl);
+   padding: 30px 16px;
+   text-align: center;
+   background: var(--bg-content);
+   transition: border 0.15s;
+   cursor: pointer;
+   display: block;
+
+   &:hover {
+     border-color: var(--color-primary);
+     background: var(--bg-hover);
+   }
+
+   &.dragging {
+     border-color: var(--color-primary);
+     background: var(--color-primary-soft);
+   }
+
+   .wok-ui-svg-icon {
+     font-size: 42px;
+     color: var(--color-primary);
+     margin-bottom: 8px;
+   }
+
+   // 提示，点击或拖拽文件到此处上传
+   .wok-ui-ext-uploader-hint {
+     font-size: 15px;
+     color: var(--text-secondary);
+     font-weight: 500;
+   }
+
+   // 提示，补充信息，如仅支持上传 certain types of files
+   .wok-ui-ext-uploader-hint-secondary {
+     font-size: 12px;
+     color: var(--text-placeholder);
+   }
+
+   input[type="file"] {
+     display: none;
+   }
+
+   &.disabled {
+     opacity: 0.5;
+     pointer-events: none;
+     cursor: not-allowed;
+   }
+ }

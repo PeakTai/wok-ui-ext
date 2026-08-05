@@ -1,0 +1,147 @@
+// ─── 气泡卡片 ──────────────────────────────────────
+.wok-ui-ext-popover {
+  position: fixed;
+  z-index: 1060;
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: 12px;
+  display: none;
+  animation: wok-ui-ext-popover-in 0.15s ease;
+  min-width: 60px;
+
+  // ─── 箭头（通过伪元素实现） ────────────────────
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 8px solid transparent;
+    pointer-events: none;
+  }
+
+  // 外三角（和 border 同色，模拟边框）
+  &::before {
+    z-index: -1;
+  }
+
+  // 内三角（和背景同色，覆盖外三角的一半）
+  &::after {
+    z-index: 1;
+  }
+
+  // ── 底部弹出（箭头在上方） ──
+  &[data-placement^='bottom'] {
+    &::before {
+      top: -17px; // -(arrowSize + borderWidth)
+      border-bottom-color: var(--border-medium);
+    }
+    &::after {
+      top: -15px; // -(arrowSize)
+      border-bottom-color: var(--bg-card);
+    }
+  }
+
+  &[data-placement='bottom'] {
+    &::before,
+    &::after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  &[data-placement='bottomLeft'] {
+    &::before,
+    &::after {
+      left: 16px;
+    }
+  }
+
+  &[data-placement='bottomRight'] {
+    &::before,
+    &::after {
+      right: 16px;
+    }
+  }
+
+  // ── 顶部弹出（箭头在下方） ──
+  &[data-placement^='top'] {
+    &::before {
+      bottom: -17px;
+      border-top-color: var(--border-medium);
+    }
+    &::after {
+      bottom: -15px;
+      border-top-color: var(--bg-card);
+    }
+  }
+
+  &[data-placement='top'] {
+    &::before,
+    &::after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  &[data-placement='topLeft'] {
+    &::before,
+    &::after {
+      left: 16px;
+    }
+  }
+
+  &[data-placement='topRight'] {
+    &::before,
+    &::after {
+      right: 16px;
+    }
+  }
+
+  // ── 左侧弹出（箭头在右侧） ──
+  &[data-placement='left'] {
+    &::before {
+      right: -17px;
+      border-left-color: var(--border-medium);
+    }
+    &::after {
+      right: -15px;
+      border-left-color: var(--bg-card);
+    }
+    &::before,
+    &::after {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+
+  // ── 右侧弹出（箭头在左侧） ──
+  &[data-placement='right'] {
+    &::before {
+      left: -17px;
+      border-right-color: var(--border-medium);
+    }
+    &::after {
+      left: -15px;
+      border-right-color: var(--bg-card);
+    }
+    &::before,
+    &::after {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+@keyframes wok-ui-ext-popover-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

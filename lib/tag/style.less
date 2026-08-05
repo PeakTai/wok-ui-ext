@@ -1,0 +1,74 @@
+// 新版本样式
+.wok-ui-ext-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-content);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-full);
+  padding: 8px 16px;
+  font-size: var(--font-size-small);
+  color: var(--text-secondary);
+  transition: all var(--transition-speed);
+  cursor: default;
+  max-width: 100%;
+
+  &:hover {
+    border-color: var(--color-primary);
+  }
+
+  .wok-ui-ext-tag-name {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  & > .wok-ui-svg-icon {
+    color: var(--color-primary);
+    font-size: 13px;
+    flex-shrink: 0;
+
+    &.icon-action {
+      cursor: pointer;
+      color: var(--text-muted);
+
+      &:hover {
+        opacity: 1;
+        color: var(--color-primary);
+      }
+    }
+  }
+
+  // 活跃状态，用于一些筛选的场景，表示当前选中的标签
+  &.active {
+    background-color: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+
+    & > .wok-ui-svg-icon {
+      color: white;
+
+      &.icon-action {
+        color: white;
+        &:hover {
+          color: var(--color-primary-light);
+        }
+      }
+    }
+  }
+
+  &.block {
+    display: flex;
+
+    & > .icon-action {
+      visibility: hidden;
+    }
+
+    &:hover {
+      & > .icon-action {
+        visibility: visible;
+      }
+    }
+  }
+}

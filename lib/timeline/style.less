@@ -1,0 +1,61 @@
+.wok-ui-ext-timeline {
+  padding-left: 24px;
+
+  .wok-ui-ext-timeline-item {
+    position: relative;
+
+    // 竖线
+    &::before {
+      content: '';
+      position: absolute;
+      left: -1px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background-color: var(--border-light);
+      z-index: 1;
+    }
+
+    &:last-child::before {
+      display: none;
+    }
+
+    .wok-ui-ext-timeline-dot {
+      position: absolute;
+      width: 2rem;
+      height: 2rem;
+      left: 0;
+      top: calc(var(--font-size-title) / 2);
+      transform: translate(-50%, -50%);
+      border-radius: var(--radius-circle);
+      background-color: var(--bg-card);
+      border: 2px solid var(--color-primary);
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--font-size-small);
+      color: var(--text-primary);
+    }
+
+    .wok-ui-ext-timeline-content {
+      background-color: var(--bg-card);
+      border-radius: var(--radius-md);
+      padding: 0 1rem 2rem 2rem;
+
+      .wok-ui-ext-timeline-title {
+        font-size: var(--font-size-title);
+        font-weight: var(--font-weight-semibold);
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+        line-height: 1;
+      }
+
+      .wok-ui-ext-timeline-body {
+        font-size: var(--font-size-small);
+        color: var(--text-tertiary);
+        line-height: 1.57;
+      }
+    }
+  }
+}

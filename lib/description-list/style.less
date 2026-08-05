@@ -1,0 +1,92 @@
+.wok-ui-ext-description-list {
+  width: 100%;
+
+  // bordered 时外层容器提供完整圆角边框（弧线完整），并裁剪内部网格
+  &.bordered {
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .wok-ui-ext-description-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+
+    td {
+      vertical-align: top;
+    }
+  }
+
+  .wok-ui-ext-description-label {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-tertiary);
+    white-space: nowrap;
+  }
+
+  .wok-ui-ext-description-content {
+    font-size: var(--font-size-small);
+    color: var(--text-primary);
+    word-break: break-word;
+    line-height: 1.5;
+  }
+
+  // 无边框：间距通过单元格 padding 控制
+  &:not(.bordered) {
+    // 标题在左
+    &.layout-horizontal {
+      td.wok-ui-ext-description-label,
+      td.wok-ui-ext-description-content {
+        padding: 6px 0;
+      }
+
+      td.wok-ui-ext-description-label {
+        padding-right: 8px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      td.wok-ui-ext-description-content {
+        padding-right: var(--dl-gap, 24px);
+      }
+    }
+
+    // 标题在上：label 与 content 各占一行
+    &:not(.layout-horizontal) {
+      td.wok-ui-ext-description-label {
+        padding: 6px calc(var(--dl-gap, 24px) / 2) 0;
+      }
+
+      td.wok-ui-ext-description-content {
+        padding: 6px calc(var(--dl-gap, 24px) / 2) var(--dl-gap, 24px);
+      }
+    }
+  }
+
+  // 带边框：外框由外层容器提供（圆角完整），内部网格由单元格右/下边框组成
+  &.bordered {
+    td {
+      padding: 12px 16px;
+      border-right: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    // 行尾与末行单元格不画边框，避免与外框双线
+    td:last-child {
+      border-right: none;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    // 标题单元格灰底
+    td.wok-ui-ext-description-label {
+      vertical-align: middle;
+      background: var(--bg-hover);
+      color: var(--text-secondary);
+    }
+  }
+}

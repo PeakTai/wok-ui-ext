@@ -1,0 +1,28 @@
+.wok-ui-ext-search-box {
+
+  .wok-ui-input {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    &>.wok-ui-svg-icon {
+      color: var(--text-muted);
+      pointer-events: none;
+      flex-shrink: 0;
+    }
+
+    &>input {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: transparent;
+      appearance: none;
+      line-height: 1.5;
+      font-size: var(--font-size-body) !important;
+      &::placeholder {
+        color: var(--text-placeholder);
+      }
+    }
+  }
+
+}

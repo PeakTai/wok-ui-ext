@@ -1,0 +1,122 @@
+.wok-ui-ext-table {
+  overflow: auto;
+  font-size: 15px;
+  box-sizing: border-box;
+  width: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-medium) var(--bg-hover);
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--bg-hover);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--border-medium);
+    border-radius: var(--radius-full);
+  }
+
+  .wok-ui-ext-table-inner {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+  }
+
+  caption {
+    padding: 12px 8px;
+    font-weight: 600;
+    text-align: left;
+    caption-side: top;
+  }
+
+  thead {
+    font-weight: 600;
+    color: var(--text-tertiary);
+
+    th {
+      background-color: var(--bg-card);
+      border-bottom: 2px solid var(--border-medium);
+      text-align: left;
+      padding: 16px 8px;
+      font-weight: 600;
+    }
+  }
+
+  tbody {
+    color: var(--text-secondary);
+
+    tr {
+      background-color: var(--bg-card);
+
+      &:last-child td {
+        border-bottom: none;
+      }
+
+      &:hover td {
+        background-color: var(--bg-hover);
+
+        &.wok-ui-ext-fixed-left,
+        &.wok-ui-ext-fixed-right {
+          background-color: var(--bg-hover);
+        }
+      }
+    }
+
+    td {
+      padding: 16px 8px;
+      text-align: left;
+      background-color: var(--bg-card);
+      vertical-align: middle;
+      border-bottom: 1px solid var(--border-light);
+
+      &.wok-ui-ext-fixed-left {
+        border-right: 1px solid var(--border-light);
+        box-shadow: 4px 0 8px -4px rgba(0, 20, 40, 0.12);
+      }
+
+      &.wok-ui-ext-fixed-right {
+        border-left: 1px solid var(--border-light);
+        box-shadow: -4px 0 8px -4px rgba(0, 20, 40, 0.12);
+      }
+    }
+  }
+
+  .wok-ui-ext-fixed-left,
+  .wok-ui-ext-fixed-right {
+    position: sticky;
+    background-color: var(--bg-card);
+  }
+
+  .wok-ui-ext-fixed-left {
+    left: 0;
+  }
+
+  .wok-ui-ext-fixed-right {
+    right: 0;
+  }
+
+  // 空状态
+  .empty-state {
+    padding: 70px 20px;
+    background-color: var(--bg-body);
+    border-radius: 0;
+  }
+}
+
+.wok-ui-ext-table.wok-ui-ext-fixed-header {
+  thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+
+    &.wok-ui-ext-fixed-left,
+    &.wok-ui-ext-fixed-right {
+      z-index: 3;
+    }
+  }
+}

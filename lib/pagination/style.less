@@ -1,0 +1,58 @@
+.wok-ui-ext-pagination {
+  display: inline-flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+
+  .wok-ui-ext-page-total {
+    color: var(--text-secondary);
+  }
+
+  .wok-ui-ext-page-item {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-circle);
+    background: var(--bg-card);
+    border: 1px solid var(--border-medium);
+    color: var(--text-secondary);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+
+    &:hover,
+    &.active {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: white;
+      box-shadow: var(--shadow-primary);
+    }
+
+    &.disabled {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+  }
+
+  // 简洁模式
+  &.wok-ui-ext-pagination-simple {
+    gap: 4px;
+
+    .wok-ui-ext-page-item {
+      width: 28px;
+      height: 28px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+    }
+
+    .wok-ui-ext-page-info {
+      min-width: 60px;
+      text-align: center;
+      font-size: 14px;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+  }
+}

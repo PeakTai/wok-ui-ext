@@ -1,0 +1,30 @@
+.wok-ui-ext-segmented {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  background: var(--color-primary-soft);
+  border-radius: 40px;
+  padding: 6px 10px;
+  border: 1px solid var(--border-medium);
+
+  .wok-ui-ext-segmented-item {
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: default;
+    background: transparent;
+    color: var(--text-tertiary);
+    transition: all 0.1s;
+    border: none;
+    white-space: nowrap;
+    user-select: none;
+
+    &.active {
+      background: var(--color-primary);
+      color: white;
+      box-shadow: var(--shadow-primary);
+      pointer-events: none;
+    }
+  }
+}

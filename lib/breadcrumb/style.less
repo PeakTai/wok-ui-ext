@@ -1,0 +1,41 @@
+.wok-ui-ext-breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: var(--font-size-small);
+  line-height: 1.5;
+
+  .wok-ui-ext-breadcrumb-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--text-tertiary);
+    text-decoration: none;
+    transition: color var(--transition-speed);
+    cursor: pointer;
+
+    &:hover {
+      color: var(--color-primary);
+    }
+
+    .wok-ui-svg-icon {
+      font-size: var(--font-size-body);
+    }
+  }
+
+  .wok-ui-ext-breadcrumb-item-current {
+    color: var(--text-primary);
+    font-weight: var(--font-weight-medium);
+    cursor: default;
+
+    &:hover {
+      color: var(--text-primary);
+    }
+  }
+
+  .wok-ui-ext-breadcrumb-separator {
+    color: var(--text-muted);
+    user-select: none;
+  }
+}

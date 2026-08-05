@@ -1,0 +1,235 @@
+.wok-ui-ext-steps {
+  display: flex;
+  line-height: normal;
+
+  &.wok-ui-ext-steps-horizontal {
+    white-space: nowrap;
+  }
+
+  &.wok-ui-ext-steps-vertical {
+    height: 100%;
+    flex-flow: column;
+  }
+}
+
+.wok-ui-ext-step-item {
+  position: relative;
+  flex-shrink: 1;
+
+  &:last-of-type {
+    .wok-ui-ext-step-tail {
+      display: none;
+    }
+  }
+
+  .wok-ui-ext-step-head {
+    position: relative;
+    width: 100%;
+    color: var(--text-placeholder);
+
+    .wok-ui-ext-step-icon {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 28px;
+      height: 28px;
+      font-size: 14px;
+      box-sizing: border-box;
+      background: var(--bg-content);
+      border-radius: 50%;
+      border: 2px solid currentColor;
+      transition: all var(--transition-speed);
+
+      .wok-ui-svg-icon {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .wok-ui-ext-step-tail {
+    position: absolute;
+    border-color: currentColor;
+    background-color: var(--border-medium);
+
+    &::after {
+      content: '';
+      display: block;
+      border-width: 1px;
+      border-style: solid;
+      border-color: currentColor;
+      transition: all var(--transition-speed);
+      box-sizing: border-box;
+      width: 0;
+      height: 0;
+    }
+  }
+
+  .wok-ui-ext-step-body {
+    white-space: normal;
+    text-align: left;
+  }
+
+  .wok-ui-ext-step-title {
+    font-size: 14px;
+    line-height: 28px;
+  }
+
+  .wok-ui-ext-step-description {
+    padding-right: 10%;
+    margin-top: -5px;
+    font-size: 12px;
+    line-height: 20px;
+    font-weight: normal;
+  }
+
+  &.wok-ui-ext-step-process {
+    .wok-ui-ext-step-head {
+      color: var(--color-primary);
+
+      .wok-ui-ext-step-icon {
+        background: var(--color-primary);
+        border-color: var(--color-primary);
+        color: #fff;
+      }
+    }
+
+    .wok-ui-ext-step-title {
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+    }
+
+    .wok-ui-ext-step-description {
+      color: var(--text-secondary);
+    }
+  }
+
+  &.wok-ui-ext-step-wait {
+    .wok-ui-ext-step-head {
+      color: var(--text-placeholder);
+    }
+
+    .wok-ui-ext-step-title {
+      color: var(--text-placeholder);
+    }
+
+    .wok-ui-ext-step-description {
+      color: var(--text-placeholder);
+    }
+  }
+
+  &.wok-ui-ext-step-finish {
+    .wok-ui-ext-step-head {
+      color: var(--color-primary);
+
+      .wok-ui-ext-step-icon {
+        background: var(--color-primary);
+        border-color: var(--color-primary);
+        color: #fff;
+      }
+    }
+
+    .wok-ui-ext-step-title {
+      color: var(--text-primary);
+    }
+
+    .wok-ui-ext-step-description {
+      color: var(--text-secondary);
+    }
+
+    .wok-ui-ext-step-tail {
+      color: var(--color-primary);
+    }
+  }
+
+  &.wok-ui-ext-step-error {
+    .wok-ui-ext-step-head {
+      color: var(--color-danger);
+
+      .wok-ui-ext-step-icon {
+        background: var(--color-danger);
+        border-color: var(--color-danger);
+        color: #fff;
+      }
+    }
+
+    .wok-ui-ext-step-title {
+      color: var(--color-danger);
+    }
+
+    .wok-ui-ext-step-description {
+      color: var(--color-danger);
+    }
+  }
+
+  .wok-ui-ext-steps-horizontal & {
+    display: inline-block;
+
+    .wok-ui-ext-step-tail {
+      height: 2px;
+      top: 13px;
+      left: 0;
+      right: 0;
+
+      &::after {
+        width: 100%;
+        height: 0;
+      }
+    }
+
+    .wok-ui-ext-step-head {
+      text-align: center;
+    }
+
+    .wok-ui-ext-step-body {
+      text-align: center;
+    }
+
+    .wok-ui-ext-step-title {
+      padding-top: 8px;
+    }
+
+    .wok-ui-ext-step-description {
+      padding-left: 20%;
+      padding-right: 20%;
+    }
+  }
+
+  .wok-ui-ext-steps-vertical & {
+    display: flex;
+
+    .wok-ui-ext-step-head {
+      flex-grow: 0;
+      width: 28px;
+      min-width: 28px;
+    }
+
+    .wok-ui-ext-step-body {
+      padding-left: 10px;
+      flex-grow: 1;
+    }
+
+    .wok-ui-ext-step-title {
+      line-height: 28px;
+      padding-bottom: 8px;
+    }
+
+    .wok-ui-ext-step-description {
+      padding-right: 0;
+      margin-top: 0;
+    }
+
+    .wok-ui-ext-step-tail {
+      width: 2px;
+      top: 28px;
+      bottom: 0;
+      left: 13px;
+
+      &::after {
+        width: 0;
+        height: 100%;
+      }
+    }
+  }
+}

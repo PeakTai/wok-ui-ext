@@ -6,6 +6,8 @@ import { mdToPagePlugin } from './vite-plugin-md/index'
 const projectRoot = process.cwd()
 
 export default defineConfig({
+  // GitHub Pages 部署在子路径 /wok-ui-ext/，dev 与 build 统一使用该前缀
+  base: '/wok-ui-ext/',
   plugins: [mdToPagePlugin()],
   resolve: {
     alias: {

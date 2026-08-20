@@ -36,7 +36,8 @@ export class MobileHeader extends DivModule {
         {
           tag: 'a',
           classNames: 'docs-header-title',
-          attrs: { href: `/${opts.lang}/index.html` },
+          // BASE_URL 兼容子路径部署（如 GitHub Pages /wok-ui-ext/）
+          attrs: { href: import.meta.env.BASE_URL + `${opts.lang}/index.html` },
           innerText: 'wok-ui-ext'
         }
       ]

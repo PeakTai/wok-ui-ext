@@ -127,15 +127,16 @@ export abstract class DocsLayout extends ResponsiveModule {
 
   /**
    * 切换语言：跳转到目标语言的同名页面，若不存在则跳转到首页。
+   * 使用 BASE_URL 拼接，兼容部署到子路径（如 GitHub Pages /wok-ui-ext/）。
    */
   private switchLang(targetLang: string): void {
     const samePage = this.opts.pages.find(
       p => p.lang === targetLang && p.name === this.opts.activePage
     )
     if (samePage) {
-      location.href = '/' + samePage.path
+      location.href = import.meta.env.BASE_URL + samePage.path
     } else {
-      location.href = `/${targetLang}/index.html`
+      location.href = import.meta.env.BASE_URL + `${targetLang}/index.html`
     }
   }
 
@@ -202,7 +203,8 @@ export abstract class DocsLayout extends ResponsiveModule {
     return {
       tag: 'a',
       classNames: classes,
-      attrs: { href: '/' + p.path },
+      // BASE_URL 兼容子路径部署（如 GitHub Pages /wok-ui-ext/）
+      attrs: { href: import.meta.env.BASE_URL + p.path },
       children: p.icon
         ? [
             new FontAwesomeIcon({ iconClass: p.icon as FontAwesomeIconClass }),

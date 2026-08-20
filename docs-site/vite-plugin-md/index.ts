@@ -72,11 +72,21 @@ import { buildSearchIndex } from './search-index'
 export function mdToPagePlugin(): Plugin {
   let allPages: PageEntry[] = []
   let outDir = ''
+  /** 站点 base（如 /wok-ui-ext/），configResolved 时从 vite 配置读取 */
+  let siteBase = '/'
   /** 各语言的搜索索引 JSON（构建期生成，dev/build 共用） */
   const searchIndexByLang = new Map<string, string>()
 
   return {
     name: 'md-to-page',
+
+    /**
+     * configResolved 钩子：读取最终的 base 配置，
+     * 生成 HTML 时用于拼接 script src、静态资源等绝对路径。
+     */
+    configResolved(config) {
+      siteBase = config.base || '/'
+    },
 
     /**
      * config 钩子：在 Vite 解析配置阶段执行。
@@ -148,10 +158,10 @@ export function mdToPagePlugin(): Plugin {
         // 找到该页面对应的 JS chunk
         for (const [, chunk] of Object.entries(bundle)) {
           if (chunk.type === 'chunk' && chunk.name === entry.flatKey) {
-            // script src 使用以 / 开头的绝对路径（base: '/'）
+            // script src 使用以 base 开头的绝对路径（如 /wok-ui-ext/assets/xxx.js）
             // chunk.fileName 如 "assets/zh-CN_index-[hash].js"
-            const scriptSrc = '/' + chunk.fileName
-            const html = htmlShell(entry, scriptSrc)
+            const scriptSrc = siteBase + chunk.fileName
+            const html = htmlShell(entry, scriptSrc, siteBase)
 
             // 写入到输出目录的子目录: dist/zh-CN/index.html
             const htmlDir = path.join(outDir, entry.lang)
@@ -168,13 +178,13 @@ export function mdToPagePlugin(): Plugin {
       // 避免静态托管时访问 / 返回 404
       const redirectHtml = `<!DOCTYPE html>
 <html lang="${DEFAULT_LANG}">
-<head><meta charset="UTF-8"><meta http-equiv="refresh" content="0;url=/${DEFAULT_LANG}/index.html"><title>wok-ui-ext</title></head>
+<head><meta charset="UTF-8"><meta http-equiv="refresh" content="0;url=${siteBase}${DEFAULT_LANG}/index.html"><title>wok-ui-ext</title></head>
 <body>
-<a href="/${DEFAULT_LANG}/index.html">wok-ui-ext</a>
+<a href="${siteBase}${DEFAULT_LANG}/index.html">wok-ui-ext</a>
 </body>
 </html>`
       fs.writeFileSync(path.join(outDir, 'index.html'), redirectHtml, 'utf-8')
-      console.log(`[md-plugin] emitted index.html → redirect to /${DEFAULT_LANG}/index.html`)
+      console.log(`[md-plugin] emitted index.html → redirect to ${siteBase}${DEFAULT_LANG}/index.html`)
 
       // 输出各语言的搜索索引：dist/{lang}/search-index.json
       for (const [lang, json] of searchIndexByLang) {
@@ -203,18 +213,24 @@ export function mdToPagePlugin(): Plugin {
       function servePage(lang: string, name: string, res: any): boolean {
         const entry = allPages.find(p => p.lang === lang && p.name === name)
         if (!entry) return false
-        // 开发模式下 script src 指向 .md 源文件，由 Vite 转译
-        const scriptSrc = entry.relPath
+        // 开发模式下 script src 指向 .md 源文件（需带 base 前缀，由 Vite 转译）
+        const scriptSrc = siteBase + entry.relPath.slice(1)
         res.setHeader('Content-Type', 'text/html')
-        res.end(htmlShell(entry, scriptSrc))
+        res.end(htmlShell(entry, scriptSrc, siteBase))
         return true
       }
 
       server.middlewares.use((req, res, next) => {
         const url = new URL(req.url!, `http://${req.headers.host}`)
+        // dev/build 统一使用 base（如 /wok-ui-ext/）：
+        // 仅剥离 pathname 用于本中间件匹配；不改写 req.url，
+        // 前缀剥离统一交给 Vite 的 baseMiddleware 处理（public/模块请求）
+        const pathname = siteBase !== '/' && url.pathname.startsWith(siteBase)
+          ? url.pathname.slice(siteBase.length - 1)
+          : url.pathname
 
         // 搜索索引 → 返回对应语言构建期的索引 JSON
-        const indexMatch = url.pathname.match(/^\/([^/]+)\/search-index\.json$/)
+        const indexMatch = pathname.match(/^\/([^/]+)\/search-index\.json$/)
         if (indexMatch) {
           const json = searchIndexByLang.get(indexMatch[1])
           if (json) {
@@ -227,15 +243,19 @@ export function mdToPagePlugin(): Plugin {
           return
         }
 
-        // 根路径 → 302 重定向到默认语言首页
-        if (url.pathname === '/' || url.pathname === '/index.html') {
-          res.writeHead(302, { Location: `/${DEFAULT_LANG}/index.html` })
+        // 根路径 / base 根路径 → 302 重定向到默认语言首页
+        if (
+          pathname === '/' ||
+          pathname === '/index.html' ||
+          pathname === siteBase.slice(0, -1)
+        ) {
+          res.writeHead(302, { Location: `${siteBase}${DEFAULT_LANG}/index.html` })
           res.end()
           return
         }
 
         // /{lang}/{name}.html → 匹配对应文档页面
-        const htmlMatch = url.pathname.match(/^\/([^/]+)\/(.+)\.html$/)
+        const htmlMatch = pathname.match(/^\/([^/]+)\/(.+)\.html$/)
         if (!htmlMatch) return next()
 
         const lang = htmlMatch[1]

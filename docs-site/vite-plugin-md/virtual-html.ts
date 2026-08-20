@@ -32,8 +32,9 @@ export interface PageEntry {
  * 生成 HTML 骨架。
  * @param entry     页面条目
  * @param scriptSrc JS chunk 的路径（相对于 HTML 文件的位置）
+ * @param base      站点 base（如 /wok-ui-ext/），用于静态资源绝对路径
  */
-export function htmlShell(entry: PageEntry, scriptSrc: string): string {
+export function htmlShell(entry: PageEntry, scriptSrc: string, base = '/'): string {
   const desc = entry.meta.description
     ? `<meta name="description" content="${entry.meta.description}">\n  `
     : ''
@@ -45,7 +46,7 @@ export function htmlShell(entry: PageEntry, scriptSrc: string): string {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  ${desc}${kw}<link rel="stylesheet" href="/vendor/fontawesome-5.15.4/css/all.min.css">
+  ${desc}${kw}<link rel="stylesheet" href="${base}vendor/fontawesome-5.15.4/css/all.min.css">
   <title>${entry.meta.title}</title>
 </head>
 <body>

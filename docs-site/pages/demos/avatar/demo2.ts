@@ -7,7 +7,8 @@ export default class Demo2 extends HBox {
       new Avatar({ size: 'sm' }),
       new Avatar({}),
       new Avatar({ size: 'lg' }),
-      new Avatar({ size: 64, src: '/imgs/avatar.jpg' })
+      // 相对路径引用文档站演示图片（站点部署在子路径）；项目中请替换为你的图片地址
+      new Avatar({ size: 64, src: '../imgs/avatar.jpg' })
     ] })
   }
 }

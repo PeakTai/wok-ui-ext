@@ -1,0 +1,1 @@
+import{F as e,N as t,w as n}from"./markdown-DRLWp_oX.js";var r=class extends e{constructor(e){super(`wok-ui-ext-empty-state`),e.noBorder&&this.el.classList.add(`no-border`),this.addChild(new n,30,{tag:`p`,className:`desc`,innerText:e.text||t().buildMsg(`empty-text`)})}};export{r as t};

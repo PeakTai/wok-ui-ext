@@ -22,6 +22,7 @@ export class CalendarPanel extends FullRenderingModule {
   private readonly onDayClick: (date: Date) => void
   private readonly onDayHover?: (date: Date) => void
   private readonly onMonthChange?: (year: number, month: number) => void
+  private readonly dayCellMap = new Map<number, HTMLElement>()
 
   constructor(opts: {
     year: number
@@ -48,6 +49,7 @@ export class CalendarPanel extends FullRenderingModule {
   }
 
   protected buildContent(): void {
+    this.dayCellMap.clear()
     this.addChild(this.buildHeader())
     this.addChild(this.buildWeekdays())
     this.addChild(this.buildGrid())
@@ -157,10 +159,41 @@ export class CalendarPanel extends FullRenderingModule {
       children: String(day.day),
       onClick: isDisabled ? undefined : () => this.onDayClick(day.date),
       postHandle: el => {
+        this.dayCellMap.set(day.date.getTime(), el)
         if (!isDisabled && this.onDayHover) {
           el.addEventListener('mouseenter', () => this.onDayHover!(day.date))
         }
       }
+    }
+  }
+
+  /**
+   * 局部更新 hover 范围预览的 class，不重新渲染整个面板。
+   */
+  setHoveredDate(hovered: Date | undefined): void {
+    const selected = this.selectedDates()
+    if (selected.length !== 1 || !hovered) {
+      this.clearHoverClass()
+      return
+    }
+    const start = selected[0]
+    for (const [time, el] of this.dayCellMap) {
+      const date = new Date(time)
+      const isDisabled = this.disabledDate?.(date) ?? false
+      if (isDisabled || isSameDay(date, start)) {
+        el.classList.remove('in-range-hover')
+        continue
+      }
+      const cmpStart = compareDate(date, start)
+      const cmpHovered = compareDate(date, hovered)
+      const inRange = (cmpStart > 0 && cmpHovered < 0) || (cmpStart < 0 && cmpHovered > 0)
+      el.classList.toggle('in-range-hover', inRange)
+    }
+  }
+
+  private clearHoverClass(): void {
+    for (const el of this.dayCellMap.values()) {
+      el.classList.remove('in-range-hover')
     }
   }
 

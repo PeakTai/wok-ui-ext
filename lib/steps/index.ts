@@ -1,4 +1,4 @@
-import { DivModule, ConvertibleModule } from 'wok-ui'
+import { FullRenderingModule, ConvertibleModule } from 'wok-ui'
 import { IconInput, resolveIcon } from '../icons'
 import './style.less'
 
@@ -11,7 +11,15 @@ export interface StepItem {
 /**
  * 步骤条组件
  */
-export class Steps extends DivModule {
+export class Steps extends FullRenderingModule {
+  /**
+   * 当前步骤索引（从 0 开始）
+   */
+  private current: number
+  private readonly status: 'process' | 'error'
+  private readonly direction: 'horizontal' | 'vertical'
+  private readonly onChange?: (index: number) => void
+
   constructor(
     private readonly opts: {
       /**
@@ -31,27 +39,36 @@ export class Steps extends DivModule {
        * 方向，默认 'horizontal'
        */
       direction?: 'horizontal' | 'vertical'
+      /**
+       * 点击步骤时触发，参数为步骤索引
+       */
+      onChange?: (index: number) => void
     }
   ) {
     super('wok-ui-ext-steps')
-    const { direction = 'horizontal' } = opts
+    const { current = 0, status = 'process', direction = 'horizontal', onChange } = opts
+    this.current = current
+    this.status = status
+    this.direction = direction
+    this.onChange = onChange
     this.el.classList.add(direction === 'vertical' ? 'wok-ui-ext-steps-vertical' : 'wok-ui-ext-steps-horizontal')
     this.render()
   }
 
-  private render(): void {
-    const { items, current = 0, status = 'process' } = this.opts
+  protected buildContent(): void {
+    const { items } = this.opts
     const lastIndex = items.length - 1
+    const hasCallback = !!this.onChange
 
     for (let i = 0; i < items.length; i++) {
       const item = items[i]
 
       // 推断步骤状态
       let stepStatus: string
-      if (i < current) {
-        stepStatus = status === 'error' && i === current - 1 ? 'error' : 'finish'
-      } else if (i === current) {
-        stepStatus = status
+      if (i < this.current) {
+        stepStatus = this.status === 'error' && i === this.current - 1 ? 'error' : 'finish'
+      } else if (i === this.current) {
+        stepStatus = this.status
       } else {
         stepStatus = 'wait'
       }
@@ -65,7 +82,15 @@ export class Steps extends DivModule {
       }
 
       this.addChild({
-        classNames: ['wok-ui-ext-step-item', `wok-ui-ext-step-${stepStatus}`],
+        classNames: ['wok-ui-ext-step-item', `wok-ui-ext-step-${stepStatus}`, hasCallback ? 'wok-ui-ext-step-clickable' : ''],
+        style: this.direction === 'horizontal' ? { width: `${100 / items.length}%` } : undefined,
+        onClick: hasCallback
+          ? () => {
+              this.current = i
+              this.render()
+              this.onChange?.(i)
+            }
+          : undefined,
         children: add => {
           // 步骤头：包含连接线与图标
           add({
@@ -73,10 +98,12 @@ export class Steps extends DivModule {
             children: addHead => {
               // 连接线
               if (i < lastIndex) {
+                const isErrorTail = this.status === 'error' && i === this.current - 1
                 addHead({
                   classNames: [
                     'wok-ui-ext-step-tail',
-                    i < current ? 'wok-ui-ext-step-tail-active' : ''
+                    i < this.current ? 'wok-ui-ext-step-tail-active' : '',
+                    isErrorTail ? 'wok-ui-ext-step-tail-error' : ''
                   ]
                 })
               }

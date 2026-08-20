@@ -1,14 +1,15 @@
-import { Button, Popconfirm } from 'wok-ui-ext'
+import { HBox } from 'wok-ui'
+import { Button, Popconfirm, showInfo } from 'wok-ui-ext'
 
-export default class Demo1 extends Button {
+export default class Demo1 extends HBox {
   constructor() {
-    const btn = new Button({ text: 'Delete', type: 'danger' })
-    new Popconfirm({
-      trigger: btn,
-      title: 'Confirm delete?',
-      confirmType: 'danger',
-      onConfirm: () => console.log('deleted')
-    })
-    super({ text: 'Delete', type: 'danger' })
+    super({ gap: 12, children: [
+      new Popconfirm({
+        children: new Button({ text: 'Delete', type: 'danger' }),
+        title: 'Confirm delete?',
+        confirmType: 'danger',
+        onConfirm: () => showInfo('deleted')
+      })
+    ]})
   }
 }

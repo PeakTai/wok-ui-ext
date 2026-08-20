@@ -1,30 +1,46 @@
 import { DivModule, SubModulesOpt } from 'wok-ui'
+import { attachTooltip, TooltipBinding, TooltipPlacement } from './api'
 import './style.less'
+
 /**
  * 提示框组件
- * <div class="tooltip-container">
- *  鼠标悬停我
- * <span class="tooltip-text">科技蓝提示</span>
- * </div>
  */
 export class Tooltip extends DivModule {
+  private binding?: TooltipBinding
+
   /**
-   * 提示框组件
+   * 提示框组件，鼠标悬停时显示提示信息。
    * @param opts
-   * @param opts.content 提示框内容
-   * @param opts.text 提示框文本
-   * @param opts.placement 提示框位置
+   * @param opts.children 触发元素
+   * @param opts.content 提示内容
+   * @param opts.placement 提示位置，默认 top
+   * @param opts.delay 显示延迟，默认 0ms
+   * @param opts.leaveDelay 隐藏延迟，默认 0ms
+   * @param opts.disabled 是否禁用，默认 false
    */
   constructor(opts: {
+    children: SubModulesOpt
     content: SubModulesOpt
-    text: string
-    placement?: 'top' | 'bottom' | 'left' | 'right'
+    placement?: TooltipPlacement
+    delay?: number
+    leaveDelay?: number
+    disabled?: boolean
   }) {
-    super('wok-ui-ext-tooltip-container')
-    this.addChild(opts.content)
-    this.addChild({
-      classNames: ['wok-ui-ext-tooltip-text', opts.placement || 'top'],
-      children: opts.text
+    super('wok-ui-ext-tooltip-trigger')
+    this.addChild(opts.children)
+    this.binding = attachTooltip({
+      target: this.el,
+      content: opts.content,
+      placement: opts.placement,
+      delay: opts.delay,
+      leaveDelay: opts.leaveDelay,
+      disabled: opts.disabled
     })
+  }
+
+  destroy(): void {
+    this.binding?.destroy()
+    this.binding = undefined
+    super.destroy()
   }
 }

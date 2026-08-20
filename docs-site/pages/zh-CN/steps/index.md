@@ -92,6 +92,31 @@ new Steps({
 
 <br>
 
+## 回调事件
+
+设置 `onChange` 后步骤可点击，点击后组件会重新渲染，将该步骤切换为激活状态，并触发回调，参数为步骤索引。未设置回调时点击无响应。
+
+```ts
+new Steps({
+  items: [
+    { title: 'Step 1' },
+    { title: 'Step 2' },
+    { title: 'Step 3' }
+  ],
+  current: 1,
+  onChange: (index: number) => {
+    showInfo(`click step ${index + 1}`)
+  }
+})
+```
+
+<br>
+
+```demo @docs/pages/demos/steps/demo5.ts
+```
+
+<br>
+
 ## 参数
 
 | 参数 | 类型 | 默认值 | 说明 |
@@ -100,6 +125,7 @@ new Steps({
 | current | `number` | `0` | 当前步骤索引（从 0 开始） |
 | status | `'process' \| 'error'` | `process` | 步骤状态 |
 | direction | `'horizontal' \| 'vertical'` | `horizontal` | 方向 |
+| onChange | `(index: number) => void` | — | 点击步骤时触发，参数为步骤索引 |
 
 ## 类型
 

@@ -1,13 +1,13 @@
 import { FullRenderingModule } from 'wok-ui'
 import { CalendarPanel } from './calendar-panel'
-import { formatDate, compareDate } from './date-utils'
+import { DatePickerLayer } from './layer'
+import { formatDate, combineDateConstraints } from './date-utils'
 
 export class DatePicker extends FullRenderingModule {
   private value?: Date
-  private popupOpen = false
   private panelYear: number
   private panelMonth: number
-  private docClickHandler?: (evt: MouseEvent) => void
+  private popup?: DatePickerLayer
 
   constructor(
     private readonly opts: {
@@ -31,84 +31,72 @@ export class DatePicker extends FullRenderingModule {
   }
 
   protected buildContent(): void {
+    this.addChild({
+      classNames: ['wok-ui-ext-date-picker-trigger', this.opts.disabled ? 'disabled' : ''],
+      children: this.value ? formatDate(this.value) : (this.opts.placeholder ?? '请选择日期'),
+      onClick: () => {
+        if (this.opts.disabled) return
+        this.togglePopup()
+      },
+      postHandle: el => {
+        if (!this.value) {
+          el.classList.add('placeholder')
+        }
+      }
+    })
+  }
+
+  private togglePopup(): void {
+    // 已打开则关闭
+    if (this.popup) {
+      this.popup.destroy()
+      return
+    }
+    const target = this.value ?? new Date()
+    this.panelYear = target.getFullYear()
+    this.panelMonth = target.getMonth()
+
     const today = new Date()
     const panel = new CalendarPanel({
       year: this.panelYear,
       month: this.panelMonth,
       selectedDates: () => (this.value ? [this.value] : []),
       today,
-      disabledDate: this.opts.disabledDate,
+      disabledDate: combineDateConstraints(this.opts.min, this.opts.max, this.opts.disabledDate),
       onDayClick: date => this.selectDate(date),
       onMonthChange: (year, month) => {
         this.panelYear = year
         this.panelMonth = month
       }
     })
+    this.openPopup([panel])
+  }
 
-    this.addChild(
-      {
-        classNames: ['wok-ui-ext-date-picker-trigger', this.opts.disabled ? 'disabled' : ''],
-        children: this.value ? formatDate(this.value) : (this.opts.placeholder ?? '请选择日期'),
-        onClick: () => {
-          if (this.opts.disabled) return
-          this.togglePopup()
-        },
-        postHandle: el => {
-          if (!this.value) {
-            el.classList.add('placeholder')
-          }
+  private openPopup(panels: CalendarPanel[]): void {
+    const popup = new DatePickerLayer({
+      target: this.el,
+      panels,
+      onClose: () => {
+        if (this.popup === popup) {
+          this.popup = undefined
         }
-      },
-      {
-        classNames: ['wok-ui-ext-date-picker-popup', this.popupOpen ? 'open' : ''],
-        children: this.popupOpen ? panel : []
       }
-    )
+    })
+    this.popup = popup
+    popup.mount(document.body)
   }
 
   private selectDate(date: Date): void {
-    if (this.opts.disabledDate?.(date)) return
+    if (combineDateConstraints(this.opts.min, this.opts.max, this.opts.disabledDate)(date)) return
 
     this.value = date
-    this.popupOpen = false
+    this.popup?.destroy()
     this.render()
     this.opts.onChange?.(date)
   }
 
-  private togglePopup(): void {
-    this.popupOpen = !this.popupOpen
-    if (this.popupOpen) {
-      const target = this.value ?? new Date()
-      this.panelYear = target.getFullYear()
-      this.panelMonth = target.getMonth()
-      this.setupDocClickHandler()
-    } else {
-      this.removeDocClickHandler()
-    }
-    this.render()
-  }
-
-  private setupDocClickHandler(): void {
-    if (this.docClickHandler) return
-    this.docClickHandler = (evt: MouseEvent) => {
-      if (!this.el.contains(evt.target as Node)) {
-        this.popupOpen = false
-        this.removeDocClickHandler()
-        this.render()
-      }
-    }
-    document.addEventListener('click', this.docClickHandler)
-  }
-
-  private removeDocClickHandler(): void {
-    if (this.docClickHandler) {
-      document.removeEventListener('click', this.docClickHandler)
-      this.docClickHandler = undefined
-    }
-  }
-
-  destroy(): void {
-    this.removeDocClickHandler()
+  override destroy(): void {
+    this.popup?.destroy()
     super.destroy()
   }
 }

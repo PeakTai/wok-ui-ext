@@ -28,7 +28,7 @@ new DatePicker({ placeholder: 'Choose a date' })
 
 ## 日期范围
 
-使用 `DateRangePicker` 选择日期区间。
+使用 `DateRangePicker` 选择日期区间。点击输入框弹出双月面板，依次点击开始日期与结束日期完成选择。
 
 ```ts
 new DateRangePicker({})
@@ -144,7 +144,7 @@ new DateRangePicker({
 | 参数 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
 | value | `[Date, Date]` | — | 初始日期范围 |
-| placeholder | `[string, string]` | `['开始日期', '结束日期']` | 占位提示文字 |
+| placeholder | `string` | `请选择日期范围` | 占位提示文字 |
 | required | `boolean \| string` | — | 是否必填，字符串为自定义错误信息 |
 | min | `Date \| { min: Date; errMsg: string }` | — | 最小可选日期 |
 | max | `Date \| { max: Date; errMsg: string }` | — | 最大可选日期 |

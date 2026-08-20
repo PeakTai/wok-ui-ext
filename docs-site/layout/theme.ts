@@ -1,7 +1,7 @@
 import { RemoteSvgIcon } from 'wok-ui'
 import { getDocsI18n } from '@docs/i18n'
 import type { DocsI18nMessages } from '@docs/i18n'
-import { applyTheme, getAllThemes, showContextMenu, type ThemeName } from '@lib'
+import { applyTheme, getAllThemes, showContextMenu, type ContextMenuItem, type ThemeName } from '@lib'
 
 const ALL_THEMES = getAllThemes()
 const STORAGE_KEY = 'theme'
@@ -45,15 +45,20 @@ export class ThemeManager {
   showThemeMenu(e: MouseEvent): void {
     showContextMenu({
       evt: e,
-      position:'bottom',
-      align:'end',
-      menu: ALL_THEMES.map(t => ({
-        icon: new RemoteSvgIcon({ iconUrl: THEME_ICON_URL[t] }),
-        label: getDocsI18n().buildMsg(THEME_LABEL_KEYS[t]),
-        active: t === this._theme,
-        callback: () => this.switch(t)
-      }))
+      position: 'bottom',
+      align: 'end',
+      menu: this.buildThemeMenuItems()
     })
+  }
+
+  /** 构建主题选择菜单项，供 header 更多菜单等场景以子菜单形式复用 */
+  buildThemeMenuItems(): ContextMenuItem[] {
+    return ALL_THEMES.map(t => ({
+      icon: new RemoteSvgIcon({ iconUrl: THEME_ICON_URL[t] }),
+      label: getDocsI18n().buildMsg(THEME_LABEL_KEYS[t]),
+      active: t === this._theme,
+      callback: () => this.switch(t)
+    }))
   }
 
   private load(): ThemeName {

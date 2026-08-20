@@ -5,6 +5,7 @@ import matter from 'gray-matter'
 import { parseFragments } from './parser'
 import { generateCode } from './generator'
 import { DEFAULT_LANG, htmlShell, scanMdPages, type PageEntry } from './virtual-html'
+import { buildSearchIndex } from './search-index'
 
 /**
  * mdToPagePlugin - 将 Markdown 文件自动转换为多语言文档站点的 Vite 插件。
@@ -71,6 +72,8 @@ import { DEFAULT_LANG, htmlShell, scanMdPages, type PageEntry } from './virtual-
 export function mdToPagePlugin(): Plugin {
   let allPages: PageEntry[] = []
   let outDir = ''
+  /** 各语言的搜索索引 JSON（构建期生成，dev/build 共用） */
+  const searchIndexByLang = new Map<string, string>()
 
   return {
     name: 'md-to-page',
@@ -85,6 +88,18 @@ export function mdToPagePlugin(): Plugin {
       const root = _config.root || process.cwd()
       allPages = scanMdPages(root)
       console.log(`[md-plugin] pages: ${allPages.map(p => `${p.lang}/${p.name}(${p.meta.title})`).join(', ') || '(none)'}`)
+
+      // 按语言构建搜索索引（dev 的 configureServer 与 build 的 writeBundle 共用）
+      searchIndexByLang.clear()
+      const byLang = new Map<string, PageEntry[]>()
+      for (const p of allPages) {
+        const list = byLang.get(p.lang)
+        if (list) list.push(p)
+        else byLang.set(p.lang, [p])
+      }
+      for (const [lang, pages] of byLang) {
+        searchIndexByLang.set(lang, buildSearchIndex(pages))
+      }
 
       const input: Record<string, string> = {}
       for (const p of allPages) {
@@ -160,6 +175,14 @@ export function mdToPagePlugin(): Plugin {
 </html>`
       fs.writeFileSync(path.join(outDir, 'index.html'), redirectHtml, 'utf-8')
       console.log(`[md-plugin] emitted index.html → redirect to /${DEFAULT_LANG}/index.html`)
+
+      // 输出各语言的搜索索引：dist/{lang}/search-index.json
+      for (const [lang, json] of searchIndexByLang) {
+        const indexDir = path.join(outDir, lang)
+        fs.mkdirSync(indexDir, { recursive: true })
+        fs.writeFileSync(path.join(indexDir, 'search-index.json'), json, 'utf-8')
+        console.log(`[md-plugin] emitted ${lang}/search-index.json (${json.length} bytes)`)
+      }
     },
 
     /**
@@ -189,6 +212,20 @@ export function mdToPagePlugin(): Plugin {
 
       server.middlewares.use((req, res, next) => {
         const url = new URL(req.url!, `http://${req.headers.host}`)
+
+        // 搜索索引 → 返回对应语言构建期的索引 JSON
+        const indexMatch = url.pathname.match(/^\/([^/]+)\/search-index\.json$/)
+        if (indexMatch) {
+          const json = searchIndexByLang.get(indexMatch[1])
+          if (json) {
+            res.setHeader('Content-Type', 'application/json')
+            res.end(json)
+            return
+          }
+          res.writeHead(404)
+          res.end()
+          return
+        }
 
         // 根路径 → 302 重定向到默认语言首页
         if (url.pathname === '/' || url.pathname === '/index.html') {

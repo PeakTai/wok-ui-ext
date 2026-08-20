@@ -1,10 +1,11 @@
-import { getDocsI18n } from '@docs/i18n'
-import { showContextMenu } from '@lib'
-import { ResponsiveModule, ResponsiveSize, SearchInput, SubModulesOpt } from 'wok-ui'
+import { ResponsiveModule, ResponsiveSize, SubModulesOpt } from 'wok-ui'
 import type { FontAwesomeIconClass } from './font-awesome'
 import { FontAwesomeIcon } from './font-awesome'
 import './style.less'
 import { ThemeManager } from './theme'
+import { PcHeader } from './header/pc'
+import { MobileHeader } from './header/mobile'
+import { registerSearchShortcut } from './search-modal'
 
 export interface PageInfo {
   name: string
@@ -27,14 +28,8 @@ interface DocsLayoutOpts {
   pages: PageInfo[]
 }
 
-/** 支持的语言列表 */
-const SUPPORTED_LANGS: { code: string; label: string }[] = [
-  { code: 'zh-CN', label: '中' },
-  { code: 'en', label: 'EN' }
-]
-
 /**
- * 文档布局：Header（标题 + 搜索 + 语言切换 + 主题切换）+ 侧边栏菜单 + 内容区。
+ * 文档布局：Header（PC 端与移动端两个独立头部，按端侧显示）+ 侧边栏菜单 + 内容区。
  * PC 端菜单常驻左侧，移动端抽屉式收起。
  */
 export abstract class DocsLayout extends ResponsiveModule {
@@ -45,6 +40,8 @@ export abstract class DocsLayout extends ResponsiveModule {
     super('docs-layout')
     this.opts = opts
     this.themeManager = new ThemeManager()
+    // 全局快捷键 Cmd/Ctrl+K 打开搜索
+    registerSearchShortcut(() => this.opts.lang)
     this.render()
   }
 
@@ -73,95 +70,28 @@ export abstract class DocsLayout extends ResponsiveModule {
 
   buildContent(_sizeInfo: { respSize: ResponsiveSize; windowWidth: number }): void {
     const { lang, activePage, pages } = this.opts
-    const docsI18n = getDocsI18n()
 
     // 仅当前语言的页面，用于 sidebar
     const currentLangPages = pages
       .filter(p => p.lang === lang)
       .sort((a, b) => (a.order ?? Infinity) - (b.order ?? Infinity))
 
-    // ---- Header ----
+    // ---- Header（PC 端与移动端两个独立组件，由 CSS 控制显示） ----
     this.addChild({
       tag: 'header',
       classNames: 'docs-header',
       children: [
-        // 左侧：站点标题
-        {
-          tag: 'div',
-          classNames: 'docs-header-left',
-          children: [
-            {
-              tag: 'a',
-              classNames: 'docs-header-title',
-              attrs: { href: `/${lang}/index.html` },
-              innerText: 'wok-ui-ext'
-            }
-          ]
-        },
-        // 中间：搜索框（占位）
-        {
-          tag: 'div',
-          classNames: 'docs-header-center',
-          children: [
-            new SearchInput({
-              placeholder: docsI18n.buildMsg('docs-search-placeholder')
-            })
-          ]
-        },
-        // 右侧：语言切换 + 主题切换
-        {
-          tag: 'div',
-          classNames: 'docs-header-right',
-          children: [
-            // 主题切换
-            {
-              tag: 'div',
-              classNames: 'docs-header-theme',
-              onClick: (e: MouseEvent) => {
-                e.stopPropagation()
-                this.showThemeMenu(e)
-              },
-              children: [
-                new FontAwesomeIcon({
-                  iconClass: 'fa-palette',
-                  title: docsI18n.buildMsg('docs-theme-toggle-title')
-                }),
-                docsI18n.buildMsg('docs-theme-label')
-              ]
-            },
-            // 语言切换
-            {
-              tag: 'div',
-              classNames: 'docs-header-theme',
-              onClick: (e: MouseEvent) => {
-                e.stopPropagation()
-                this.showLangMenu(e)
-              },
-              children: [
-                new FontAwesomeIcon({
-                  iconClass: 'fa-globe'
-                }),
-                docsI18n.buildMsg('docs-lang-label')
-              ]
-            },
-            // GitHub
-            {
-              tag: 'a',
-              classNames: 'docs-header-theme',
-              attrs: {
-                href: 'https://github.com/PeakTai/wok-ui-ext',
-                target: '_blank',
-                rel: 'noopener noreferrer'
-              },
-              children: [
-                new FontAwesomeIcon({
-                  iconClass: 'fa-code'
-                }),
-                'GitHub'
-              ]
-            }
-          ]
-        }
+        new PcHeader({
+          lang,
+          themeManager: this.themeManager,
+          switchLang: targetLang => this.switchLang(targetLang)
+        }),
+        new MobileHeader({
+          lang,
+          themeManager: this.themeManager,
+          switchLang: targetLang => this.switchLang(targetLang),
+          toggleMenu: () => this.toggleMenu()
+        })
       ]
     })
 
@@ -175,12 +105,6 @@ export abstract class DocsLayout extends ResponsiveModule {
           tag: 'div',
           classNames: 'docs-menu-overlay',
           onClick: () => this.closeMenu()
-        },
-        // 移动端菜单按钮
-        {
-          tag: 'div',
-          classNames: 'docs-menu-toggle',
-          onClick: () => this.toggleMenu()
         },
         // 侧边菜单（按 category 分组）
         {
@@ -199,37 +123,15 @@ export abstract class DocsLayout extends ResponsiveModule {
     })
   }
 
-  // ===== 主题切换 =====
-
-  /** 显示主题选择上下文菜单 */
-  private showThemeMenu(e: MouseEvent): void {
-    this.themeManager.showThemeMenu(e)
-  }
-
-  // ===== 语言切换 =====
-
-  /** 显示语言选择上下文菜单 */
-  private showLangMenu(e: MouseEvent): void {
-    showContextMenu({
-      evt: e,
-      position: 'bottom',
-      align: 'end',
-      menu: SUPPORTED_LANGS.map(l => ({
-        label: l.label === '中' ? '中文' : 'English',
-        active: l.code === this.opts.lang,
-        callback: () => {
-          if (l.code === this.opts.lang) return
-          this.switchLang(l.code, this.opts.activePage)
-        }
-      }))
-    })
-  }
+  // ===== 公共能力（供 PcHeader / MobileHeader 复用） =====
 
   /**
    * 切换语言：跳转到目标语言的同名页面，若不存在则跳转到首页。
    */
-  private switchLang(targetLang: string, currentName: string): void {
-    const samePage = this.opts.pages.find(p => p.lang === targetLang && p.name === currentName)
+  private switchLang(targetLang: string): void {
+    const samePage = this.opts.pages.find(
+      p => p.lang === targetLang && p.name === this.opts.activePage
+    )
     if (samePage) {
       location.href = '/' + samePage.path
     } else {

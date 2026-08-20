@@ -1,19 +1,20 @@
-import { FullRenderingModule } from 'wok-ui'
+import { DivModule } from 'wok-ui'
 import { CalendarPanel } from './calendar-panel'
-import { formatDate, compareDate, addMonths } from './date-utils'
+import { DatePickerLayer } from './layer'
+import { formatDate, compareDate, addMonths, combineDateConstraints } from './date-utils'
 
 export type DateRange = [Date, Date]
 
-export class DateRangePicker extends FullRenderingModule {
+export class DateRangePicker extends DivModule {
   private value?: DateRange
   private hoveredDate?: Date
-  private popupOpen = false
-  private docClickHandler?: (evt: MouseEvent) => void
+  private popup?: DatePickerLayer
+  private textEl?: HTMLElement
 
   constructor(
     private readonly opts: {
       value?: DateRange
-      placeholder?: [string, string]
+      placeholder?: string
       required?: boolean | string
       min?: Date | { min: Date; errMsg: string }
       max?: Date | { max: Date; errMsg: string }
@@ -23,166 +24,119 @@ export class DateRangePicker extends FullRenderingModule {
     }
   ) {
     super('wok-ui-ext-date-range-picker wok-ui-ext-date-picker')
-    this.render()
-  }
-
-  protected buildContent(): void {
-    const [phStart = '开始日期', phEnd = '结束日期'] = this.opts.placeholder ?? []
-    const today = new Date()
-
-    const selected = () => this.value ?? []
-    const hovered = () => this.hoveredDate
-
-    const panels = this.popupOpen ? this.buildPanels(selected, hovered, today) : []
-
-    this.addChild(
-      {
-        classNames: ['wok-ui-ext-date-picker-trigger', this.opts.disabled ? 'disabled' : ''],
-        children: this.value ? formatDate(this.value[0]) : phStart,
-        onClick: () => {
-          if (this.opts.disabled) return
-          this.togglePopup()
-        },
+    this.addChild({
+      classNames: ['wok-ui-ext-date-picker-trigger', this.opts.disabled ? 'disabled' : ''],
+      children: {
+        tag: 'span',
+        classNames: 'wok-ui-ext-date-picker-text',
+        innerText: this.rangeText(),
         postHandle: el => {
+          this.textEl = el
           if (!this.value) {
-            el.classList.add('placeholder')
+            el.parentElement?.classList.add('placeholder')
           }
         }
       },
-      {
-        classNames: 'wok-ui-ext-date-range-separator',
-        children: '—'
-      },
-      {
-        classNames: ['wok-ui-ext-date-picker-trigger', this.opts.disabled ? 'disabled' : ''],
-        children: this.value ? formatDate(this.value[1]) : phEnd,
-        onClick: () => {
-          if (this.opts.disabled) return
-          this.togglePopup()
-        },
-        postHandle: el => {
-          if (!this.value) {
-            el.classList.add('placeholder')
-          }
-        }
-      },
-      {
-        classNames: ['wok-ui-ext-date-picker-popup', 'wok-ui-ext-date-range-popup', this.popupOpen ? 'open' : ''],
-        children: panels
+      onClick: () => {
+        if (this.opts.disabled) return
+        this.togglePopup()
       }
-    )
+    })
   }
 
-  private buildPanels(
-    selected: () => Date[],
-    hovered: () => Date | undefined,
-    today: Date
-  ): any[] {
+  private rangeText(): string {
+    if (!this.value) {
+      return this.opts.placeholder ?? '请选择日期范围'
+    }
+    const [start, end] = this.value
+    if (compareDate(start, end) === 0) {
+      return `${formatDate(start)} ~ 结束日期`
+    }
+    return `${formatDate(start)} ~ ${formatDate(end)}`
+  }
+
+  private updateText(): void {
+    if (this.textEl) {
+      this.textEl.innerText = this.rangeText()
+      if (this.value) {
+        this.textEl.parentElement?.classList.remove('placeholder')
+      } else {
+        this.textEl.parentElement?.classList.add('placeholder')
+      }
+    }
+  }
+
+  private togglePopup(): void {
+    if (this.popup) {
+      this.popup.destroy()
+      return
+    }
+    this.hoveredDate = undefined
+
+    const today = new Date()
+    const selected = () => this.value ?? []
     const target = this.value?.[0] ?? today
     const leftYear = target.getFullYear()
     const leftMonth = target.getMonth()
     const rightDate = addMonths(new Date(leftYear, leftMonth, 1), 1)
+    const disabledDate = combineDateConstraints(this.opts.min, this.opts.max, this.opts.disabledDate)
 
-    return [
-      {
-        classNames: 'wok-ui-ext-date-range-panel',
-        children: new CalendarPanel({
-          year: leftYear,
-          month: leftMonth,
-          selectedDates: selected,
-          hoveredDate: hovered,
-          today,
-          disabledDate: this.opts.disabledDate,
-          onDayClick: date => this.handleDayClick(date),
-          onDayHover: date => {
-            this.hoveredDate = date
-            this.render()
-          },
-          onMonthChange: () => {}
-        })
-      },
-      {
-        classNames: 'wok-ui-ext-date-range-panel',
-        children: new CalendarPanel({
-          year: rightDate.getFullYear(),
-          month: rightDate.getMonth(),
-          selectedDates: selected,
-          hoveredDate: hovered,
-          today,
-          disabledDate: this.opts.disabledDate,
-          onDayClick: date => this.handleDayClick(date),
-          onDayHover: date => {
-            this.hoveredDate = date
-            this.render()
-          },
-          onMonthChange: () => {}
-        })
+    const buildPanel = (year: number, month: number) =>
+      new CalendarPanel({
+        year,
+        month,
+        selectedDates: selected,
+        today,
+        disabledDate,
+        onDayClick: date => this.handleDayClick(date, disabledDate),
+        onDayHover: date => {
+          this.hoveredDate = date
+          this.popup?.setHoveredDate(date)
+        },
+        onMonthChange: () => {}
+      })
+
+    const popup = new DatePickerLayer({
+      target: this.el,
+      panels: [buildPanel(leftYear, leftMonth), buildPanel(rightDate.getFullYear(), rightDate.getMonth())],
+      onClose: () => {
+        if (this.popup === popup) {
+          this.popup = undefined
+        }
       }
-    ]
+    })
+    this.popup = popup
+    popup.mount(document.body)
   }
 
-  private togglePopup(): void {
-    this.popupOpen = !this.popupOpen
-    this.hoveredDate = undefined
-    if (this.popupOpen) {
-      this.setupDocClickHandler()
-    } else {
-      this.removeDocClickHandler()
-    }
-    this.render()
-  }
-
-  private handleDayClick(date: Date): void {
-    if (this.opts.disabledDate?.(date)) return
+  private handleDayClick(date: Date, disabledDate: (date: Date) => boolean): void {
+    if (disabledDate(date)) return
 
     if (!this.value) {
       this.value = [date, date]
-      this.hoveredDate = undefined
-      this.render()
+      this.hoveredDate = date
+      this.popup?.setHoveredDate(date)
+      this.updateText()
       return
     }
 
     const [prevStart, prevEnd] = this.value
     if (compareDate(prevStart, prevEnd) === 0) {
-      if (compareDate(date, prevStart) < 0) {
-        this.value = [date, prevStart]
-      } else {
-        this.value = [prevStart, date]
-      }
+      this.value = compareDate(date, prevStart) < 0 ? [date, prevStart] : [prevStart, date]
       this.hoveredDate = undefined
-      this.popupOpen = false
-      this.removeDocClickHandler()
-      this.render()
+      this.popup?.destroy()
+      this.updateText()
       this.opts.onChange?.(this.value)
     } else {
       this.value = [date, date]
-      this.hoveredDate = undefined
-      this.render()
+      this.hoveredDate = date
+      this.popup?.refresh()
+      this.updateText()
     }
   }
 
-  private setupDocClickHandler(): void {
-    if (this.docClickHandler) return
-    this.docClickHandler = (evt: MouseEvent) => {
-      if (!this.el.contains(evt.target as Node)) {
-        this.popupOpen = false
-        this.hoveredDate = undefined
-        this.removeDocClickHandler()
-        this.render()
-      }
-    }
-    document.addEventListener('click', this.docClickHandler)
-  }
-
-  private removeDocClickHandler(): void {
-    if (this.docClickHandler) {
-      document.removeEventListener('click', this.docClickHandler)
-      this.docClickHandler = undefined
-    }
-  }
-
-  destroy(): void {
-    this.removeDocClickHandler()
+  override destroy(): void {
+    this.popup?.destroy()
     super.destroy()
   }
 }

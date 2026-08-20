@@ -1,6 +1,6 @@
 {
   "name": "wok-ui-ext",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "wok-ui 的扩展库，提供一套科技蓝风格 + 多主题的组件库，覆盖常用的组件",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -29,7 +29,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Peak Tai <peaktai@qq.com>",
   "license": "ISC",
   "packageManager": "pnpm@10.33.0",
   "devDependencies": {
@@ -39,6 +39,7 @@
     "highlight.js": "^11.11.1",
     "less": "^4.2.1",
     "marked": "^18.0.5",
+    "minisearch": "^7.2.0",
     "tslib": "^2.8.1",
     "typescript": "^4.9.5",
     "vite": "^8.1.3"

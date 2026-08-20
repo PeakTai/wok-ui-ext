@@ -1,25 +1,22 @@
-import { Spacer, HBox, Text, FullRenderingModule } from 'wok-ui'
-import { DateRangePicker } from 'wok-ui-ext'
+import { Spacer, HBox, Text, DivModule } from 'wok-ui'
+import { DateRangePicker, formatDate } from 'wok-ui-ext'
 
-export default class Demo2 extends FullRenderingModule {
-  private value?: [Date, Date]
+export default class Demo2 extends DivModule {
+  private readonly text = new Text('→ undefined')
 
   constructor() {
     super()
-    this.render()
-  }
-
-  protected buildContent(): void {
     this.addChild(
       new Spacer('sm'),
       new HBox({ gap: 16, align: 'center', children: [
           new DateRangePicker({
             onChange: range => {
-              this.value = range
-              this.render()
+              this.text.setText(
+                range ? `→ ${formatDate(range[0])} ~ ${formatDate(range[1])}` : '→ undefined'
+              )
             }
           }),
-          new Text(`→ ${this.value ? `${this.value[0].toISOString().split('T')[0]} ~ ${this.value[1].toISOString().split('T')[0]}` : 'undefined'}`)
+          this.text
         ] })
     )
   }

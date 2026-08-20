@@ -1,7 +1,6 @@
 // ─── DatePicker 容器 ────────────────────────────────
 
 .wok-ui-ext-date-picker {
-  position: relative;
   display: inline-flex;
   align-items: center;
   cursor: pointer;
@@ -39,22 +38,14 @@
 }
 
 // ─── 弹出面板容器 ────────────────────────────────────
+// 挂载到 body 的浮层，定位与层级由 FloatingLayer 处理（fixed + z-index 900）
 
 .wok-ui-ext-date-picker-popup {
-  display: none;
-  position: absolute;
-  top: calc(100% + 6px);
-  left: 0;
-  z-index: 100;
   background: var(--bg-card);
   border: 1px solid var(--border-medium);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
   overflow: hidden;
-
-  &.open {
-    display: block;
-  }
 }
 
 // ─── 日历面板 ────────────────────────────────────────
@@ -199,33 +190,14 @@
 
 .wok-ui-ext-date-range-picker {
   .wok-ui-ext-date-picker-trigger {
-    min-width: 130px;
+    min-width: 240px;
     width: auto;
-  }
-
-  &.wok-ui-ext-date-picker {
-    gap: 8px;
-  }
-
-  .wok-ui-ext-date-range-separator {
-    color: var(--text-muted);
-    font-size: var(--font-size-small);
-    flex-shrink: 0;
-  }
-
-  .wok-ui-ext-date-picker-trigger.focus-hint {
-    border-color: var(--color-primary);
-    box-shadow: var(--shadow-primary);
   }
 }
 
 .wok-ui-ext-date-range-popup {
   display: flex;
   flex-direction: row;
-
-  &.open {
-    display: flex;
-  }
 
   .wok-ui-ext-date-range-panel {
     .wok-ui-ext-calendar-panel {

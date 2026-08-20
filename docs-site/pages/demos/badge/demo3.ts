@@ -1,16 +1,12 @@
 import { HBox } from 'wok-ui'
-import { Badge, IconBell, IconCheckCircle, IconInfoCircle } from 'wok-ui-ext'
+import { Badge, IconBell, showInfo } from 'wok-ui-ext'
 
 export default class Demo3 extends HBox {
   constructor() {
-    super({
-      gap: 12,
-      wrap: true,
-      children: [
-        new Badge({ text: 'New', type: 'success', icon: new IconBell() }),
-        new Badge({ text: 'Verified', type: 'info', icon: new IconCheckCircle() }),
-        new Badge({ text: 'Hint', type: 'neutral', icon: new IconInfoCircle() })
-      ]
-    })
+    super({ gap: 40, children: [
+      new Badge({ count: 5, offset: [2, 2], children: new IconBell() }),
+      new Badge({ count: 8, children: new IconBell(), onClick: () => showInfo('点击了徽标') }),
+      new Badge({ count: 8, hidden: true, children: new IconBell() })
+    ] })
   }
 }

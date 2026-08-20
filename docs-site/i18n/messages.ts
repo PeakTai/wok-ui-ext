@@ -15,6 +15,13 @@ export interface DocsI18nMessages {
   // 搜索框占位符
   'docs-search-placeholder': string
 
+  // 搜索弹窗
+  'docs-search-modal-title': string
+  'docs-search-modal-placeholder': string
+  'docs-search-empty': string
+  'docs-search-empty-hint': string
+  'docs-search-hint': string
+
   // 主题切换按钮 hover 标题
   'docs-theme-toggle-title': string
 

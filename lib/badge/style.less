@@ -1,41 +1,65 @@
 .wok-ui-ext-badge {
-  display: inline-block;
-  padding: 6px 16px;
-  border-radius: var(--radius-full);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-medium);
-  line-height: 1.2;
-  text-align: center;
-  white-space: nowrap;
-  border: 1px solid transparent;
+  display: inline-flex;
+  position: relative;
 
-  & i {
-    margin-right: 6px;
-    font-size: 0.9em;
+  // 角标公共样式
+  .badge-bubble() {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 6px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-danger);
+    color: #fff;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    line-height: 1;
+    white-space: nowrap;
+    box-sizing: border-box;
+    cursor: default;
+
+    // 红点模式
+    &.dot {
+      min-width: 8px;
+      height: 8px;
+      padding: 0;
+    }
   }
 
-  &.wok-ui-ext-badge-success {
-    background-color: var(--color-success-light);
-    color: var(--color-success);
+  // 包裹模式：角标挂件，绝对定位在右上角
+  .wok-ui-ext-badge-sup {
+    .badge-bubble();
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
   }
 
-  &.wok-ui-ext-badge-warning {
-    background-color: var(--color-warning-light);
-    color: var(--color-warning);
+  // 独立模式：徽标自身就是角标
+  &.standalone {
+    .badge-bubble();
   }
 
-  &.wok-ui-ext-badge-danger {
-    background-color: var(--color-danger-light);
-    color: var(--color-danger);
+  // 类型颜色
+  &.wok-ui-ext-badge-primary .wok-ui-ext-badge-sup,
+  &.wok-ui-ext-badge-primary.standalone {
+    background-color: var(--color-primary);
   }
 
-  &.wok-ui-ext-badge-info {
-    background-color: var(--color-primary-light);
-    color: var(--color-primary-dark);
+  &.wok-ui-ext-badge-success .wok-ui-ext-badge-sup,
+  &.wok-ui-ext-badge-success.standalone {
+    background-color: var(--color-success);
   }
 
-  &.wok-ui-ext-badge-neutral {
-    background-color: var(--border-light);
-    color: var(--text-tertiary);
+  &.wok-ui-ext-badge-warning .wok-ui-ext-badge-sup,
+  &.wok-ui-ext-badge-warning.standalone {
+    background-color: var(--color-warning);
+  }
+
+  &.wok-ui-ext-badge-info .wok-ui-ext-badge-sup,
+  &.wok-ui-ext-badge-info.standalone {
+    background-color: var(--color-info);
   }
 }

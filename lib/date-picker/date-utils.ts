@@ -63,6 +63,24 @@ export function formatDateCN(date: Date): string {
 }
 
 /**
+ * 将 min / max / disabledDate 合并为一个统一的日期禁用回调。
+ * min 和 max 支持传 Date 或带错误信息的对象。
+ */
+export function combineDateConstraints(
+  min?: Date | { min: Date; errMsg: string },
+  max?: Date | { max: Date; errMsg: string },
+  disabledDate?: (date: Date) => boolean
+): (date: Date) => boolean {
+  const minDate = min instanceof Date ? min : min?.min
+  const maxDate = max instanceof Date ? max : max?.max
+  return (date: Date) => {
+    if (minDate && compareDate(date, minDate) < 0) return true
+    if (maxDate && compareDate(date, maxDate) > 0) return true
+    return disabledDate?.(date) ?? false
+  }
+}
+
+/**
  * 解析 yyyy-MM-dd 字符串为 Date
  */
 export function parseDate(str: string): Date | null {

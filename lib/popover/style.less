@@ -1,13 +1,11 @@
 // ─── 气泡卡片 ──────────────────────────────────────
+// 定位与层级由 FloatingLayer 处理（fixed + z-index 900）
 .wok-ui-ext-popover {
-  position: fixed;
-  z-index: 1060;
   background: var(--bg-card);
   border: 1px solid var(--border-medium);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
   padding: 12px;
-  display: none;
   animation: wok-ui-ext-popover-in 0.15s ease;
   min-width: 60px;
 

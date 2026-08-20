@@ -30,23 +30,35 @@ export interface PageEntry {
 
 /**
  * 生成 HTML 骨架。
- * @param entry     页面条目
- * @param scriptSrc JS chunk 的路径（相对于 HTML 文件的位置）
- * @param base      站点 base（如 /wok-ui-ext/），用于静态资源绝对路径
+ * @param entry       页面条目
+ * @param scriptSrc   JS chunk 的路径（相对于 HTML 文件的位置）
+ * @param base        站点 base（如 /wok-ui-ext/），用于静态资源绝对路径
+ * @param stylesheets 该入口静态依赖的 CSS 产物路径列表（带 base 前缀）
  */
-export function htmlShell(entry: PageEntry, scriptSrc: string, base = '/'): string {
+export function htmlShell(
+  entry: PageEntry,
+  scriptSrc: string,
+  base = '/',
+  stylesheets: string[] = []
+): string {
   const desc = entry.meta.description
     ? `<meta name="description" content="${entry.meta.description}">\n  `
     : ''
   const kw = entry.meta.keywords
     ? `<meta name="keywords" content="${entry.meta.keywords}">\n  `
     : ''
+  // 页面自身 CSS（构建产物中提取的 .css 文件），需在 HTML 中显式引用，
+  // 否则绕过了 Vite 的 HTML 注入导致样式丢失
+  const cssLinks = stylesheets
+    .map(h => `<link rel="stylesheet" href="${h}">`)
+    .join('\n  ')
   return `<!DOCTYPE html>
 <html lang="${entry.lang}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  ${desc}${kw}<link rel="stylesheet" href="${base}vendor/fontawesome-5.15.4/css/all.min.css">
+  <link rel="icon" href="${base}favicon.ico">
+  ${desc}${kw}${cssLinks ? cssLinks + '\n  ' : ''}<link rel="stylesheet" href="${base}vendor/fontawesome-5.15.4/css/all.min.css">
   <title>${entry.meta.title}</title>
 </head>
 <body>

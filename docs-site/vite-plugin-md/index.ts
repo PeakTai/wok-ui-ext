@@ -161,7 +161,31 @@ export function mdToPagePlugin(): Plugin {
             // script src 使用以 base 开头的绝对路径（如 /wok-ui-ext/assets/xxx.js）
             // chunk.fileName 如 "assets/zh-CN_index-[hash].js"
             const scriptSrc = siteBase + chunk.fileName
-            const html = htmlShell(entry, scriptSrc, siteBase)
+
+            // 收集该入口静态 import 闭包内所有 chunk 的 CSS 产物，在 HTML 中显式引用；
+            // 动态 import 的 chunk 其 CSS 由运行时自行注入，无需处理。
+            // 注意：vite 8（rolldown）在手动生成 HTML 时不会填充 chunk.viteMetadata.importedCss，
+            // 因此通过 css asset 的命名关联（asset.names[0] 为 "<chunk名>.css"）来匹配。
+            const chunkNames = new Set<string>()
+            const visited = new Set<string>()
+            const collectChunks = (name: string): void => {
+              const c = bundle[name]
+              if (!c || c.type !== 'chunk' || visited.has(name)) return
+              visited.add(name)
+              chunkNames.add(c.name)
+              for (const imp of c.imports ?? []) collectChunks(imp)
+            }
+            collectChunks(chunk.fileName)
+
+            const cssFiles: string[] = []
+            for (const [, out] of Object.entries(bundle)) {
+              if (out.type !== 'asset' || !out.fileName.endsWith('.css')) continue
+              const base = out.names?.[0]?.replace(/\.css$/, '')
+              if (base && chunkNames.has(base)) cssFiles.push(out.fileName)
+            }
+
+            const styleHrefs = cssFiles.map(css => siteBase + css)
+            const html = htmlShell(entry, scriptSrc, siteBase, styleHrefs)
 
             // 写入到输出目录的子目录: dist/zh-CN/index.html
             const htmlDir = path.join(outDir, entry.lang)

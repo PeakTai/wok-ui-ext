@@ -1,0 +1,52 @@
+// avatar.less
+// 依赖：项目中已引入 Font Awesome 图标库
+
+.wok-ui-ext-avatar {
+  // 基础样式：中等尺寸为默认
+  width: 40px;
+  height: 40px;
+  font-size: 20px; // 控制图标大小
+
+  // 布局与视觉
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-primary-soft, #e2edff); // 占位背景
+  color: var(--color-primary, #2d7ee9); // 图标颜色
+  border-radius: var(--radius-circle, 50%);
+  overflow: hidden; // 保证图片圆角裁切
+  flex-shrink: 0; // 防止在 flex 布局中被压缩
+  border: 2px solid white;
+  box-shadow: var(--shadow-sm);
+
+  // 图片样式（当有头像时）
+  &>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; // 图片按比例填充容器
+    display: block;
+  }
+
+  // 图标样式（无头像时显示 Font Awesome 图标）
+  // &>i {
+  // 父级 flex 已使图标居中，无需额外定位
+  // 图标大小由父级的 font-size 控制
+  // }
+
+  // 小尺寸
+  &.wok-ui-ext-avatar-sm {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+
+  // 大尺寸
+  &.wok-ui-ext-avatar-lg {
+    width: 48px;
+    height: 48px;
+    font-size: 24px;
+  }
+
+  // 可选：如果希望为图标添加微妙的过渡效果
+  transition: all var(--transition-speed, 0.15s) ease;
+}

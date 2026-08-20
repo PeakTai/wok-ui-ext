@@ -1,0 +1,48 @@
+.wok-ui-ext-tabs {
+  display: flex;
+  flex-direction: column;
+
+  .wok-ui-ext-tabs-nav {
+    display: flex;
+    gap: 16px;
+    border-bottom: 2px solid var(--border-medium);
+
+    .wok-ui-ext-tabs-tab {
+      padding: 12px 24px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      cursor: pointer;
+      border: none;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      background: transparent;
+      font-size: inherit;
+      font-family: inherit;
+      line-height: inherit;
+
+      &:hover:not(.active):not(.disabled) {
+        color: var(--text-secondary);
+      }
+
+      &.active {
+        color: var(--color-primary);
+        border-bottom-color: var(--color-primary);
+      }
+
+      &.disabled {
+        color: var(--text-muted);
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  .wok-ui-ext-tabs-content {
+    padding: 16px 0;
+  }
+}

@@ -1,0 +1,90 @@
+// 图片组件容器
+.wok-ui-ext-image {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--bg-base);
+  border-radius: var(--radius-sm);
+  // 确保容器有默认行为，有尺寸时通过 style 覆盖
+  min-width: 40px;
+  min-height: 40px;
+
+  // 加载中占位（圆形旋转图标）
+  .wok-ui-ext-image-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-tertiary);
+    font-size: 24px;
+    opacity: 1;
+    transition: opacity 0.2s;
+    z-index: 1;
+
+    svg.spin {
+      animation: image-spin 1s linear infinite;
+    }
+  }
+
+  // 加载失败占位
+  .wok-ui-ext-image-error {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-card);
+    color: var(--text-tertiary);
+    font-size: 32px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 1;
+  }
+
+  // 真实图片
+  .wok-ui-ext-image-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 2;
+  }
+
+  // 加载完成态：隐藏占位，显示图片
+  &.loaded {
+    .wok-ui-ext-image-placeholder {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .wok-ui-ext-image-img {
+      opacity: 1;
+    }
+  }
+
+  // 加载失败态：隐藏占位和图片，显示错误
+  &.error {
+    .wok-ui-ext-image-placeholder {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .wok-ui-ext-image-img {
+      opacity: 0;
+    }
+    .wok-ui-ext-image-error {
+      opacity: 1;
+    }
+  }
+}
+
+@keyframes image-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

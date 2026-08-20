@@ -1,0 +1,96 @@
+// 折叠面板
+.wok-ui-ext-collapse {
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--bg-card);
+
+  .wok-ui-ext-panel {
+    border-bottom: 1px solid var(--border-light);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  // 无边框模式
+  &.ghost {
+    border: none;
+    background: none;
+
+    .wok-ui-ext-panel {
+      border-bottom: 1px solid var(--border-light);
+
+      .wok-ui-ext-panel-header {
+        background: transparent;
+      }
+    }
+  }
+}
+
+// 单个面板
+.wok-ui-ext-panel {
+  .wok-ui-ext-panel-header {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    background: var(--bg-content);
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+    gap: 8px;
+
+    &:hover {
+      background: var(--bg-hover);
+    }
+
+    &.disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    .wok-ui-ext-panel-header-title {
+      flex: 1;
+      font-size: var(--font-size-normal);
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .wok-ui-ext-panel-header-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      color: var(--text-tertiary);
+      font-size: 16px;
+      transition: transform 0.2s;
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+
+  &.open .wok-ui-ext-panel-header-arrow {
+    transform: rotate(180deg);
+  }
+
+  .wok-ui-ext-panel-body-wrapper {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+
+    .wok-ui-ext-panel-body {
+      padding: 0 16px 12px;
+      font-size: var(--font-size-normal);
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+  }
+
+  &.open .wok-ui-ext-panel-body-wrapper {
+    max-height: 1000px;  // 足够大的值确保内容能完全展开
+  }
+}

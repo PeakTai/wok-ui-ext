@@ -1,0 +1,52 @@
+/* 全屏加载 */
+.wok-ui-ext-fullscreen-loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* 初始完全透明、无模糊，动画结束后停留在最终状态 */
+  background: transparent;
+  backdrop-filter: blur(0);
+  /* 动画：持续 2 秒，结束时保持最终状态 */
+  animation: loading-bg-fade 2s forwards;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  flex-direction: column;
+  color: white;
+  gap: 16px;
+  display: flex;
+  cursor: wait;
+
+  .wok-ui-ext-loading-spinner {
+    display: flex;
+    font-size: 3rem;
+    color: var(--color-primary);
+    animation: spin 1s linear infinite;
+    filter: drop-shadow(0 0 10px var(--color-primary));
+  }
+
+  span {
+    font-size: var(--font-size-title);
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+}
+
+/* 背景与模糊渐变动画 */
+@keyframes loading-bg-fade {
+  to {
+    background: rgba(8, 20, 40, 0.7);
+    backdrop-filter: blur(5px);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

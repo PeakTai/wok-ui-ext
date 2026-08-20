@@ -1,0 +1,209 @@
+{
+  "version": 1,
+  "skills": {
+    "wok-server-api-rules": {
+      "source": "tai/wok-server",
+      "sourceType": "git",
+      "skillPath": "skills/wok-server-api-rules/SKILL.md",
+      "computedHash": "7d6f773a1d3db095276cbbda3f62983e4ed754d676ba0319ace610f3396b448a"
+    },
+    "wok-server-cache": {
+      "source": "tai/wok-server",
+      "sourceType": "git",
+      "skillPath": "skills/wok-server-cache/SKILL.md",
+      "computedHash": "39953b9c0bc0f157d25ca84919c2859e3ab19e5065bfdb999942e1763bca0839"
+    },
+    "wok-server-code-navigation": {
+      "source": "tai/wok-server",
+      "sourceType": "git",
+      "skillPath": "skills/wok-server-code-navigation/SKILL.md",
+      "computedHash": "2b69e73f6148ea52d46a3ff1a071721a0c50682ec912ef651134a2585419810c"
+    },
+    "wok-server-config": {
+      "source": "tai/wok-server",
+      "sourceType": "git",
+      "skillPath": "skills/wok-server-config/SKILL.md",
+      "computedHash": "6ad4bf03c0b6102c0e257edb62ec16cb92439f224ea769043fb83ce2f40924b9"
+    },
+    "wok-server-getting-started": {
+      "source": "tai/wok-server",
+      "sourceType": "git",
+      "skillPath": "skills/wok-server-getting-started/SKILL.md",
+      "computedHash": "926e72b4c33b63a5b8048f091742da2ffcc1cd2a147d78a58d6d3955bc65053a"
+    },
+    "wok-server-http-client": {
+      "source": "tai/wok-server",
+      "sourceType": "git",
+      "skillPath": "skills/wok-server-http-client/SKILL.md",
+      "computedHash": "1a33e516d8ec808f2ee48a3f43f293c358e1906059d80e4c48d995b0542c1644"
+    },
+    "wok-server-i18n": {
+      "source": "tai/wok-server",
+      "sourceType": "git",
+      "skillPath": "skills/wok-server-i18n/SKILL.md",
+      "computedHash": "a59e1b3bd7a33b23743f8f5f0bd97027647234c9d6b42c79876a95e6bbd857b4"
+    },
+    "wok-server-lock": {
+      "source": "tai/wok-server",
+      "sourceType": "git",
+      "skillPath": "skills/wok-server-lock/SKILL.md",
+      "computedHash": "af91e37ea7a6e48cd3b075a21c8d81b5d5e9489c14158c148b14f9c9c29daa8c"
+    },
+    "wok-server-log": {
+      "source": "tai/wok-server",
+      "sourceType": "git",
+      "skillPath": "skills/wok-server-log/SKILL.md",
+      "computedHash": "db24bce4eafd3db8ee82b256f36aa59e21f62b6ad3b78a8b3e19e0af7a21535f"
+    },
+    "wok-server-mongodb": {
+      "source": "tai/wok-server",
+      "sourceType": "git",
+      "skillPath": "skills/wok-server-mongodb/SKILL.md",
+      "computedHash": "4bc0b5827ab9c51cfd88be3e66acf949866b708f280bd3012de56a8507e6ae65"
+    },
+    "wok-server-mvc": {
+      "source": "tai/wok-server",
+      "sourceType": "git",
+      "skillPath": "skills/wok-server-mvc/SKILL.md",
+      "computedHash": "b853dd3fb8269a9eed3ba4b976fa7c930cf41139bdd36db853eb31f73ea0a155"
+    },
+    "wok-server-mysql": {
+      "source": "tai/wok-server",
+      "sourceType": "git",
+      "skillPath": "skills/wok-server-mysql/SKILL.md",
+      "computedHash": "0267549fda0749ccc8946818d236f31c7582889f1767af6cef18fb0beb595399"
+    },
+    "wok-server-task": {
+      "source": "tai/wok-server",
+      "sourceType": "git",
+      "skillPath": "skills/wok-server-task/SKILL.md",
+      "computedHash": "992fc194b14a5848dadfb067b1ed527c5dabcd53b16eceee904f1ae5eb9b880e"
+    },
+    "wok-server-validate": {
+      "source": "tai/wok-server",
+      "sourceType": "git",
+      "skillPath": "skills/wok-server-validate/SKILL.md",
+      "computedHash": "8169dd661d9c823fe8e5852d428f83c8a3d7154b00062c243a3405d200f469de"
+    },
+    "wok-ui-animation": {
+      "source": "tai/wok-ui",
+      "sourceType": "git",
+      "skillPath": "skills/wok-ui-animation/SKILL.md",
+      "computedHash": "6599c05af282cd667a745ebfca18553cd9395c9988b9018394028efc0562356e"
+    },
+    "wok-ui-api-rules": {
+      "source": "tai/wok-ui",
+      "sourceType": "git",
+      "skillPath": "skills/wok-ui-api-rules/SKILL.md",
+      "computedHash": "b46b2937682062744dea30361d25b0738bef655a65c660aca2e6798380f0b1b2"
+    },
+    "wok-ui-button": {
+      "source": "tai/wok-ui",
+      "sourceType": "git",
+      "skillPath": "skills/wok-ui-button/SKILL.md",
+      "computedHash": "02efb773df4af04a46f392032477990dce5c91daf23b14ffece445fea09be41a"
+    },
+    "wok-ui-drawer": {
+      "source": "tai/wok-ui",
+      "sourceType": "git",
+      "skillPath": "skills/wok-ui-drawer/SKILL.md",
+      "computedHash": "15543931162dd7f35c4f634302108c1a1bb7e6d521bea4a4d81c11f59d19bf9b"
+    },
+    "wok-ui-dropdown": {
+      "source": "tai/wok-ui",
+      "sourceType": "git",
+      "skillPath": "skills/wok-ui-dropdown/SKILL.md",
+      "computedHash": "517a0dbf9ab6032a9d5d2367e5ea905363f910eb4114c1369e0fb0875aafab53"
+    },
+    "wok-ui-feedback": {
+      "source": "tai/wok-ui",
+      "sourceType": "git",
+      "skillPath": "skills/wok-ui-feedback/SKILL.md",
+      "computedHash": "c21ab820d5610e7f71d5314e539488d38381dd433400e386c91a242a25503e87"
+    },
+    "wok-ui-form": {
+      "source": "tai/wok-ui",
+      "sourceType": "git",
+      "skillPath": "skills/wok-ui-form/SKILL.md",
+      "computedHash": "e083526d7648a55d82113ecf7e1ebbf8688947d746911737392d786c711e42e6"
+    },
+    "wok-ui-getting-started": {
+      "source": "tai/wok-ui",
+      "sourceType": "git",
+      "skillPath": "skills/wok-ui-getting-started/SKILL.md",
+      "computedHash": "b7983dcbc2a595a3035848f7816285b9a9f63f86dd3301384d6076dd0e131a6b"
+    },
+    "wok-ui-heading": {
+      "source": "tai/wok-ui",
+      "sourceType": "git",
+      "skillPath": "skills/wok-ui-heading/SKILL.md",
+      "computedHash": "35991f66d455165585c5e7fd932215ee1b960d8b3f9a0d21b3b26330a298f173"
+    },
+    "wok-ui-i18n": {
+      "source": "tai/wok-ui",
+      "sourceType": "git",
+      "skillPath": "skills/wok-ui-i18n/SKILL.md",
+      "computedHash": "2ea7a22821e9e7d1d21ad3f968a40ee3f564c26cf6c6400f54e1263b3506878b"
+    },
+    "wok-ui-icon": {
+      "source": "tai/wok-ui",
+      "sourceType": "git",
+      "skillPath": "skills/wok-ui-icon/SKILL.md",
+      "computedHash": "6535dff2e04d356ab3a9198b4c147a71dc84ba908583aa0adc764d66033e3cf9"
+    },
+    "wok-ui-layout": {
+      "source": "tai/wok-ui",
+      "sourceType": "git",
+      "skillPath": "skills/wok-ui-layout/SKILL.md",
+      "computedHash": "e3f8099fcacb91d1641123e5487d97a8c0eebed72d8bbdf24b4bfe6bf0db81b0"
+    },
+    "wok-ui-link": {
+      "source": "tai/wok-ui",
+      "sourceType": "git",
+      "skillPath": "skills/wok-ui-link/SKILL.md",
+      "computedHash": "4708af114cd55b5793d35b642b2528ecde21874256d8e4139755906de0d554a8"
+    },
+    "wok-ui-modal": {
+      "source": "tai/wok-ui",
+      "sourceType": "git",
+      "skillPath": "skills/wok-ui-modal/SKILL.md",
+      "computedHash": "63a37959784e35d8892ada34f34aae67a8e56e54c8c98721c876b9aec49ea1ed"
+    },
+    "wok-ui-module": {
+      "source": "tai/wok-ui",
+      "sourceType": "git",
+      "skillPath": "skills/wok-ui-module/SKILL.md",
+      "computedHash": "e75f9b5ef1353136e32a9e6c4d1a91dc355357537e1c6ce1849118dccce61468"
+    },
+    "wok-ui-page-layout": {
+      "source": "tai/wok-ui",
+      "sourceType": "git",
+      "skillPath": "skills/wok-ui-page-layout/SKILL.md",
+      "computedHash": "784cbacd494f46cb47d10cbf53892fb8850bc68d0f805732c2a101577edd0f27"
+    },
+    "wok-ui-router": {
+      "source": "tai/wok-ui",
+      "sourceType": "git",
+      "skillPath": "skills/wok-ui-router/SKILL.md",
+      "computedHash": "17b6c3ce925af7e7e41ee97ba0901a9b953d5a547f77b8a09de29ac6c6775b92"
+    },
+    "wok-ui-table": {
+      "source": "tai/wok-ui",
+      "sourceType": "git",
+      "skillPath": "skills/wok-ui-table/SKILL.md",
+      "computedHash": "59b4efafd2b72fda446cb65955e36037fba3ace3c74caff7657130aaf7e288b9"
+    },
+    "wok-ui-text": {
+      "source": "tai/wok-ui",
+      "sourceType": "git",
+      "skillPath": "skills/wok-ui-text/SKILL.md",
+      "computedHash": "6b4d27bda98e9dd743e2f253bb4732792b11acc5a48c9a6d41ed5778077f8f78"
+    },
+    "wok-ui-theme": {
+      "source": "tai/wok-ui",
+      "sourceType": "git",
+      "skillPath": "skills/wok-ui-theme/SKILL.md",
+      "computedHash": "eae3a680cc803a1e7aedda531be0d6efa54b873d9fe6033f453cd13abdc5989b"
+    }
+  }
+}

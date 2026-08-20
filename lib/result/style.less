@@ -1,0 +1,48 @@
+// 结果页
+.wok-ui-ext-result {
+  text-align: center;
+  padding: 48px 24px;
+
+  .wok-ui-ext-result-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+    line-height: 1;
+
+    svg {
+      width: 64px;
+      height: 64px;
+    }
+
+    &.success {
+      color: var(--color-success, #52c41a);
+    }
+    &.error {
+      color: var(--color-danger, #ff4d4f);
+    }
+    &.info {
+      color: var(--color-primary, var(--brand));
+    }
+    &.warning {
+      color: var(--color-warning, #faad14);
+    }
+  }
+
+  .wok-ui-ext-result-title {
+    font-size: var(--font-size-large);
+    color: var(--text-primary);
+    font-weight: 600;
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+
+  .wok-ui-ext-result-subtitle {
+    font-size: var(--font-size-normal);
+    color: var(--text-tertiary);
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  .wok-ui-ext-result-extra {
+    margin-top: 8px;
+  }
+}

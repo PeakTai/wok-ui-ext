@@ -1,0 +1,43 @@
+.wok-ui-ext-form-item {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+
+  &>.wok-ui-ext-form-label {
+    width: var(--form-label-width, 120px);
+    flex-shrink: 0;
+    color: var(--text-secondary);
+    text-align: right;
+
+    &.required ::before {
+      content: "*";
+      color: var(--color-danger);
+      margin-right: 8px;
+      vertical-align: middle;
+      display: inline-block;
+    }
+  }
+
+  &>.wok-ui-ext-form-field {
+    flex-grow: 1;
+    max-width: 800px;
+  }
+}
+
+form.wok-ui-ext-form-label-top {
+  .wok-ui-ext-form-item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+
+    &>.wok-ui-ext-form-label {
+      text-align: left;
+    }
+  }
+}
+
+form.wok-ui-ext-form-label-bold {
+  .wok-ui-ext-form-item>.wok-ui-ext-form-label {
+    font-weight: var(--font-weight-semibold);
+  }
+}

@@ -1,0 +1,61 @@
+.wok-ui-ext-divider {
+  --divider-color: var(--border-light);
+  --divider-text-color: var(--text-tertiary);
+  --divider-text-bg: transparent;
+  --divider-text-padding: 16px;
+  border: 0;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+// 水平分割线
+.wok-ui-ext-divider-horizontal {
+  width: 100%;
+  border-top: 1px solid var(--divider-color);
+
+  &.wok-ui-ext-divider-with-text {
+    border-top: none;
+
+    &::before,
+    &::after {
+      content: '';
+      flex: 1;
+      border-top: 1px solid var(--divider-color);
+    }
+  }
+
+  &.wok-ui-ext-divider-dashed {
+    border-top-style: dashed;
+
+    &.wok-ui-ext-divider-with-text {
+      border-top: none;
+    }
+
+    &.wok-ui-ext-divider-with-text::before,
+    &.wok-ui-ext-divider-with-text::after {
+      border-top-style: dashed;
+    }
+  }
+
+  .wok-ui-ext-divider-text {
+    padding: 0 var(--divider-text-padding);
+    font-size: var(--font-size-small);
+    color: var(--divider-text-color);
+    white-space: nowrap;
+    background: var(--divider-text-bg);
+  }
+}
+
+// 垂直分割线
+.wok-ui-ext-divider-vertical {
+  display: inline-flex;
+  height: 1em;
+  border-left: 1px solid var(--divider-color);
+  vertical-align: middle;
+  align-self: center;
+
+  &.wok-ui-ext-divider-dashed {
+    border-left-style: dashed;
+  }
+}

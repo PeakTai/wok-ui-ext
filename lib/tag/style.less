@@ -1,0 +1,170 @@
+.wok-ui-ext-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  padding: 0 12px;
+  border-radius: var(--radius-full);
+  border: 1px solid transparent;
+  background-color: var(--border-light);
+  color: var(--text-secondary);
+  font-size: var(--font-size-xs);
+  line-height: 1;
+  white-space: nowrap;
+  max-width: 100%;
+  box-sizing: border-box;
+  user-select: none;
+  transition: background-color var(--transition-speed), color var(--transition-speed), border-color var(--transition-speed);
+
+  & > .wok-ui-ext-tag-icon {
+    display: inline-flex;
+    flex-shrink: 0;
+
+    & > .wok-ui-svg-icon {
+      font-size: 12px;
+    }
+  }
+
+  .wok-ui-ext-tag-text {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  // 方形标签
+  &.no-round {
+    border-radius: var(--radius-sm);
+  }
+
+  // 语义类型
+  &.wok-ui-ext-tag-primary {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary-dark);
+  }
+
+  &.wok-ui-ext-tag-success {
+    background-color: var(--color-success-light);
+    color: var(--color-success);
+  }
+
+  &.wok-ui-ext-tag-warning {
+    background-color: var(--color-warning-light);
+    color: var(--color-warning);
+  }
+
+  &.wok-ui-ext-tag-danger {
+    background-color: var(--color-danger-light);
+    color: var(--color-danger);
+  }
+
+  &.wok-ui-ext-tag-info {
+    background-color: var(--color-info-light);
+    color: var(--color-info);
+  }
+
+  // 描边样式：透明底 + 语义色边框
+  &.plain {
+    background-color: transparent;
+    border-color: var(--border-medium);
+
+    &.wok-ui-ext-tag-primary {
+      border-color: var(--color-primary);
+      color: var(--color-primary-dark);
+    }
+
+    &.wok-ui-ext-tag-success {
+      border-color: var(--color-success);
+      color: var(--color-success);
+    }
+
+    &.wok-ui-ext-tag-warning {
+      border-color: var(--color-warning);
+      color: var(--color-warning);
+    }
+
+    &.wok-ui-ext-tag-danger {
+      border-color: var(--color-danger);
+      color: var(--color-danger);
+    }
+
+    &.wok-ui-ext-tag-info {
+      border-color: var(--color-info);
+      color: var(--color-info);
+    }
+  }
+
+  // 尺寸
+  &.wok-ui-ext-tag-small {
+    height: 20px;
+    padding: 0 8px;
+  }
+
+  &.wok-ui-ext-tag-large {
+    height: 32px;
+    padding: 0 16px;
+    font-size: var(--font-size-small);
+  }
+
+  // 可选中
+  &.checkable {
+    cursor: pointer;
+  }
+
+  // 选中态：实色底 + 白色文字
+  &.selected {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #fff;
+
+    &.wok-ui-ext-tag-success {
+      background-color: var(--color-success);
+      border-color: var(--color-success);
+    }
+
+    &.wok-ui-ext-tag-warning {
+      background-color: var(--color-warning);
+      border-color: var(--color-warning);
+    }
+
+    &.wok-ui-ext-tag-danger {
+      background-color: var(--color-danger);
+      border-color: var(--color-danger);
+    }
+
+    &.wok-ui-ext-tag-info {
+      background-color: var(--color-info);
+      border-color: var(--color-info);
+    }
+
+    .wok-ui-ext-tag-close {
+      color: #fff;
+    }
+  }
+
+  // 关闭按钮
+  .wok-ui-ext-tag-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    cursor: pointer;
+    opacity: 0.6;
+    margin-right: -4px;
+    transition: opacity var(--transition-speed);
+
+    &:hover {
+      opacity: 1;
+    }
+
+    & > .wok-ui-svg-icon {
+      font-size: 11px;
+    }
+  }
+
+  // 禁用
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}

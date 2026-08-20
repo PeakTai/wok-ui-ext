@@ -1,0 +1,54 @@
+.wok-ui-ext-floating-layer.wok-ui-ext-context-menu {
+  border-radius: var(--radius-lg);
+  overflow: auto;
+  position: fixed;
+  box-shadow: var(--shadow-lg) !important;
+  border: 1px solid var(--color-border);
+  max-width: 300px;
+  max-height: 100vh;
+  // 高于 floating-layer 默认的 900（modal 遮罩 1000 之上的菜单层级），双 class 提升特异性
+  z-index: 1100;
+
+  & > .wok-ui-ext-context-menu-item {
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: var(--bg-card);
+    border-bottom: 1px solid var(--color-border);
+    font-size: var(--font-size-body);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background-color: var(--bg-hover);
+    }
+
+    &.active {
+      background: var(--color-primary);
+      color: white;
+      pointer-events: none;
+      cursor: default;
+
+      .icon {
+        color: white;
+      }
+    }
+
+    .text {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      word-break: break-all;
+      overflow: hidden;
+      flex-grow: 1;
+    }
+
+    .icon {
+      flex-shrink: 0;
+      color: var(--text-muted);
+    }
+  }
+}

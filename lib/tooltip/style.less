@@ -1,0 +1,54 @@
+// 触发元素容器
+.wok-ui-ext-tooltip-trigger {
+  display: inline-block;
+}
+
+// 挂载到 body 的浮层，定位与层级由 FloatingLayer 处理（fixed + z-index 900）
+.wok-ui-ext-tooltip-layer {
+  max-width: 280px;
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  background-color: var(--color-primary-dark);
+  color: #fff;
+  font-size: var(--font-size-small);
+  line-height: 1.4;
+  word-break: break-word;
+  box-shadow: var(--shadow-md);
+  pointer-events: none;
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 5px solid transparent;
+  }
+
+  &.top::after {
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top-color: var(--color-primary-dark);
+  }
+
+  &.bottom::after {
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom-color: var(--color-primary-dark);
+  }
+
+  &.left::after {
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%);
+    border-left-color: var(--color-primary-dark);
+  }
+
+  &.right::after {
+    top: 50%;
+    right: 100%;
+    transform: translateY(-50%);
+    border-right-color: var(--color-primary-dark);
+  }
+}

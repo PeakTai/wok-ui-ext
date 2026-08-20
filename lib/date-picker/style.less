@@ -1,0 +1,211 @@
+// ─── DatePicker 容器 ────────────────────────────────
+
+.wok-ui-ext-date-picker {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.wok-ui-ext-date-picker-trigger {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 160px;
+  padding: 9px 18px;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-xl);
+  font-size: var(--font-size-body);
+  color: var(--text-primary);
+  background: var(--bg-content);
+  transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+  cursor: pointer;
+  white-space: nowrap;
+
+  &:hover {
+    border-color: var(--color-primary);
+  }
+
+  &.placeholder {
+    color: var(--text-placeholder);
+  }
+
+  &.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+// ─── 弹出面板容器 ────────────────────────────────────
+// 挂载到 body 的浮层，定位与层级由 FloatingLayer 处理（fixed + z-index 900）
+
+.wok-ui-ext-date-picker-popup {
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+// ─── 日历面板 ────────────────────────────────────────
+
+.wok-ui-ext-calendar-panel {
+  padding: 16px 20px 20px;
+  width: 304px;
+}
+
+.wok-ui-ext-calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding: 0 4px;
+
+  .wok-ui-ext-calendar-nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-sm);
+    color: var(--text-tertiary);
+    font-size: var(--font-size-xs);
+    cursor: pointer;
+    transition: background var(--transition-speed), color var(--transition-speed);
+
+    &:hover {
+      background: var(--bg-hover);
+      color: var(--color-primary);
+    }
+  }
+
+  .wok-ui-ext-calendar-month-label {
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-primary);
+  }
+}
+
+.wok-ui-ext-calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 8px;
+}
+
+.wok-ui-ext-calendar-weekday {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-tertiary);
+}
+
+.wok-ui-ext-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.wok-ui-ext-calendar-day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 34px;
+  font-size: var(--font-size-small);
+  color: var(--text-primary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--transition-speed), color var(--transition-speed);
+
+  &:hover:not(.disabled):not(.selected) {
+    background: var(--bg-hover);
+  }
+
+  // 相邻月份（灰色）
+  &.adjacent-month {
+    color: var(--text-disabled);
+    cursor: default;
+
+    &:hover {
+      background: transparent;
+    }
+  }
+
+  // 今天
+  &.today:not(.selected) {
+    color: var(--color-primary);
+    font-weight: var(--font-weight-semibold);
+    border: 1px solid var(--color-primary);
+  }
+
+  // 选中
+  &.selected {
+    background: var(--color-primary);
+    color: #fff;
+    font-weight: var(--font-weight-semibold);
+    border-radius: 0;
+
+    &.range-start {
+      border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+    }
+
+    &.range-end {
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    }
+
+    // 单日选中（非范围模式），四个角都圆
+    &:not(.range-start):not(.range-end) {
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  // 范围内
+  &.in-range {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    border-radius: 0;
+  }
+
+  // hover 范围预览
+  &.in-range-hover {
+    background: var(--color-primary-soft);
+    border-radius: 0;
+  }
+
+  // 禁用
+  &.disabled {
+    color: var(--text-disabled);
+    cursor: not-allowed;
+
+    &:hover {
+      background: transparent;
+    }
+  }
+}
+
+// ─── Range Picker ────────────────────────────────────
+
+.wok-ui-ext-date-range-picker {
+  .wok-ui-ext-date-picker-trigger {
+    min-width: 240px;
+    width: auto;
+  }
+}
+
+.wok-ui-ext-date-range-popup {
+  display: flex;
+  flex-direction: row;
+
+  .wok-ui-ext-date-range-panel {
+    .wok-ui-ext-calendar-panel {
+      border-right: 1px solid var(--border-light);
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+  }
+}

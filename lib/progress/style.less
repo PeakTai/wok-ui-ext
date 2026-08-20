@@ -1,0 +1,45 @@
+.wok-ui-ext-progress-item {
+  margin: 16px 0;
+
+  // 默认 primary 颜色
+  --progress-fill: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark));
+  --progress-bg: var(--color-primary-soft);
+
+  &.wok-ui-ext-progress-success {
+    --progress-fill: var(--color-success);
+    --progress-bg: var(--color-success-light);
+  }
+
+  &.wok-ui-ext-progress-warning {
+    --progress-fill: var(--color-warning);
+    --progress-bg: var(--color-warning-light);
+  }
+
+  &.wok-ui-ext-progress-danger {
+    --progress-fill: var(--color-danger);
+    --progress-bg: var(--color-danger-light);
+  }
+
+  .wok-ui-ext-progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+  }
+
+  .wok-ui-ext-progress-bar-bg {
+    background: var(--progress-bg);
+    border-radius: var(--radius-full);
+    height: 12px;
+    overflow: hidden;
+
+    .wok-ui-ext-progress-bar-fill {
+      background: var(--progress-fill);
+      height: 100%;
+      width: 0%;
+      border-radius: var(--radius-full);
+      transition: width 0.2s;
+    }
+  }
+}

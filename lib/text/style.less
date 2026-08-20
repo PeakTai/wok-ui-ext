@@ -1,0 +1,127 @@
+/* ===== 文本组件样式 ===== */
+
+// 基础样式重置，清除默认 margin/padding
+[class*='wok-ui-ext-text-'] {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+}
+
+// 标题类样式 - 使用 heading 元素
+h1.wok-ui-ext-text-title-large,
+h2.wok-ui-ext-text-title,
+h3.wok-ui-ext-text-subtitle {
+  display: block;
+}
+
+// 大标题 - H1
+.wok-ui-ext-text-title-large {
+  font-size: var(--font-size-title-large);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+// 标准标题 - H2
+.wok-ui-ext-text-title {
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+// 副标题 - H3
+.wok-ui-ext-text-subtitle {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+// 正文文本
+.wok-ui-ext-text-body {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-normal);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+// 次要文本
+.wok-ui-ext-text-secondary {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-normal);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+// 三级文本
+.wok-ui-ext-text-tertiary {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-normal);
+  color: var(--text-tertiary);
+  line-height: 1.5;
+}
+
+// 小型文本
+.wok-ui-ext-text-small {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-normal);
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+// 超小文本
+.wok-ui-ext-text-tiny {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+// 弱化文本
+.wok-ui-ext-text-muted {
+  font-weight: var(--font-weight-normal);
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+// 禁用文本
+.wok-ui-ext-text-disabled {
+  font-weight: var(--font-weight-normal);
+  color: var(--text-disabled);
+  line-height: 1.5;
+  cursor: not-allowed;
+}
+
+// 强调文本
+.wok-ui-ext-text-strong {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+// 可点击文本样式 - 只有设置了 onClick 才显示点击样式
+.wok-ui-ext-text-title-large,
+.wok-ui-ext-text-title,
+.wok-ui-ext-text-subtitle,
+.wok-ui-ext-text-body,
+.wok-ui-ext-text-secondary,
+.wok-ui-ext-text-tertiary,
+.wok-ui-ext-text-small,
+.wok-ui-ext-text-tiny,
+.wok-ui-ext-text-muted,
+.wok-ui-ext-text-strong {
+  &.clickable {
+    cursor: pointer;
+    transition: opacity var(--transition-speed);
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &:active {
+      opacity: 0.6;
+    }
+  }
+}

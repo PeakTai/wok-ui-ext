@@ -1,0 +1,242 @@
+// ─── 步骤条 ──────────────────────────────────────────
+.wok-ui-ext-steps {
+  display: flex;
+  width: 100%;
+  line-height: normal;
+  box-sizing: border-box;
+
+  &.wok-ui-ext-steps-horizontal {
+    flex-direction: row;
+  }
+
+  &.wok-ui-ext-steps-vertical {
+    flex-direction: column;
+  }
+}
+
+// 公共变量
+@step-icon-size: 32px;
+@step-tail-color: var(--border-medium);
+@step-primary: var(--color-primary);
+@step-danger: var(--color-danger);
+@step-wait-color: var(--text-placeholder);
+
+.wok-ui-ext-step-item {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+
+  &:last-child {
+    flex: none;
+  }
+
+  &.wok-ui-ext-step-clickable {
+    cursor: pointer;
+
+    &:hover {
+      .wok-ui-ext-step-title {
+        color: var(--color-primary);
+      }
+    }
+  }
+}
+
+// ─── 头部 ──────────────────────────────────────────────
+.wok-ui-ext-step-head {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0 8px;
+  box-sizing: border-box;
+}
+
+.wok-ui-ext-step-icon {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: @step-icon-size;
+  height: @step-icon-size;
+  font-size: 14px;
+  font-weight: var(--font-weight-medium);
+  border-radius: 50%;
+  box-sizing: border-box;
+  background: var(--bg-content);
+  border: 1px solid @step-tail-color;
+  color: var(--text-placeholder);
+  transition: all var(--transition-speed);
+
+  .wok-ui-svg-icon {
+    font-size: 16px;
+  }
+}
+
+.wok-ui-ext-step-tail {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: -50%;
+  height: 1px;
+  margin-top: -0.5px;
+  background: @step-tail-color;
+  z-index: 1;
+  transition: background var(--transition-speed);
+
+  &.wok-ui-ext-step-tail-active {
+    background: @step-primary;
+  }
+
+  &.wok-ui-ext-step-tail-error {
+    background: @step-danger;
+  }
+}
+
+// ─── 主体 ────────────────────────────────────────────
+.wok-ui-ext-step-body {
+  margin-top: 8px;
+  padding: 0 8px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.wok-ui-ext-step-title {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+.wok-ui-ext-step-description {
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+// ─── 状态 ────────────────────────────────────────────
+.wok-ui-ext-step-wait {
+  .wok-ui-ext-step-icon {
+    border-color: @step-wait-color;
+    color: @step-wait-color;
+    background: var(--bg-content);
+  }
+
+  .wok-ui-ext-step-title {
+    color: @step-wait-color;
+  }
+
+  .wok-ui-ext-step-description {
+    color: @step-wait-color;
+  }
+}
+
+.wok-ui-ext-step-process,
+.wok-ui-ext-step-finish {
+  .wok-ui-ext-step-icon {
+    border-color: @step-primary;
+    background: @step-primary;
+    color: #fff;
+  }
+
+  .wok-ui-ext-step-title {
+    color: var(--text-primary);
+  }
+
+  .wok-ui-ext-step-description {
+    color: var(--text-secondary);
+  }
+}
+
+.wok-ui-ext-step-process .wok-ui-ext-step-title {
+  font-weight: var(--font-weight-semibold);
+}
+
+.wok-ui-ext-step-finish .wok-ui-ext-step-tail {
+  background: @step-primary;
+}
+
+.wok-ui-ext-step-error {
+  .wok-ui-ext-step-icon {
+    border-color: @step-danger;
+    background: @step-danger;
+    color: #fff;
+  }
+
+  .wok-ui-ext-step-title,
+  .wok-ui-ext-step-description {
+    color: @step-danger;
+  }
+}
+
+// ─── 水平布局 ─────────────────────────────────────────
+.wok-ui-ext-steps-horizontal {
+  .wok-ui-ext-step-item {
+    text-align: center;
+
+    &:last-child {
+      .wok-ui-ext-step-head {
+        width: auto;
+      }
+
+      .wok-ui-ext-step-tail {
+        display: none;
+      }
+    }
+  }
+}
+
+// ─── 垂直布局 ─────────────────────────────────────────
+.wok-ui-ext-steps-vertical {
+  .wok-ui-ext-step-item {
+    display: flex;
+    flex: none;
+    min-height: 80px;
+    text-align: left;
+
+    &:last-child {
+      min-height: auto;
+
+      .wok-ui-ext-step-tail {
+        display: none;
+      }
+    }
+  }
+
+  .wok-ui-ext-step-head {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: @step-icon-size;
+    min-width: @step-icon-size;
+    padding: 0;
+  }
+
+  .wok-ui-ext-step-icon {
+    flex: none;
+  }
+
+  .wok-ui-ext-step-tail {
+    top: @step-icon-size;
+    left: 50%;
+    right: auto;
+    bottom: 0;
+    width: 1px;
+    height: auto;
+    margin-top: 0;
+    transform: translateX(-50%);
+  }
+
+  .wok-ui-ext-step-body {
+    flex: 1;
+    margin-top: 0;
+    margin-left: 12px;
+    padding: 0;
+    text-align: left;
+  }
+
+  .wok-ui-ext-step-title {
+    line-height: @step-icon-size;
+  }
+}

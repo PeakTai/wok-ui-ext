@@ -1,0 +1,45 @@
+/* 下拉菜单 */
+.wok-ui-ext-dropdown {
+  display: inline-block;
+}
+
+/* 菜单浮层，挂载到 body，定位与层级由 FloatingLayer 处理 */
+.wok-ui-ext-dropdown-menu {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-border);
+  min-width: 180px;
+  padding: 8px 0;
+  overflow: hidden;
+
+  .wok-ui-ext-dropdown-item {
+    padding: 10px 20px;
+    font-size: var(--font-size-small);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: background var(--transition-speed) ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    &:hover {
+      background: var(--bg-hover);
+    }
+
+    &.active {
+      background: var(--color-primary);
+      color: white;
+      pointer-events: none;
+
+      i {
+        color: white;
+      }
+    }
+
+    i {
+      width: 20px;
+      color: var(--color-primary);
+    }
+  }
+}

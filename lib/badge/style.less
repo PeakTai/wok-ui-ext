@@ -1,0 +1,65 @@
+.wok-ui-ext-badge {
+  display: inline-flex;
+  position: relative;
+
+  // 角标公共样式
+  .badge-bubble() {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 6px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-danger);
+    color: #fff;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    line-height: 1;
+    white-space: nowrap;
+    box-sizing: border-box;
+    cursor: default;
+
+    // 红点模式
+    &.dot {
+      min-width: 8px;
+      height: 8px;
+      padding: 0;
+    }
+  }
+
+  // 包裹模式：角标挂件，绝对定位在右上角
+  .wok-ui-ext-badge-sup {
+    .badge-bubble();
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+  }
+
+  // 独立模式：徽标自身就是角标
+  &.standalone {
+    .badge-bubble();
+  }
+
+  // 类型颜色
+  &.wok-ui-ext-badge-primary .wok-ui-ext-badge-sup,
+  &.wok-ui-ext-badge-primary.standalone {
+    background-color: var(--color-primary);
+  }
+
+  &.wok-ui-ext-badge-success .wok-ui-ext-badge-sup,
+  &.wok-ui-ext-badge-success.standalone {
+    background-color: var(--color-success);
+  }
+
+  &.wok-ui-ext-badge-warning .wok-ui-ext-badge-sup,
+  &.wok-ui-ext-badge-warning.standalone {
+    background-color: var(--color-warning);
+  }
+
+  &.wok-ui-ext-badge-info .wok-ui-ext-badge-sup,
+  &.wok-ui-ext-badge-info.standalone {
+    background-color: var(--color-info);
+  }
+}

@@ -1,0 +1,117 @@
+// 图片预览 - 基于 Modal
+// 利用 replaceByBody + className（挂载在模态框容器上）实现全屏预览
+
+// 预览模式下覆盖模态框容器：全屏、居中
+.wok-ui-ext-modal-overlay .wok-ui-ext-modal-container.wok-ui-ext-preview-active {
+  max-width: none;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+// 关闭按钮（右上角 X）
+.wok-ui-ext-preview-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-size: 20px;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+// 图片容器
+.wok-ui-ext-preview-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+// 页码指示
+.wok-ui-ext-preview-counter {
+  margin-bottom: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  user-select: none;
+}
+
+// 图片
+.wok-ui-ext-preview-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  animation: wok-ui-ext-preview-zoom-in 0.25s ease;
+  user-select: none;
+}
+
+// 导航箭头
+.wok-ui-ext-preview-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-size: 24px;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.wok-ui-ext-preview-nav-prev {
+  left: 20px;
+}
+
+.wok-ui-ext-preview-nav-next {
+  right: 20px;
+}
+
+@keyframes wok-ui-ext-preview-zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

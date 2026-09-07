@@ -3,7 +3,8 @@
 
 .wok-ui-ext-menu {
   background: var(--bg-card);
-  width: 240px;
+  // 宽度默认 240px，可通过构造参数 width 或覆写该 CSS 变量调整
+  width: var(--wok-ui-ext-menu-width, 240px);
   display: flex;
   flex-direction: column;
   transition: width 0.25s ease;
@@ -113,7 +114,7 @@
 
   // ─── 折叠模式 ──────────────────────────────
   &.wok-ui-ext-menu-collapsed {
-    width: 56px;
+    width: var(--wok-ui-ext-menu-collapsed-width, 56px);
 
     .wok-ui-ext-menu-item {
       justify-content: center;

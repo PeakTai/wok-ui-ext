@@ -98,6 +98,7 @@ new Menu({
 | items | `MenuItemData[]` | — | Menu item data |
 | selectedKey | `string` | — | Key of the currently selected item |
 | collapsed | `boolean` | `false` | Whether to collapse |
+| width | `number` | `240` | Menu width in px (number only) |
 | onClick | `(key: string) => void` | — | Click callback |
 
 ## Methods

@@ -12,6 +12,9 @@ export type { MenuItemData, MenuOptions } from './types'
  * 垂直菜单，支持多级嵌套、图标、折叠模式。
  * 适用于侧边栏导航。
  *
+ * 菜单宽度默认 240px，可通过构造参数 `width` 指定（数字，单位 px），
+ * 或直接覆写 CSS 变量 `--wok-ui-ext-menu-width` 调整。
+ *
  * @example
  * ```ts
  * const menu = new Menu({
@@ -37,6 +40,10 @@ export class Menu extends DivModule {
     super('wok-ui-ext-menu')
 
     if (opts.collapsed) this.el.classList.add('wok-ui-ext-menu-collapsed')
+    // 指定宽度时写入 CSS 变量，供样式使用（默认 240px）
+    if (opts.width) {
+      this.el.style.setProperty('--wok-ui-ext-menu-width', `${opts.width}px`)
+    }
 
     const ctx: ItemContext = {
       selectedKey: opts.selectedKey,

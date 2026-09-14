@@ -249,10 +249,11 @@ export class Modal extends DivModule {
       if (this.keydownListener) {
         document.removeEventListener('keydown', this.keydownListener)
       }
+      super.destroy()
+      // 销毁 DOM 后再检查，避免把自身算进去；仅当没有其它模态框时才移除
       if (!document.querySelector('.wok-ui-ext-modal-overlay')) {
         document.body.classList.remove('modal-open')
       }
-      super.destroy()
     }
     if (container) {
       animate({

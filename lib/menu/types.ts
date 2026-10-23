@@ -26,7 +26,7 @@ export interface MenuOptions {
   selectedKey?: string
   /** 是否折叠（仅显示图标） */
   collapsed?: boolean
-  /** 菜单宽度（px，数字）。默认 240 */
+  /** 菜单宽度（px，数字）。不设置时自适应父容器 */
   width?: number
   /** 点击菜单项回调 */
   onClick?: (key: string) => void

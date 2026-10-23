@@ -1,13 +1,11 @@
 import { MenuItemData } from './types'
 
 /**
- * 子菜单箭头 SVG。
+ * 子菜单箭头 SVG（朝向右侧，展开时由 CSS 旋转 90°）。
  * @internal
  */
-export function getArrowSvg(open: boolean): string {
-  return open
-    ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><polyline points="6 9 12 15 18 9"></polyline></svg>`
-    : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><polyline points="9 18 15 12 9 6"></polyline></svg>`
+export function getArrowSvg(): string {
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><polyline points="9 18 15 12 9 6"></polyline></svg>`
 }
 
 /**

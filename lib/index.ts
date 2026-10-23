@@ -1,3 +1,5 @@
+import './global.less'
+
 export * from './card'
 export * from './pagination'
 export * from './dropdown'
@@ -44,3 +46,4 @@ export * from './icons'
 export * from './theme'
 export { getWokUiExtI18n } from './i18n'
 export type { WokUiExtI18nMessages } from './i18n'
+

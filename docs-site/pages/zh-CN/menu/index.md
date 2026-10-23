@@ -98,7 +98,7 @@ new Menu({
 | items | `MenuItemData[]` | — | 菜单项数据 |
 | selectedKey | `string` | — | 当前选中项 key |
 | collapsed | `boolean` | `false` | 是否折叠 |
-| width | `number` | `240` | 菜单宽度（px，仅支持数字） |
+| width | `number` | 不设置 | 菜单宽度（px，仅支持数字）。不设置时自适应父容器 |
 | onClick | `(key: string) => void` | — | 点击回调 |
 
 ## 方法

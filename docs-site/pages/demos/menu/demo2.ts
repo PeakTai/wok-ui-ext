@@ -5,6 +5,8 @@ export default class Demo2 extends DivModule {
   constructor() {
     super()
     this.el.style.width = '240px'
+    // 组件不内置内边距，由上层容器控制
+    this.el.style.padding = '0 16px 20px'
     this.addChild(new Menu({
       items: [
         { key: 'users', icon: new IconUser(), label: 'Users' },

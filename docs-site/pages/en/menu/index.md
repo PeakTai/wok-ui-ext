@@ -98,7 +98,7 @@ new Menu({
 | items | `MenuItemData[]` | — | Menu item data |
 | selectedKey | `string` | — | Key of the currently selected item |
 | collapsed | `boolean` | `false` | Whether to collapse |
-| width | `number` | `240` | Menu width in px (number only) |
+| width | `number` | not set | Menu width in px (number only). When not set, adapts to parent container |
 | onClick | `(key: string) => void` | — | Click callback |
 
 ## Methods

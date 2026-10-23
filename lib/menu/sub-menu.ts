@@ -2,6 +2,7 @@ import { DivModule } from 'wok-ui'
 import { MenuItemData, ItemContext } from './types'
 import { getArrowSvg, hasSelectedDescendant } from './utils'
 import { LeafItem } from './leaf-item'
+import { showContextMenu, ContextMenuItem } from '../context-menu'
 
 /**
  * 子菜单模块。
@@ -18,6 +19,7 @@ export class SubMenuComp extends DivModule {
     if (level > 0) this.el.dataset.level = String(level)
 
     this.open = hasSelectedDescendant(item, ctx.selectedKey)
+    if (this.open) this.el.classList.add('expanded')
 
     // 头部
     const headerClasses = ['wok-ui-ext-menu-item']
@@ -40,7 +42,7 @@ export class SubMenuComp extends DivModule {
         // 展开箭头
         add({
           classNames: 'wok-ui-ext-menu-item-arrow',
-          innerHTML: getArrowSvg(this.open)
+          innerHTML: getArrowSvg()
         })
       }
     })
@@ -68,12 +70,17 @@ export class SubMenuComp extends DivModule {
     if (!item.disabled) {
       this.headerEl.addEventListener('click', (e: MouseEvent) => {
         e.stopPropagation()
+        // 折叠态下内联子菜单不可见，用上下文菜单展示子级
+        if (ctx.collapsed && item.children && item.children.length) {
+          showContextMenu({
+            menu: buildContextItems(item.children, ctx),
+            evt: e
+          })
+          return
+        }
         this.open = !this.open
+        this.el.classList.toggle('expanded', this.open)
         this.childrenContainerEl.style.display = this.open ? '' : 'none'
-        const arrow = this.headerEl.querySelector(
-          '.wok-ui-ext-menu-item-arrow'
-        ) as HTMLElement
-        if (arrow) arrow.innerHTML = getArrowSvg(this.open)
       })
     }
   }
@@ -101,4 +108,29 @@ export function createItemModule(
     return new LeafItem(item, level, ctx)
   }
   return new SubMenuComp(item, level, ctx)
+}
+
+/**
+ * 将子菜单数据构建为上下文菜单条目（支持多级嵌套）。
+ * @internal
+ */
+function buildContextItems(
+  items: MenuItemData[],
+  ctx: ItemContext
+): ContextMenuItem[] {
+  return items.map(item => {
+    const hasChildren = !!item.children && item.children.length > 0
+    return {
+      label: item.label,
+      active: item.key === ctx.selectedKey,
+      children: hasChildren ? buildContextItems(item.children!, ctx) : undefined,
+      // 仅叶子项（且未禁用）触发选中与点击回调
+      callback: hasChildren || item.disabled
+        ? undefined
+        : () => {
+            ctx.setSelectedKey(item.key)
+            ctx.onClick?.(item.key)
+          }
+    }
+  })
 }

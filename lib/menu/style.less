@@ -33,11 +33,12 @@
       color: var(--text-primary);
     }
 
-    // 选中态
+    // 选中态（大圆角，与输入框一致）
     &.selected {
       background: var(--bg-active);
       color: var(--color-primary-dark);
       box-shadow: inset 3px 0 0 var(--color-primary);
+      border-radius: var(--radius-xl);
     }
 
     // 子菜单头部 — 有子节点选中时高亮
@@ -94,6 +95,7 @@
   .wok-ui-ext-menu-submenu-children {
     overflow: hidden;
     padding-left: 16px;
+    padding-right: 16px; // 与父级右 padding 对齐，选中项圆角不超出父级箭头
     margin-top: 2px;
     margin-bottom: 4px;
 
@@ -117,6 +119,7 @@
         color: var(--color-primary-dark);
         box-shadow: inset 3px 0 0 var(--color-primary);
         font-weight: var(--font-weight-medium);
+        border-radius: var(--radius-xl);
       }
 
       .wok-ui-ext-menu-item-icon {

@@ -31,9 +31,11 @@ npm install wok-ui-ext --save
 
 ### Initialization
 
-Using wok-ui-ext does not change the original wok-ui project flow; you only need to add internationalization and theme initialization:
+Using wok-ui-ext does not change the original wok-ui project flow; you only need to add global styles, internationalization and theme initialization:
 
 ```ts
+// Import global styles (recommended to import explicitly to avoid tree-shaking)
+import 'wok-ui-ext/dist/global.css'
 import { initWokUiExtI18n, applyTheme } from 'wok-ui-ext'
 
 // Initialize wok-ui-ext internationalization (the language is applied automatically, no need to call wok-ui's setLang)

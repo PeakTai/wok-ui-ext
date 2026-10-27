@@ -1,6 +1,6 @@
 {
   "name": "wok-ui-ext",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "wok-ui 的扩展库，提供一套科技蓝风格 + 多主题的组件库，覆盖常用的组件",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -20,9 +20,10 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
+    "./dist/global.css": "./dist/global.css",
     "./*": {
-      "types": "./dist/lib/*/index.d.ts",
-      "import": "./dist/lib/*/index.js"
+      "types": "./dist/*/index.d.ts",
+      "import": "./dist/*/index.js"
     }
   },
   "scripts": {

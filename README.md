@@ -31,9 +31,11 @@ npm install wok-ui-ext --save
 
 ### 初始化
 
-使用 wok-ui-ext 无需改变原有 wok-ui 项目的流程，只需增加国际化和主题的初始化：
+使用 wok-ui-ext 无需改变原有 wok-ui 项目的流程，只需增加全局样式、国际化和主题的初始化：
 
 ```ts
+// 引入全局样式（建议显式引入，避免打包器 tree-shaking 将其剔除）
+import 'wok-ui-ext/dist/global.css'
 import { initWokUiExtI18n, applyTheme } from 'wok-ui-ext'
 
 // 初始化 wok-ui-ext 国际化（会自动应用语言，无需再调用 wok-ui 的 setLang）

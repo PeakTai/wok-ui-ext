@@ -30,7 +30,8 @@ npm install wok-ui-ext --save
 
 ```ts
 // 引入全局样式（建议显式引入，避免打包器 tree-shaking 将其剔除）
-import 'wok-ui-ext/dist/global.css'
+import 'wok-ui/dist/style.css' // wok-ui 基础样式
+import 'wok-ui-ext/dist/global.css' // wok-ui-ext 全局样式
 import { initWokUiExtI18n, applyTheme } from 'wok-ui-ext'
 
 // 调用 initWokUiExtI18n 初始化 wok-ui-ext 国际化

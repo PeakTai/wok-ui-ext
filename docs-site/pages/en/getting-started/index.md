@@ -30,13 +30,14 @@ In a wok-ui project, using wok-ui-ext does not change the workflow; you just nee
 
 ```ts
 // Import global styles (recommended to import explicitly to avoid tree-shaking)
-import 'wok-ui-ext/dist/global.css'
+import 'wok-ui/dist/style.css' // wok-ui base styles
+import 'wok-ui-ext/dist/global.css' // wok-ui-ext global styles
 import { initWokUiExtI18n, applyTheme } from 'wok-ui-ext'
 
-// 调用 initWokUiExtI18n 初始化 wok-ui-ext 国际化
+// Call initWokUiExtI18n to initialize wok-ui-ext internationalization
 await initWokUiExtI18n('zh-CN')
-// 不需要再调用原 wok-ui 的语言设置 api：await getI18n().setLang('zh-CN')
-// 应用主题，默认是科技蓝配色，可选：'dark', 'orange', 'purple', 'green', 'red'
+// No need to call the original wok-ui language setting API: await getI18n().setLang('zh-CN')
+// Apply the theme; default is tech blue. Options: 'dark', 'orange', 'purple', 'green', 'red'
 await applyTheme('default')
 ```
 

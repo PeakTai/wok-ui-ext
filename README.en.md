@@ -35,7 +35,8 @@ Using wok-ui-ext does not change the original wok-ui project flow; you only need
 
 ```ts
 // Import global styles (recommended to import explicitly to avoid tree-shaking)
-import 'wok-ui-ext/dist/global.css'
+import 'wok-ui/dist/style.css' // wok-ui base styles
+import 'wok-ui-ext/dist/global.css' // wok-ui-ext global styles
 import { initWokUiExtI18n, applyTheme } from 'wok-ui-ext'
 
 // Initialize wok-ui-ext internationalization (the language is applied automatically, no need to call wok-ui's setLang)

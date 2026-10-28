@@ -54,6 +54,8 @@ new Breadcrumb({
 
 ## BreadcrumbItem Type Definition
 
+See [Icons](/en/icons.html) for the `IconInput` type.
+
 ```ts
 interface BreadcrumbItem {
   text: string

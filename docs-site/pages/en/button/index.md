@@ -1,6 +1,6 @@
 ---
 title: Button
-order: 10
+order: 12
 category: General
 icon: fa-hand-pointer
 description: The Button component is used to trigger actions or submit forms.
@@ -93,15 +93,57 @@ new Button({
 
 <br>
 
+## Icon Button
+
+A button can have both an `icon` and `text` (rendering an icon + text combination), or just an `icon` (rendering an icon-only button).
+
+### Icon + Text
+
+Pass both `icon` and `text` to render an icon followed by the text, arranged horizontally.
+
+```ts
+new Button({ text: 'Search', icon: new IconSearch() })
+new Button({ text: 'Edit', icon: new IconEdit(), type: 'primary' })
+new Button({ text: 'Upload', icon: new IconCloudUpload(), type: 'success' })
+```
+
+<br>
+
+```demo @docs/pages/demos/button/demo7.ts
+```
+
+<br>
+
+### Icon Only
+
+Pass only `icon` (without `text`) to render an icon-only button, which automatically becomes circular.
+It is recommended to provide an accessible label via `ariaLabel`.
+
+```ts
+new Button({ icon: new IconSearch(), ariaLabel: 'Search' })
+new Button({ icon: new IconEdit(), type: 'primary', ariaLabel: 'Edit' })
+new Button({ icon: new IconTimes(), type: 'danger', ariaLabel: 'Close' })
+```
+
+<br>
+
+```demo @docs/pages/demos/button/demo6.ts
+```
+
+<br>
+
 ## Parameters
 
 | Parameter | Type | Default | Description |
 |------|------|--------|------|
-| text | `string` | — | Button text |
+| text | `string` | — | Button text; when omitted together with an `icon`, renders as an icon-only button |
 | type | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger' \| 'secondary' \| 'dashed' \| 'ghost'` | `'default'` | Button type |
 | size | `'small' \| 'default' \| 'large'` | `'default'` | Button size |
 | disabled | `boolean` | `false` | Whether it is disabled |
 | block | `boolean` | `false` | Whether it fills the full width of the parent container |
 | formType | `'submit' \| 'reset'` | — | Form submission type |
-| icon | `SvgIcon \| RemoteSvgIcon` | — | Button icon |
+| icon | [`IconInput`](/en/icons.html) | — | Button icon |
+| ariaLabel | `string` | — | Accessible label, recommended for icon-only buttons |
+| classNames | `string[]` | — | Custom class names appended to the button element |
+| attrs | `Record<string, string>` | — | Custom attributes appended to the button element (e.g. aria-*, data-*) |
 | onClick | `(evt: MouseEvent) => void` | — | Click callback |

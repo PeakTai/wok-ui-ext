@@ -91,6 +91,8 @@ showContextMenu({
 
 ## Types
 
+See [Icons](/en/icons.html) for the `IconInput` type.
+
 ```ts
 interface ContextMenuItem {
   icon?: IconInput

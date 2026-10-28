@@ -1,6 +1,6 @@
 ---
 title: 文本
-order: 11
+order: 10
 category: 通用
 icon: fa-font
 description: 文本组件，提供多种预设样式。

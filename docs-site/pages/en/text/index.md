@@ -1,6 +1,6 @@
 ---
 title: Text
-order: 11
+order: 10
 category: General
 icon: fa-font
 description: Text component with multiple preset styles.

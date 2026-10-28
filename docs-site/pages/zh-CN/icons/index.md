@@ -1,6 +1,6 @@
 ---
 title: 图标
-order: 12
+order: 11
 category: 通用
 icon: fa-icons
 description: 图标类型与内置图标说明。

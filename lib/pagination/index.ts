@@ -2,6 +2,7 @@ import { FullRenderingModule } from 'wok-ui'
 import './style.less'
 import { getWokUiExtI18n } from '../i18n'
 import { IconChevronLeft, IconChevronRight } from '../icons'
+import { Button } from '../button'
 
 /**
  * 分页组件
@@ -88,28 +89,21 @@ export class Pagination extends FullRenderingModule {
     const isFirst = this.pn <= 1
     const isLast = this.pn >= totalPages
 
-    this.addChild({
-      tag: 'button',
-      classNames: ['wok-ui-ext-page-item', 'prev'],
-      attrs: {
-        type: 'button',
-        'aria-label': i18n.buildMsg('pagination-prev-page'),
-        disabled: isFirst ? true : undefined
-      },
-      children: new IconChevronLeft(),
-      preHandle: el => {
-        if (isFirst) {
-          el.classList.add('disabled')
+    this.addChild(
+      new Button({
+        icon: new IconChevronLeft(),
+        disabled: isFirst,
+        ariaLabel: i18n.buildMsg('pagination-prev-page'),
+        classNames: ['wok-ui-ext-page-item'],
+        onClick: () => {
+          if (this.pn > 1) {
+            this.pn--
+            this.render()
+            this.opts.onChange(this.pn, this.opts.pz)
+          }
         }
-      },
-      onClick: () => {
-        if (this.pn > 1) {
-          this.pn--
-          this.render()
-          this.opts.onChange(this.pn, this.opts.pz)
-        }
-      }
-    })
+      })
+    )
 
     this.addChild({
       classNames: ['wok-ui-ext-page-info'],
@@ -119,28 +113,21 @@ export class Pagination extends FullRenderingModule {
       children: i18n.buildMsg('pagination-simple-format', `${this.pn}`, `${totalPages}`)
     })
 
-    this.addChild({
-      tag: 'button',
-      classNames: ['wok-ui-ext-page-item', 'next'],
-      attrs: {
-        type: 'button',
-        'aria-label': i18n.buildMsg('pagination-next-page'),
-        disabled: isLast ? true : undefined
-      },
-      children: new IconChevronRight(),
-      preHandle: el => {
-        if (isLast) {
-          el.classList.add('disabled')
+    this.addChild(
+      new Button({
+        icon: new IconChevronRight(),
+        disabled: isLast,
+        ariaLabel: i18n.buildMsg('pagination-next-page'),
+        classNames: ['wok-ui-ext-page-item'],
+        onClick: () => {
+          if (this.pn < totalPages) {
+            this.pn++
+            this.render()
+            this.opts.onChange(this.pn, this.opts.pz)
+          }
         }
-      },
-      onClick: () => {
-        if (this.pn < totalPages) {
-          this.pn++
-          this.render()
-          this.opts.onChange(this.pn, this.opts.pz)
-        }
-      }
-    })
+      })
+    )
   }
 
   /** 完整模式：页码按钮 + 省略号 */
@@ -177,55 +164,50 @@ export class Pagination extends FullRenderingModule {
         label = ''
       }
 
-      this.addChild({
-        tag: 'button',
-        classNames: ['wok-ui-ext-page-item'],
-        attrs: {
-          type: 'button',
-          'aria-label': label,
-          'aria-current': isActive ? 'page' : undefined,
-          disabled: isEllipsis ? true : undefined
-        },
-        children: add => {
-          if (isPrev) {
-            add(new IconChevronLeft())
-          } else if (isNext) {
-            add(new IconChevronRight())
-          } else if (pageNumber !== undefined) {
-            add(`${pageNumber}`)
-          } else {
-            add('...')
-          }
-        },
-        preHandle: el => {
-          if (isActive) {
-            el.classList.add('active')
-          }
-          if (isEllipsis) {
-            el.classList.add('disabled')
-          }
-        },
-        onClick: () => {
-          if (isEllipsis) {
+      const onClick = () => {
+        if (isEllipsis) {
+          return
+        }
+        if (isPrev) {
+          this.pn = this.pn - 1
+          if (this.pn < 1) {
             return
           }
-          if (isPrev) {
-            this.pn = this.pn - 1
-            if (this.pn < 1) {
-              return
-            }
-          } else if (isNext) {
-            this.pn = this.pn + 1
-            if (this.pn > totalPages) {
-              return
-            }
-          } else if (pageNumber !== undefined) {
-            this.pn = pageNumber
+        } else if (isNext) {
+          this.pn = this.pn + 1
+          if (this.pn > totalPages) {
+            return
           }
-          this.render()
-          this.opts.onChange(this.pn, this.opts.pz)
+        } else if (pageNumber !== undefined) {
+          this.pn = pageNumber
         }
-      })
+        this.render()
+        this.opts.onChange(this.pn, this.opts.pz)
+      }
+
+      const baseOpts = {
+        ariaLabel: label,
+        classNames: ['wok-ui-ext-page-item'],
+        onClick
+      }
+
+      let btn: Button
+      if (isPrev) {
+        btn = new Button({ ...baseOpts, icon: new IconChevronLeft() })
+      } else if (isNext) {
+        btn = new Button({ ...baseOpts, icon: new IconChevronRight() })
+      } else if (pageNumber !== undefined) {
+        btn = new Button({
+          ...baseOpts,
+          text: `${pageNumber}`,
+          type: isActive ? 'primary' : 'default',
+          attrs: isActive ? { 'aria-current': 'page' } : undefined
+        })
+      } else {
+        btn = new Button({ ...baseOpts, text: '...', disabled: true })
+      }
+
+      this.addChild(btn)
     }
   }
 }

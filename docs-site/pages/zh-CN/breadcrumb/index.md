@@ -54,6 +54,8 @@ new Breadcrumb({
 
 ## BreadcrumbItem 类型定义
 
+其中 `IconInput` 类型详见 [图标](/zh-CN/icons.html)。
+
 ```ts
 interface BreadcrumbItem {
   text: string

@@ -1,6 +1,6 @@
 ---
 title: Icons
-order: 12
+order: 11
 category: General
 icon: fa-icons
 description: Icon types and built-in icon descriptions.

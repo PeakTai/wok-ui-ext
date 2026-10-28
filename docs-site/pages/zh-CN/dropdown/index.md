@@ -79,6 +79,6 @@ new Dropdown({
 | 参数 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
 | children | `SubModulesOpt` | — | 触发元素 |
-| items | `{ icon?: () => IconInput; text: string; active?: boolean }[]` | — | 菜单项列表，icon 传工厂函数，每次打开菜单执行返回新的图标实例 |
+| items | { icon?: () => [`IconInput`](/zh-CN/icons.html); text: string; active?: boolean }[] | — | 菜单项列表，icon 传工厂函数，每次打开菜单执行返回新的图标实例 |
 | align | `'left' \| 'right'` | `left` | 对齐方式 |
 | onSelect | `(index: number) => void` | — | 选择回调 |

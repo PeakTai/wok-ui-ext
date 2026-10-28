@@ -84,7 +84,7 @@ new Tag({ text: 'With Handler', closable: true, onClose: () => showSuccess('关�
 | size | `TagSize` | `default` | 尺寸：`small` `default` `large` |
 | round | `boolean` | `true` | 是否圆角 |
 | closable | `boolean` | `false` | 是否可关闭，显示关闭图标 |
-| icon | `IconInput` | — | 标签图标 |
+| icon | [`IconInput`](/zh-CN/icons.html) | — | 标签图标 |
 | checkable | `boolean` | `false` | 是否可选中，开启后点击切换选中状态 |
 | selected | `boolean` | `false` | 初始选中状态，仅 `checkable` 时生效 |
 | disabled | `boolean` | `false` | 是否禁用 |

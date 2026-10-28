@@ -84,7 +84,7 @@ new Tag({ text: 'With Handler', closable: true, onClose: () => showSuccess('关�
 | size | `TagSize` | `default` | Size: `small` `default` `large` |
 | round | `boolean` | `true` | Whether to use rounded corners |
 | closable | `boolean` | `false` | Whether closable; shows a close icon |
-| icon | `IconInput` | — | Tag icon |
+| icon | [`IconInput`](/en/icons.html) | — | Tag icon |
 | checkable | `boolean` | `false` | Whether selectable; clicking toggles the selected state when enabled |
 | selected | `boolean` | `false` | Initial selected state; only effective when `checkable` |
 | disabled | `boolean` | `false` | Whether disabled |

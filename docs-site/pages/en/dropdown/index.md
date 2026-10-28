@@ -79,6 +79,6 @@ new Dropdown({
 | Parameter | Type | Default | Description |
 |------|------|--------|------|
 | children | `SubModulesOpt` | — | Trigger element |
-| items | `{ icon?: () => IconInput; text: string; active?: boolean }[]` | — | List of menu items; icon accepts a factory function, executed each time the menu opens to return a new icon instance |
+| items | { icon?: () => [`IconInput`](/en/icons.html); text: string; active?: boolean }[] | — | List of menu items; icon accepts a factory function, executed each time the menu opens to return a new icon instance |
 | align | `'left' \| 'right'` | `left` | Alignment |
 | onSelect | `(index: number) => void` | — | Selection callback |

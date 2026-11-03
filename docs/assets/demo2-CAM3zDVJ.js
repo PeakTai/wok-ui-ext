@@ -1,0 +1,1 @@
+import{F as e}from"./markdown-Bma35oOp.js";import{t}from"./empty-Dae0Sh0z.js";var n=class extends e{constructor(){super(),this.addChild(new t({text:`No data found`}))}},r=class extends e{constructor(){super(),this.addChild(new t({text:`Empty`,noBorder:!0}))}};export{n,r as t};

@@ -20,9 +20,9 @@
     font-size: 15px;
     font-weight: 500;
     color: var(--text-secondary);
+    border: 1px solid var(--color-border);
     border-left: 4px solid;
     animation: toastSlideInRight 0.2s ease;
-    border: 1px solid #eef3fc;
     backdrop-filter: blur(4px);
     word-break: break-all;
 
@@ -32,7 +32,7 @@
 
     &.success {
       border-left-color: var(--color-success);
-      background: #f0faf4;
+      background: var(--color-success-light);
 
       i {
         color: var(--color-success);
@@ -41,7 +41,7 @@
 
     &.warning {
       border-left-color: var(--color-warning);
-      background: #fff7e8;
+      background: var(--color-warning-light);
 
       i {
         color: var(--color-warning);

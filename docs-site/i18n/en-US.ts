@@ -7,6 +7,7 @@ const enUS: DocsI18nMessages = {
   'theme-purple': 'Purple',
   'theme-green': 'Green',
   'theme-red': 'Red',
+  'theme-auto-dark': 'Auto dark mode',
   'docs-search-placeholder': 'Search components...',
 
   'docs-search-modal-title': 'Search',

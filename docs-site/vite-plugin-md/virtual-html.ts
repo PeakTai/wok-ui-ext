@@ -58,8 +58,7 @@ export function htmlShell(
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="icon" href="${base}favicon.ico">
-  ${desc}${kw}${cssLinks ? cssLinks + '\n  ' : ''}<link rel="stylesheet" href="${base}vendor/fontawesome-5.15.4/css/all.min.css">
-  <title>${entry.meta.title}</title>
+  ${desc}${kw}${cssLinks ? cssLinks + '\n  ' : ''}<title>${entry.meta.title}</title>
 </head>
 <body>
 <script type="module" src="${scriptSrc}"></script>

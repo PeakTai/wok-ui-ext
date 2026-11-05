@@ -1,0 +1,1 @@
+import{D as e,I as t,R as n}from"./markdown-CTAyzikn.js";var r=class extends n{constructor(n){super(`wok-ui-ext-empty-state`),n.noBorder&&this.el.classList.add(`no-border`),this.addChild(new e,30,{tag:`p`,className:`desc`,innerText:n.text||t().buildMsg(`empty-text`)})}};export{r as t};

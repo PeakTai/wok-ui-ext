@@ -53,6 +53,7 @@ export function generateCode(
 
   return `
 import 'wok-ui/dist/style.css'
+import '@fortawesome/fontawesome-free/css/all.min.css'
 import '@lib/global.less'
 import { getI18n } from 'wok-ui'
 import { getWokUiExtI18n } from '@lib'

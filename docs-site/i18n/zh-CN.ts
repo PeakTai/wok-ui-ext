@@ -7,6 +7,7 @@ const zhCN: DocsI18nMessages = {
   'theme-purple': '神秘紫',
   'theme-green': '森林绿',
   'theme-red': '烈焰红',
+  'theme-auto-dark': '自动深色模式',
   'docs-search-placeholder': '搜索组件...',
 
   'docs-search-modal-title': '搜索',

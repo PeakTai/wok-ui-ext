@@ -72,7 +72,7 @@ export class PcHeader extends DivModule {
           classNames: 'docs-header-theme',
           onClick: (e: MouseEvent) => {
             e.stopPropagation()
-            opts.themeManager.showThemeMenu(e)
+            opts.themeManager.showThemePanel(e.currentTarget as HTMLElement)
           },
           children: [
             new FontAwesomeIcon({

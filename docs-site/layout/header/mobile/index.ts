@@ -83,6 +83,7 @@ export class MobileHeader extends DivModule {
   private showMoreMenu(e: MouseEvent): void {
     const docsI18n = getDocsI18n()
     const { lang, themeManager, switchLang } = this.opts
+    const anchor = e.currentTarget as HTMLElement
     showContextMenu({
       evt: e,
       position: 'bottom',
@@ -91,7 +92,7 @@ export class MobileHeader extends DivModule {
         {
           icon: 'fas fa-palette',
           label: docsI18n.buildMsg('docs-theme-toggle-title'),
-          children: themeManager.buildThemeMenuItems()
+          callback: () => themeManager.showThemePanel(anchor)
         },
         {
           icon: 'fas fa-globe',

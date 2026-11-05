@@ -111,6 +111,37 @@
   overflow-y: auto;
 }
 
+// ---- 菜单与正文滚动条（用主题变量，深色模式下不刺眼） ----
+.docs-menu,
+.docs-content {
+  // Firefox
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-medium) transparent;
+
+  // WebKit
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--border-medium);
+    border-radius: var(--radius-full);
+
+    &:hover {
+      background: var(--border-dark);
+    }
+  }
+
+  &::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}
+
 // ---- 移动端 ----
 @media (max-width: 767px) {
   .docs-header {
@@ -234,6 +265,73 @@ body.theme-dark {
   }
   .hljs-deletion {
     color: #f07178;
+  }
+}
+
+// ===== 主题设置面板（弹出在 body 下，全局样式） =====
+.docs-theme-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.docs-theme-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: var(--font-size-small);
+
+  .fas {
+    width: 16px;
+    text-align: center;
+    color: var(--color-primary);
+  }
+
+  &:hover {
+    background: var(--bg-hover);
+  }
+
+  &.active {
+    color: var(--color-primary-dark);
+    background: var(--bg-active);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .docs-theme-check {
+    margin-left: auto;
+    visibility: hidden;
+  }
+
+  &.active .docs-theme-check {
+    visibility: visible;
+  }
+}
+
+.docs-theme-divider {
+  height: 1px;
+  margin: 6px 4px;
+  background: var(--border-light);
+}
+
+.docs-theme-auto {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  color: var(--text-secondary);
+  font-size: var(--font-size-small);
+
+  .fas {
+    width: 16px;
+    text-align: center;
+    color: var(--color-primary);
+  }
+
+  .wok-ui-ext-switch {
+    margin-left: auto;
   }
 }
 

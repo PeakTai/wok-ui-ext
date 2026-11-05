@@ -12,6 +12,9 @@ export interface DocsI18nMessages {
   'theme-green': string
   'theme-red': string
 
+  // 自动深色模式开关
+  'theme-auto-dark': string
+
   // 搜索框占位符
   'docs-search-placeholder': string
 

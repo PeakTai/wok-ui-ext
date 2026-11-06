@@ -24,6 +24,20 @@ Install wok-ui-ext.
 npm install wok-ui-ext --save
 ```
 
+### AI Skill Installation (Optional)
+
+wok-ui provides AI skills that help AI coding assistants better understand and use wok-ui components. For details, see [wok-ui AI Skill Installation](https://peaktai.github.io/wok-ui/en/quick-start.html).
+
+```bash
+npx skills add peaktai/wok-ui --all
+```
+
+Users in China can use the Gitee mirror if GitHub is slow to access.
+
+```bash
+npx skills add https://gitee.com/tai/wok-ui.git --all
+```
+
 ## Initialization
 
 In a wok-ui project, using wok-ui-ext does not change the workflow; you just need to add global styles, internationalization and theme initialization.

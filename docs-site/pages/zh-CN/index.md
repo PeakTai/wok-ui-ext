@@ -7,7 +7,7 @@ description: wok-ui-ext 是基于 wok-ui 的主题扩展组件库，提供科技
 
 # wok-ui-ext 组件库
 
-wok-ui-ext 是基于 **wok-ui** 的主题扩展组件库，提供一整套科技蓝风格的企业后台组件。
+wok-ui-ext 是基于 [**wok-ui**](https://peaktai.github.io/wok-ui/zh-CN/index.html) 的主题扩展组件库，提供一整套科技蓝风格的企业后台组件。
 
 ## 特性
 

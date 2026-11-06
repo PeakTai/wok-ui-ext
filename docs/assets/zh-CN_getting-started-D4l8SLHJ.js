@@ -16,6 +16,20 @@ npm install wok-ui --save
 npm install wok-ui-ext --save
 \`\`\`
 
+### AI 技能安装（可选）
+
+wok-ui 提供了 AI 技能，安装后可以让 AI 编程助手更好地理解和使用 wok-ui 组件。详情请参考 [wok-ui AI 技能安装](https://peaktai.github.io/wok-ui/zh-CN/quick-start.html)。
+
+\`\`\`bash
+npx skills add peaktai/wok-ui --all
+\`\`\`
+
+国内用户访问 GitHub 速度慢，可以使用 Gitee 仓库地址来安装。
+
+\`\`\`bash
+npx skills add https://gitee.com/tai/wok-ui.git --all
+\`\`\`
+
 ## 程序初始化
 
 在 wok-ui 项目，使用 wok-ui-ext ，流程不需要变化，需要增加全局样式、国际化和主题的初始化。

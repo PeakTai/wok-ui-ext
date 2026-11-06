@@ -7,7 +7,7 @@ description: wok-ui-ext is a theme extension library based on wok-ui, providing 
 
 # wok-ui-ext Components
 
-wok-ui-ext is a theme extension library based on **wok-ui**, providing a collection of tech-blue styled enterprise-grade components for admin systems.
+wok-ui-ext is a theme extension library based on [**wok-ui**](https://peaktai.github.io/wok-ui/en/index.html), providing a collection of tech-blue styled enterprise-grade components for admin systems.
 
 ## Features
 

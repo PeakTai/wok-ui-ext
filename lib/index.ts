@@ -44,6 +44,4 @@ export * from './list'
 export * from './result'
 export * from './icons'
 export * from './theme'
-export { getWokUiExtI18n } from './i18n'
-export type { WokUiExtI18nMessages } from './i18n'
-
+export * from './i18n'

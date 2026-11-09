@@ -34,6 +34,9 @@ export function setTheme(name: ThemeName, config: Partial<ThemeConfig>): void {
 export function applyTheme(name: ThemeName): void {
   currentTheme = name
 
+  // 主题标记：供业务侧样式按主题定制（如文档站深色模式下的代码高亮配色）
+  document.body?.classList.toggle('theme-dark', name === 'dark')
+
   const config = THEMES[name]
 
   // 更新 wok-ui 框架颜色

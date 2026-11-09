@@ -219,52 +219,71 @@ body .markdown-body {
 }
 
 // ---- 深色主题 highlight.js 暗色语法覆盖 ----
+// body.theme-dark 由 applyTheme() 自动添加，覆盖 highlight.js 浅色主题的令牌颜色，
+// 否则深色背景上会出现深色文字（近黑）导致代码不可读。
 body.theme-dark {
   .hljs {
-    color: #e0e0e0;
+    color: #d4d4d4;
     background: transparent;
   }
   .hljs-keyword,
+  .hljs-doctag,
   .hljs-selector-tag,
+  .hljs-template-tag,
+  .hljs-template-variable,
+  .hljs-variable.language_,
+  .hljs-meta .hljs-keyword,
   .hljs-built_in,
   .hljs-type {
     color: #c792ea;
   }
   .hljs-string,
+  .hljs-regexp,
+  .hljs-symbol,
+  .hljs-meta .hljs-string,
   .hljs-addition {
     color: #c3e88d;
   }
   .hljs-number,
-  .hljs-literal {
+  .hljs-literal,
+  .hljs-operator,
+  .hljs-selector-attr,
+  .hljs-bullet {
     color: #f78c6c;
   }
   .hljs-comment,
-  .hljs-quote {
-    color: #546e7a;
+  .hljs-quote,
+  .hljs-code,
+  .hljs-formula {
+    color: #7f8f99;
     font-style: italic;
   }
   .hljs-title,
+  .hljs-title.function_,
+  .hljs-title.class_,
   .hljs-section,
-  .hljs-name {
+  .hljs-name,
+  .hljs-selector-pseudo {
     color: #82aaff;
   }
   .hljs-attribute,
   .hljs-variable,
-  .hljs-template-variable {
+  .hljs-params {
     color: #ffcb6b;
   }
-  .hljs-attr {
+  .hljs-attr,
+  .hljs-meta,
+  .hljs-subst {
     color: #89ddff;
   }
   .hljs-selector-id,
-  .hljs-selector-class {
-    color: #f07178;
-  }
-  .hljs-meta {
-    color: #89ddff;
-  }
+  .hljs-selector-class,
   .hljs-deletion {
     color: #f07178;
+  }
+  .hljs-emphasis,
+  .hljs-strong {
+    color: inherit;
   }
 }
 

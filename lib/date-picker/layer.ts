@@ -1,5 +1,6 @@
 import { FloatingLayer } from '../floating-layer'
 import { CalendarPanel } from './calendar-panel'
+import './style.less'
 
 /**
  * 日期选择浮层。挂载到 body，由 FloatingLayer 提供定位、滚动跟随、自动关闭。

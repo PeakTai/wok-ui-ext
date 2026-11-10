@@ -1,4 +1,3 @@
-import './style.less'
 export { DatePicker } from './date-picker'
 export { DateRangePicker } from './range-picker'
 export type { DateRange } from './range-picker'

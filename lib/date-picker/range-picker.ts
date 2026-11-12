@@ -7,6 +7,8 @@ export type DateRange = [Date, Date]
 
 export class DateRangePicker extends DivModule {
   private value?: DateRange
+  /** 是否已选好开始日期、正在等待选择结束日期 */
+  private picking = false
   private hoveredDate?: Date
   private popup?: DatePickerLayer
   private textEl?: HTMLElement
@@ -24,6 +26,7 @@ export class DateRangePicker extends DivModule {
     }
   ) {
     super('wok-ui-ext-date-range-picker wok-ui-ext-date-picker')
+    this.value = opts.value
     this.addChild({
       classNames: ['wok-ui-ext-date-picker-trigger', this.opts.disabled ? 'disabled' : ''],
       children: {
@@ -49,7 +52,7 @@ export class DateRangePicker extends DivModule {
       return this.opts.placeholder ?? '请选择日期范围'
     }
     const [start, end] = this.value
-    if (compareDate(start, end) === 0) {
+    if (this.picking) {
       return `${formatDate(start)} ~ 结束日期`
     }
     return `${formatDate(start)} ~ ${formatDate(end)}`
@@ -72,9 +75,12 @@ export class DateRangePicker extends DivModule {
       return
     }
     this.hoveredDate = undefined
+    this.picking = false
+    const valueOnOpen = this.value
 
     const today = new Date()
-    const selected = () => this.value ?? []
+    // 选择过程中只高亮已选的开始日期，便于 hover 预览剩余范围
+    const selected = () => (this.picking && this.value ? [this.value[0]] : (this.value ?? []))
     const target = this.value?.[0] ?? today
     const leftYear = target.getFullYear()
     const leftMonth = target.getMonth()
@@ -100,8 +106,16 @@ export class DateRangePicker extends DivModule {
       target: this.el,
       panels: [buildPanel(leftYear, leftMonth), buildPanel(rightDate.getFullYear(), rightDate.getMonth())],
       onClose: () => {
-        if (this.popup === popup) {
-          this.popup = undefined
+        if (this.popup !== popup) {
+          return
+        }
+        this.popup = undefined
+        this.hoveredDate = undefined
+        // 未选完结束日期就关闭弹层，放弃这次选择，回到打开前的范围
+        if (this.picking) {
+          this.picking = false
+          this.value = valueOnOpen
+          this.updateText()
         }
       }
     })
@@ -112,27 +126,24 @@ export class DateRangePicker extends DivModule {
   private handleDayClick(date: Date, disabledDate: (date: Date) => boolean): void {
     if (disabledDate(date)) return
 
-    if (!this.value) {
+    if (!this.picking) {
+      // 选择开始日期；若已有完整范围，则从新的开始日期重新选择
       this.value = [date, date]
+      this.picking = true
       this.hoveredDate = date
-      this.popup?.setHoveredDate(date)
       this.updateText()
+      this.popup?.refresh()
+      this.popup?.setHoveredDate(date)
       return
     }
 
-    const [prevStart, prevEnd] = this.value
-    if (compareDate(prevStart, prevEnd) === 0) {
-      this.value = compareDate(date, prevStart) < 0 ? [date, prevStart] : [prevStart, date]
-      this.hoveredDate = undefined
-      this.popup?.destroy()
-      this.updateText()
-      this.opts.onChange?.(this.value)
-    } else {
-      this.value = [date, date]
-      this.hoveredDate = date
-      this.popup?.refresh()
-      this.updateText()
-    }
+    const start = this.value ? this.value[0] : date
+    this.value = compareDate(date, start) < 0 ? [date, start] : [start, date]
+    this.picking = false
+    this.hoveredDate = undefined
+    this.popup?.destroy()
+    this.updateText()
+    this.opts.onChange?.(this.value)
   }
 
   override destroy(): void {

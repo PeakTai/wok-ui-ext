@@ -16,10 +16,11 @@ ul.wok-ui-ext-tree {
       display: flex;
       align-items: center;
       padding: 10px 12px 10px 8px;
-      border-radius: var(--radius-md);
+      border-radius: var(--wok-ui-ext-tree-node-radius, var(--radius-md));
       color: var(--text-secondary);
       font-size: var(--font-size-small);
-      transition: background var(--transition-speed) ease;
+      transition: background var(--transition-speed) ease,
+        border-radius var(--transition-speed) ease;
       gap: 8px;
 
       // 折叠图标
@@ -72,6 +73,8 @@ ul.wok-ui-ext-tree {
       color: var(--text-primary);
       font-weight: var(--font-weight-medium);
       box-shadow: inset 3px 0 0 var(--color-primary);
+      // 选中态使用大圆角，与菜单选中项保持一致
+      border-radius: var(--wok-ui-ext-tree-selected-radius, var(--radius-xl));
     }
 
     &.wok-ui-ext-folded > ul.wok-ui-ext-sub-nodes {
@@ -117,7 +120,7 @@ ul.wok-ui-ext-tree {
 
       &.wok-ui-ext-moving-in {
         background-color: var(--color-primary);
-        border-radius: var(--radius-md);
+        border-radius: var(--wok-ui-ext-tree-selected-radius, var(--radius-xl));
         color: white;
 
         .wok-ui-ext-icon-fold {

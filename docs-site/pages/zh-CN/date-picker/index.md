@@ -41,6 +41,26 @@ new DateRangePicker({})
 
 <br>
 
+## 默认值
+
+通过 `value` 传入初始值。日期范围的起止日期相同时（例如选择“今天”），也是一个合法的完整区间。
+
+```ts
+const today = new Date()
+
+new DatePicker({ value: today })
+new DateRangePicker({
+  value: [new Date(today.getFullYear(), today.getMonth(), 1), today]
+})
+```
+
+<br>
+
+```demo @docs/pages/demos/date-picker/demo7.ts
+```
+
+<br>
+
 ## 禁用状态
 
 设置 `disabled: true` 禁用选择器。

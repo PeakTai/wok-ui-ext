@@ -41,6 +41,26 @@ new DateRangePicker({})
 
 <br>
 
+## Default Value
+
+Pass an initial value via `value`. A range whose start and end are the same day (for example, picking "today") is also a valid complete range.
+
+```ts
+const today = new Date()
+
+new DatePicker({ value: today })
+new DateRangePicker({
+  value: [new Date(today.getFullYear(), today.getMonth(), 1), today]
+})
+```
+
+<br>
+
+```demo @docs/pages/demos/date-picker/demo7.ts
+```
+
+<br>
+
 ## Disabled State
 
 Set `disabled: true` to disable the picker.

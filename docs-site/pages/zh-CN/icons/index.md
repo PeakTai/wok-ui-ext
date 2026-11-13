@@ -27,7 +27,7 @@ export type IconInput = SvgIcon | RemoteSvgIcon | string
 ## resolveIcon
 
 ```ts
-export function resolveIcon(icon: IconInput): ConvertibleModule
+export function resolveIcon(icon: IconInput): Module
 ```
 
 `resolveIcon` 负责将 `IconInput` 解析为组件可以挂载的对象，规则如下：

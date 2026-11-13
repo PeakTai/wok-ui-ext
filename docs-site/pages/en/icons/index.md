@@ -27,7 +27,7 @@ export type IconInput = SvgIcon | RemoteSvgIcon | string
 ## resolveIcon
 
 ```ts
-export function resolveIcon(icon: IconInput): ConvertibleModule
+export function resolveIcon(icon: IconInput): Module
 ```
 
 `resolveIcon` is responsible for resolving `IconInput` into an object that components can mount, with the following rules:

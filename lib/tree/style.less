@@ -75,6 +75,8 @@ ul.wok-ui-ext-tree {
       box-shadow: inset 3px 0 0 var(--color-primary);
       // 选中态使用大圆角，与菜单选中项保持一致
       border-radius: var(--wok-ui-ext-tree-selected-radius, var(--radius-xl));
+      // 大圆角下左侧留白加大，避免文字贴住左侧色条与圆角
+      padding-left: 14px;
     }
 
     &.wok-ui-ext-folded > ul.wok-ui-ext-sub-nodes {

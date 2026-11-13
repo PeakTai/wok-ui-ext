@@ -1,4 +1,4 @@
-import { SvgIcon, RemoteSvgIcon, ConvertibleModule } from 'wok-ui'
+import { SvgIcon, RemoteSvgIcon, Module, createDomModule } from 'wok-ui'
 
 /**
  * 图标输入类型。
@@ -15,7 +15,7 @@ export type IconInput = SvgIcon | RemoteSvgIcon | string
  * - 以 `http://`、`https://`、`/`、`data:` 开头的字符串：返回 `<img>` 元素配置
  * - 其他字符串：返回 `<i class="xxx">` 元素配置
  */
-export function resolveIcon(icon: IconInput): ConvertibleModule {
+export function resolveIcon(icon: IconInput): Module {
   if (icon instanceof SvgIcon || icon instanceof RemoteSvgIcon) {
     return icon
   }
@@ -29,9 +29,9 @@ export function resolveIcon(icon: IconInput): ConvertibleModule {
       icon.startsWith('/') ||
       icon.startsWith('data:')
     ) {
-      return { tag: 'img', attrs: { src: icon, alt: '' } }
+      return createDomModule({ tag: 'img', attrs: { src: icon, alt: '' } })
     }
-    return { tag: 'i', classNames: icon }
+    return createDomModule({ tag: 'i', classNames: icon })
   }
   return icon
 }

@@ -1,4 +1,4 @@
-import { Module } from 'wok-ui'
+import { Module, SubModulesOpt, buildSubModules } from 'wok-ui'
 import './style.less'
 
 /**
@@ -10,7 +10,7 @@ export type TextAlign = 'left' | 'center' | 'right'
  * 文本组件基础选项
  */
 interface TextOptions {
-  text: string
+  text: SubModulesOpt
   align?: TextAlign
   onClick?: (evt: MouseEvent) => void
 }
@@ -27,7 +27,7 @@ abstract class HeadingComponent extends Module {
     super(document.createElement(tagName))
     const options = typeof opts === 'string' ? { text: opts } : opts
     this.el.classList.add(className)
-    this.el.innerText = options.text
+    this.addChild(...buildSubModules(options.text))
     if (options.align) {
       this.el.style.textAlign = options.align
     }
@@ -46,7 +46,7 @@ abstract class SpanComponent extends Module {
     super(document.createElement('span'))
     const options = typeof opts === 'string' ? { text: opts } : opts
     this.el.classList.add(className)
-    this.el.innerText = options.text
+    this.addChild(...buildSubModules(options.text))
     if (options.align) {
       this.el.style.textAlign = options.align
     }
@@ -156,7 +156,7 @@ export class DisabledText extends Module {
     super(document.createElement('span'))
     const options = typeof opts === 'string' ? { text: opts } : opts
     this.el.classList.add('wok-ui-ext-text-disabled')
-    this.el.innerText = options.text
+    this.addChild(...buildSubModules(options.text))
     if (options.align) {
       this.el.style.textAlign = options.align
     }

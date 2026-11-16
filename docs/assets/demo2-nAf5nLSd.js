@@ -1,1 +1,0 @@
-import{R as e}from"./markdown-CSVknqDU.js";import{t}from"./empty-DO8phgUO.js";var n=class extends e{constructor(){super(),this.addChild(new t({text:`No data found`}))}},r=class extends e{constructor(){super(),this.addChild(new t({text:`Empty`,noBorder:!0}))}};export{n,r as t};

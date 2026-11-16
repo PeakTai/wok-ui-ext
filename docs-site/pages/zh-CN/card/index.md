@@ -29,11 +29,13 @@ new Card({
 
 ```ts
 new Card({
-  header: 'Card Header',
+  header: new Title('Card Header'),
   content: 'Card content',
   footer: 'Card Footer'
 })
 ```
+
+> 推荐 `header` 传入 `new Title()` 作为卡片标题，以获得统一的标题样式。
 
 <br>
 

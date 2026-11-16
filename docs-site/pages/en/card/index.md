@@ -29,11 +29,13 @@ new Card({
 
 ```ts
 new Card({
-  header: 'Card Header',
+  header: new Title('Card Header'),
   content: 'Card content',
   footer: 'Card Footer'
 })
 ```
+
+> It is recommended to pass `new Title()` to `header` as the card title for consistent heading styling.
 
 <br>
 

@@ -25,6 +25,26 @@ new Subtitle('Subtitle')
 
 <br>
 
+## Embedding Icons
+
+The `text` parameter accepts `SubModulesOpt`, so you can pass an array of modules to combine icons and text.
+
+```ts
+new Title({
+  text: [new IconInfoCircle(), ' Title with icon']
+})
+new BodyText({
+  text: [new IconInfoCircle(), ' Body text can embed icons too']
+})
+```
+
+<br>
+
+```demo @docs/pages/demos/text/demo7.ts
+```
+
+<br>
+
 ## Body Text
 
 ```ts
@@ -110,7 +130,7 @@ All text components support the same parameters:
 
 | Parameter | Type | Default | Description |
 |------|------|--------|------|
-| text | `string` | — | Text content |
+| text | `SubModulesOpt` | — | Text content, supports strings, modules, or module arrays (e.g. embed icons) |
 | align | `'left' \| 'center' \| 'right'` | — | Alignment |
 | onClick | `(evt: MouseEvent) => void` | — | Click callback |
 

@@ -25,6 +25,26 @@ new Subtitle('Subtitle')
 
 <br>
 
+## 嵌入图标
+
+`text` 参数支持 `SubModulesOpt`，可以传入模块数组，将图标等模块与文字组合展示。
+
+```ts
+new Title({
+  text: [new IconInfoCircle(), ' 带图标的标题']
+})
+new BodyText({
+  text: [new IconInfoCircle(), ' 正文也可以嵌入图标']
+})
+```
+
+<br>
+
+```demo @docs/pages/demos/text/demo7.ts
+```
+
+<br>
+
 ## 正文
 
 ```ts
@@ -110,7 +130,7 @@ new BodyText({
 
 | 参数 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
-| text | `string` | — | 文本内容 |
+| text | `SubModulesOpt` | — | 文本内容，支持字符串、模块或模块数组（可嵌入图标等） |
 | align | `'left' \| 'center' \| 'right'` | — | 对齐方式 |
 | onClick | `(evt: MouseEvent) => void` | — | 点击回调 |
 

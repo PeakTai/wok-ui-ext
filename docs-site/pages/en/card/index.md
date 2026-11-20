@@ -44,10 +44,32 @@ new Card({
 
 <br>
 
+## Inner Card
+
+When displaying multi-level information inside a card (for example, each comment in a comment card), set `type` to `inner`. The inner card uses a darker background color and shows no shadow, including on hover.
+
+```ts
+new Card({
+  header: new Title('Comments'),
+  content: new Card({
+    type: 'inner',
+    content: 'Comment content'
+  })
+})
+```
+
+<br>
+
+```demo @docs/pages/demos/card/demo3.ts
+```
+
+<br>
+
 ## API
 
 | Parameter | Type | Default | Description |
 |------|------|--------|------|
+| type | `'inner'` | — | Card type. `inner` renders an inner card for multi-level structures inside a card |
 | header | `SubModulesOpt` | — | Card header content |
 | content | `SubModulesOpt` | — | Card body content |
 | footer | `SubModulesOpt` | — | Card footer content |

@@ -189,6 +189,9 @@ body .markdown-body {
   --accent-fg: var(--color-primary);
   --accent-emphasis: var(--color-primary-dark);
 
+  // 背景交给 .docs-content，避免不透明背景盖住相邻示例组件的阴影
+  background-color: transparent;
+
   // 代码块背景
   pre {
     background-color: var(--bg-body) !important;

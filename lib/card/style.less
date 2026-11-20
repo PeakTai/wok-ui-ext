@@ -10,6 +10,29 @@
     box-shadow: var(--shadow-lg);
   }
 
+  /* 内嵌卡片：用于卡片内部展示多层级结构，使用更深的背景色，不显示阴影 */
+  &.wok-ui-ext-card-inner {
+    background: var(--bg-content);
+    border-radius: var(--radius-lg);
+    box-shadow: none;
+
+    &:hover {
+      box-shadow: none;
+    }
+
+    .wok-ui-ext-card-header {
+      padding: 12px 12px 10px;
+    }
+
+    .wok-ui-ext-card-content {
+      padding: 12px;
+    }
+
+    .wok-ui-ext-card-footer {
+      padding: 10px 12px 12px;
+    }
+  }
+
   .wok-ui-ext-card-header {
     padding: 16px 16px 12px;
     border-bottom: 1px solid var(--border-light);

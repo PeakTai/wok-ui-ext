@@ -8,6 +8,10 @@ export class Card extends DivModule {
   constructor(
     opts: {
       /**
+       * 卡片类型，传入 `inner` 表示内嵌卡片，用于卡片内部展示多层级结构
+       */
+      type?: 'inner'
+      /**
        * 卡片头部内容
        */
       header?: SubModulesOpt
@@ -26,6 +30,9 @@ export class Card extends DivModule {
     }
   ) {
     super('wok-ui-ext-card')
+    if (opts.type === 'inner') {
+      this.el.classList.add('wok-ui-ext-card-inner')
+    }
     if (opts.classNames) {
       this.el.classList.add(...opts.classNames)
     }

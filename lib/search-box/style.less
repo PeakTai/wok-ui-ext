@@ -15,6 +15,9 @@
       flex: 1;
       border: none;
       outline: none;
+      // 主题色设在外层 .wok-ui-input 上，原生 search input 不会继承，需显式指定，
+      // 否则深色模式下回退到浏览器默认的近黑色
+      color: var(--text-primary);
       background: transparent;
       appearance: none;
       line-height: 1.5;

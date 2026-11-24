@@ -1,8 +1,8 @@
 // ─── DatePicker 容器 ────────────────────────────────
 
 .wok-ui-ext-date-picker {
-  display: inline-flex;
-  align-items: center;
+  // 用 inline-block 而非 inline-flex，避免校验反馈（invalid-feedback）与触发器并排显示
+  display: inline-block;
   cursor: pointer;
   user-select: none;
 }
@@ -34,6 +34,11 @@
     opacity: 0.6;
     cursor: not-allowed;
     pointer-events: none;
+  }
+
+  // 校验不通过
+  &.invalid {
+    border-color: var(--color-danger);
   }
 }
 
@@ -192,6 +197,66 @@
   .wok-ui-ext-date-picker-trigger {
     min-width: 240px;
     width: auto;
+  }
+}
+
+// ─── DateTime 底部时间栏 ─────────────────────────────
+
+.wok-ui-ext-date-time-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border-top: 1px solid var(--border-light);
+}
+
+.wok-ui-ext-time-panel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: auto;
+}
+
+.wok-ui-ext-time-select {
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-small);
+  color: var(--text-primary);
+  background: var(--bg-content);
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--transition-speed);
+
+  &:hover,
+  &:focus {
+    border-color: var(--color-primary);
+  }
+}
+
+.wok-ui-ext-time-separator {
+  color: var(--text-tertiary);
+}
+
+.wok-ui-ext-date-time-confirm {
+  height: 32px;
+  padding: 0 16px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-small);
+  color: #fff;
+  background: var(--color-primary);
+  cursor: pointer;
+  transition: opacity var(--transition-speed);
+
+  &:hover:not(:disabled) {
+    opacity: 0.85;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 }
 

@@ -56,6 +56,29 @@ export function formatDate(date: Date): string {
 }
 
 /**
+ * 格式化日期时间为 yyyy-MM-dd HH:mm
+ */
+export function formatDateTime(date: Date): string {
+  const h = String(date.getHours()).padStart(2, '0')
+  const m = String(date.getMinutes()).padStart(2, '0')
+  return `${formatDate(date)} ${h}:${m}`
+}
+
+/**
+ * 取日期的零时（丢弃时分秒）
+ */
+export function startOfDay(date: Date): Date {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate())
+}
+
+/**
+ * 用指定日期 + 时分组合出一个新的 Date
+ */
+export function setTime(date: Date, hour: number, minute: number): Date {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate(), hour, minute)
+}
+
+/**
  * 格式化日期为 yyyy年M月d日
  */
 export function formatDateCN(date: Date): string {

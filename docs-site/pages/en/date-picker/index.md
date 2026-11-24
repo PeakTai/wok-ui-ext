@@ -41,6 +41,23 @@ new DateRangePicker({})
 
 <br>
 
+## Date and Time
+
+Use `DateTimePicker` to select a date together with a time. A time bar sits at the bottom of the popup, with 60 minute options (1-minute interval) by default. Picking a day or adjusting the time does not take effect immediately; the value is committed and `onChange` fired only after clicking "OK". Clicking outside or pressing Esc cancels the current edit. Use `defaultTime` for the default hour/minute and `minuteStep` to adjust the minute interval.
+
+```ts
+new DateTimePicker({
+  defaultTime: { hour: 9, minute: 0 }
+})
+```
+
+<br>
+
+```demo @docs/pages/demos/date-picker/demo8.ts
+```
+
+<br>
+
 ## Default Value
 
 Pass an initial value via `value`. A range whose start and end are the same day (for example, picking "today") is also a valid complete range.
@@ -158,6 +175,21 @@ new DateRangePicker({
 | disabled | `boolean` | `false` | Whether disabled |
 | disabledDate | `(date: Date) => boolean` | — | Callback for disabling specific dates |
 | onChange | `(date?: Date) => void` | — | Callback when the date changes |
+
+### DateTimePicker
+
+| Parameter | Type | Default | Description |
+|------|------|--------|------|
+| value | `Date` | — | Initial date and time (including hour/minute) |
+| placeholder | `string` | `Please select a date and time` | Placeholder text |
+| required | `boolean \| string` | — | Whether required; a string is a custom error message |
+| min | `Date \| { min: Date; errMsg: string }` | — | Minimum date-time; the panel disables by day while validation compares the full timestamp |
+| max | `Date \| { max: Date; errMsg: string }` | — | Maximum date-time; the panel disables by day while validation compares the full timestamp |
+| disabled | `boolean` | `false` | Whether disabled |
+| disabledDate | `(date: Date) => boolean` | — | Callback for disabling specific dates |
+| defaultTime | `{ hour: number; minute: number }` | `{ hour: 0, minute: 0 }` | Default hour/minute when no initial value |
+| minuteStep | `number` | `1` | Interval between minute options |
+| onChange | `(date?: Date) => void` | — | Callback after the value is committed via the OK button |
 
 ### DateRangePicker
 

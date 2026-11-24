@@ -1,17 +1,21 @@
+import { SubModulesOpt } from 'wok-ui'
 import { FloatingLayer } from '../floating-layer'
 import { CalendarPanel } from './calendar-panel'
 import './style.less'
 
 /**
  * 日期选择浮层。挂载到 body，由 FloatingLayer 提供定位、滚动跟随、自动关闭。
- * 单选包含一个日历面板，范围选择包含两个。
+ * 单选包含一个日历面板，范围选择包含两个；日期时间选择可以在底部追加时间栏。
  */
 export class DatePickerLayer extends FloatingLayer {
   private readonly panels: CalendarPanel[]
+  private readonly footer?: SubModulesOpt
 
   constructor(opts: {
     target: HTMLElement
     panels: CalendarPanel[]
+    /** 面板下方追加的内容，如时间选择栏 */
+    footer?: SubModulesOpt
     onClose?: () => void
   }) {
     super({ target: opts.target, placement: 'bottomLeft', offset: 6, onClose: opts.onClose })
@@ -20,6 +24,7 @@ export class DatePickerLayer extends FloatingLayer {
       this.el.classList.add('wok-ui-ext-date-range-popup')
     }
     this.panels = opts.panels
+    this.footer = opts.footer
   }
 
   protected buildContent(): void {
@@ -32,6 +37,9 @@ export class DatePickerLayer extends FloatingLayer {
       })
     } else {
       this.addChild(this.panels[0])
+    }
+    if (this.footer) {
+      this.addChild(this.footer)
     }
   }
 

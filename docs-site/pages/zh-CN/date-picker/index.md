@@ -41,6 +41,23 @@ new DateRangePicker({})
 
 <br>
 
+## 日期时间
+
+使用 `DateTimePicker` 同时选择日期和时间。弹层底部为时间选择栏，分钟默认 60 个选项（间隔 1 分钟）。点选日期或调整时间不会立即生效，点击「确定」后才提交并触发 `onChange`；点击外部或按 Esc 取消本次修改。可通过 `defaultTime` 设置默认时分，`minuteStep` 调整分钟选项间隔。
+
+```ts
+new DateTimePicker({
+  defaultTime: { hour: 9, minute: 0 }
+})
+```
+
+<br>
+
+```demo @docs/pages/demos/date-picker/demo8.ts
+```
+
+<br>
+
 ## 默认值
 
 通过 `value` 传入初始值。日期范围的起止日期相同时（例如选择“今天”），也是一个合法的完整区间。
@@ -158,6 +175,21 @@ new DateRangePicker({
 | disabled | `boolean` | `false` | 是否禁用 |
 | disabledDate | `(date: Date) => boolean` | — | 禁用特定日期的回调 |
 | onChange | `(date?: Date) => void` | — | 日期变化时的回调 |
+
+### DateTimePicker
+
+| 参数 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| value | `Date` | — | 初始日期时间（含时分） |
+| placeholder | `string` | `请选择日期时间` | 占位提示文字 |
+| required | `boolean \| string` | — | 是否必填，字符串为自定义错误信息 |
+| min | `Date \| { min: Date; errMsg: string }` | — | 最小日期时间，面板按天禁用、校验按完整时间比较 |
+| max | `Date \| { max: Date; errMsg: string }` | — | 最大日期时间，面板按天禁用、校验按完整时间比较 |
+| disabled | `boolean` | `false` | 是否禁用 |
+| disabledDate | `(date: Date) => boolean` | — | 禁用特定日期的回调 |
+| defaultTime | `{ hour: number; minute: number }` | `{ hour: 0, minute: 0 }` | 无初始值时的默认时分 |
+| minuteStep | `number` | `1` | 分钟选项间隔 |
+| onChange | `(date?: Date) => void` | — | 点击确定后日期时间变化的回调 |
 
 ### DateRangePicker
 

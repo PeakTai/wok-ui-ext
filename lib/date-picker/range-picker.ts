@@ -1,17 +1,18 @@
-import { DivModule } from 'wok-ui'
+import { FormInput, getI18n, ValidateResult } from 'wok-ui'
 import { CalendarPanel } from './calendar-panel'
 import { DatePickerLayer } from './layer'
 import { formatDate, compareDate, addMonths, combineDateConstraints } from './date-utils'
 
 export type DateRange = [Date, Date]
 
-export class DateRangePicker extends DivModule {
+export class DateRangePicker extends FormInput {
   private value?: DateRange
   /** 是否已选好开始日期、正在等待选择结束日期 */
   private picking = false
   private hoveredDate?: Date
   private popup?: DatePickerLayer
   private textEl?: HTMLElement
+  private triggerEl!: HTMLElement
 
   constructor(
     private readonly opts: {
@@ -25,7 +26,8 @@ export class DateRangePicker extends DivModule {
       onChange?: (range?: DateRange) => void
     }
   ) {
-    super('wok-ui-ext-date-range-picker wok-ui-ext-date-picker')
+    super('wok-ui-ext-date-range-picker')
+    this.el.classList.add('wok-ui-ext-date-picker')
     this.value = opts.value
     this.addChild({
       classNames: ['wok-ui-ext-date-picker-trigger', this.opts.disabled ? 'disabled' : ''],
@@ -43,6 +45,9 @@ export class DateRangePicker extends DivModule {
       onClick: () => {
         if (this.opts.disabled) return
         this.togglePopup()
+      },
+      postHandle: el => {
+        this.triggerEl = el
       }
     })
   }
@@ -143,7 +148,62 @@ export class DateRangePicker extends DivModule {
     this.hoveredDate = undefined
     this.popup?.destroy()
     this.updateText()
+    this.validate()
     this.opts.onChange?.(this.value)
+  }
+
+  private validateResult(): ValidateResult {
+    if (!this.value) {
+      if (this.opts.required) {
+        return {
+          valid: false,
+          msg:
+            typeof this.opts.required === 'string'
+              ? this.opts.required
+              : getI18n().buildMsg('form-err-required')
+        }
+      }
+      return { valid: true }
+    }
+    const [start, end] = this.value
+    if (this.opts.min) {
+      const minDate = this.opts.min instanceof Date ? this.opts.min : this.opts.min.min
+      if (compareDate(start, minDate) < 0) {
+        return {
+          valid: false,
+          msg:
+            this.opts.min instanceof Date
+              ? getI18n().buildMsg('form-err-min', formatDate(minDate))
+              : this.opts.min.errMsg
+        }
+      }
+    }
+    if (this.opts.max) {
+      const maxDate = this.opts.max instanceof Date ? this.opts.max : this.opts.max.max
+      if (compareDate(end, maxDate) > 0) {
+        return {
+          valid: false,
+          msg:
+            this.opts.max instanceof Date
+              ? getI18n().buildMsg('form-err-max', formatDate(maxDate))
+              : this.opts.max.errMsg
+        }
+      }
+    }
+    return { valid: true }
+  }
+
+  validate(): boolean {
+    const validateRes = this.validateResult()
+    // 根据是否有效，显示反馈信息
+    if (validateRes.valid) {
+      this.triggerEl.classList.remove('invalid')
+      this.hideInvalidFeedback()
+    } else {
+      this.triggerEl.classList.add('invalid')
+      this.showInvalidFeedback(validateRes.msg)
+    }
+    return validateRes.valid
   }
 
   override destroy(): void {

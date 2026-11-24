@@ -1,6 +1,7 @@
 import { DivModule } from 'wok-ui'
 import { MenuItemData, ItemContext } from './types'
 import { attachTooltip, TooltipBinding } from '../tooltip'
+import { resolveIcon } from '../icons'
 
 /**
  * 叶子菜单项模块。
@@ -25,7 +26,7 @@ export class LeafItem extends DivModule {
     // 图标
     this.addChild({
       classNames: 'wok-ui-ext-menu-item-icon',
-      children: item.icon ?? []
+      children: item.icon ? resolveIcon(item.icon) : []
     })
 
     // 标签

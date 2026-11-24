@@ -113,11 +113,13 @@ new Menu({
 
 ## 类型
 
+其中 `IconInput` 类型详见 [图标](/zh-CN/icons.html)。
+
 ```ts
 interface MenuItemData {
   key: string
   label: string
-  icon?: Module
+  icon?: IconInput
   children?: MenuItemData[]
 }
 ```

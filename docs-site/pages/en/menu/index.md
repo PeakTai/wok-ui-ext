@@ -113,11 +113,13 @@ new Menu({
 
 ## Types
 
+See [Icons](/en/icons.html) for the `IconInput` type.
+
 ```ts
 interface MenuItemData {
   key: string
   label: string
-  icon?: Module
+  icon?: IconInput
   children?: MenuItemData[]
 }
 ```

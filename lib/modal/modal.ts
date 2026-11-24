@@ -4,13 +4,11 @@ import {
   Animation,
   ConvertibleModule,
   DivModule,
-  RemoteSvgIcon,
-  SubModulesOpt,
-  SvgIcon
+  SubModulesOpt
 } from 'wok-ui'
 import { Button } from '../button'
 import { getWokUiExtI18n } from '../i18n'
-import { IconTimes } from '../icons'
+import { IconInput, IconTimes, resolveIcon } from '../icons'
 /**
  * 模态框选项
  */
@@ -22,7 +20,7 @@ export interface ModalOptions {
   /**
    * 标题图标，无图标不出现图标.
    */
-  titleIcon?: SvgIcon | RemoteSvgIcon
+  titleIcon?: IconInput
   /**
    * 是否出现关闭按钮.只在有标题的情况下有效,如果设置为true会在右上角出现关闭图标.默认为 true.
    */
@@ -117,7 +115,7 @@ export class Modal extends DivModule {
                 tag: 'h3',
                 children: add => {
                   if (opts.titleIcon) {
-                    add(opts.titleIcon, ' ')
+                    add(resolveIcon(opts.titleIcon), ' ')
                   }
                   add(title)
                 }

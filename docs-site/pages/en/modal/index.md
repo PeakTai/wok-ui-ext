@@ -176,7 +176,7 @@ const modal = showModal({
 | Parameter | Type | Default | Description |
 |------|------|--------|------|
 | title | `string` | — | Title |
-| titleIcon | `Module` | — | Title icon |
+| titleIcon | [`IconInput`](/en/icons.html) | — | Title icon |
 | body | `SubModulesOpt` | — | Body content |
 | buttons | `{ confirm?: string; cancel?: string }` | — | Button configuration |
 | closeBtn | `boolean` | `true` | Whether to show the close button |

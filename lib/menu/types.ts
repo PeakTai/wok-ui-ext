@@ -1,4 +1,4 @@
-import { Module } from 'wok-ui'
+import { IconInput } from '../icons'
 
 /**
  * 菜单项数据。
@@ -6,8 +6,8 @@ import { Module } from 'wok-ui'
 export interface MenuItemData {
   /** 唯一标识 */
   key: string
-  /** 图标模块（可选，传入 SvgIcon / RemoteSvgIcon 等 Module 实例） */
-  icon?: Module
+  /** 图标（可选，支持 SvgIcon / RemoteSvgIcon 实例、CSS class、内联 SVG 或图片 URL） */
+  icon?: IconInput
   /** 显示文本 */
   label: string
   /** 是否禁用 */

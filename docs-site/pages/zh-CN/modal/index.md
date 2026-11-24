@@ -176,7 +176,7 @@ const modal = showModal({
 | 参数 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
 | title | `string` | — | 标题 |
-| titleIcon | `Module` | — | 标题图标 |
+| titleIcon | [`IconInput`](/zh-CN/icons.html) | — | 标题图标 |
 | body | `SubModulesOpt` | — | 主体内容 |
 | buttons | `{ confirm?: string; cancel?: string }` | — | 按钮配置 |
 | closeBtn | `boolean` | `true` | 是否显示关闭按钮 |

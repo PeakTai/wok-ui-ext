@@ -4,6 +4,7 @@ import { getArrowSvg, hasSelectedDescendant } from './utils'
 import { LeafItem } from './leaf-item'
 import { showContextMenu, ContextMenuItem } from '../context-menu'
 import { attachTooltip, TooltipBinding } from '../tooltip'
+import { resolveIcon } from '../icons'
 
 /**
  * 子菜单模块。
@@ -36,7 +37,7 @@ export class SubMenuComp extends DivModule {
         // 图标
         add({
           classNames: 'wok-ui-ext-menu-item-icon',
-          children: item.icon ?? []
+          children: item.icon ? resolveIcon(item.icon) : []
         })
         // 标签
         add({

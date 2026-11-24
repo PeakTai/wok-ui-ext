@@ -35,6 +35,8 @@ export type { MenuItemData, MenuOptions } from './types'
  */
 export class Menu extends DivModule {
   private nodes: Array<LeafItem | SubMenuComp> = []
+  private allNodes: Array<{ setCollapsed: (v: boolean) => void }> = []
+  private ctx!: ItemContext
 
   constructor(opts: MenuOptions) {
     super('wok-ui-ext-menu')
@@ -45,18 +47,19 @@ export class Menu extends DivModule {
       this.el.style.setProperty('--wok-ui-ext-menu-width', `${opts.width}px`)
     }
 
-    const ctx: ItemContext = {
+    this.ctx = {
       selectedKey: opts.selectedKey,
       collapsed: opts.collapsed ?? false,
       onClick: opts.onClick,
       setSelectedKey: (key: string) => {
-        ctx.selectedKey = key
+        this.ctx.selectedKey = key
         this.nodes.forEach(n => n.setSelected(key))
-      }
+      },
+      registerNode: (node) => this.allNodes.push(node)
     }
 
     opts.items.forEach(item => {
-      const node = createItemModule(item, 0, ctx)
+      const node = createItemModule(item, 0, this.ctx)
       this.nodes.push(node)
       this.addChild(node)
     })
@@ -70,6 +73,8 @@ export class Menu extends DivModule {
   /** 设置折叠模式 */
   setCollapsed(collapsed: boolean) {
     this.el.classList.toggle('wok-ui-ext-menu-collapsed', collapsed)
+    this.ctx.collapsed = collapsed
+    this.allNodes.forEach(n => n.setCollapsed(collapsed))
   }
 
   /** 获取当前选中 key */

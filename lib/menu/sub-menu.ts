@@ -3,6 +3,7 @@ import { MenuItemData, ItemContext } from './types'
 import { getArrowSvg, hasSelectedDescendant } from './utils'
 import { LeafItem } from './leaf-item'
 import { showContextMenu, ContextMenuItem } from '../context-menu'
+import { attachTooltip, TooltipBinding } from '../tooltip'
 
 /**
  * 子菜单模块。
@@ -10,12 +11,15 @@ import { showContextMenu, ContextMenuItem } from '../context-menu'
  */
 export class SubMenuComp extends DivModule {
   private open: boolean
+  private label: string
   private childNodes: Array<LeafItem | SubMenuComp> = []
   private headerEl: HTMLElement
   private childrenContainerEl: HTMLElement
+  private tooltip?: TooltipBinding
 
   constructor(item: MenuItemData, level: number, ctx: ItemContext) {
     super('wok-ui-ext-menu-submenu')
+    this.label = item.label
     if (level > 0) this.el.dataset.level = String(level)
 
     this.open = hasSelectedDescendant(item, ctx.selectedKey)
@@ -83,6 +87,10 @@ export class SubMenuComp extends DivModule {
         this.childrenContainerEl.style.display = this.open ? '' : 'none'
       })
     }
+
+    // 折叠态下绑定 tooltip
+    if (ctx.collapsed) this.bindTooltip()
+    ctx.registerNode(this)
   }
 
   /** 更新选中态 */
@@ -92,6 +100,31 @@ export class SubMenuComp extends DivModule {
       '.wok-ui-ext-menu-item.selected'
     )
     this.headerEl.classList.toggle('sub-active', hasSelected)
+  }
+
+  /** 折叠状态变化 */
+  setCollapsed(v: boolean) {
+    if (v) this.bindTooltip()
+    else this.unbindTooltip()
+  }
+
+  private bindTooltip() {
+    if (this.tooltip) return
+    this.tooltip = attachTooltip({
+      target: this.headerEl,
+      content: this.label,
+      placement: 'right'
+    })
+  }
+
+  private unbindTooltip() {
+    this.tooltip?.destroy()
+    this.tooltip = undefined
+  }
+
+  destroy(): void {
+    this.unbindTooltip()
+    super.destroy()
   }
 }
 

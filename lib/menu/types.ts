@@ -38,4 +38,6 @@ export interface ItemContext {
   collapsed: boolean
   onClick?: (key: string) => void
   setSelectedKey: (key: string) => void
+  /** 注册子节点，便于 collapsed 切换时通知 */
+  registerNode: (node: { setCollapsed: (v: boolean) => void }) => void
 }

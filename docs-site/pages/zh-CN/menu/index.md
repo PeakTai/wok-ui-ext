@@ -65,6 +65,8 @@ new Menu({
 
 ## 折叠模式
 
+折叠模式下仅显示图标，鼠标悬停时会在右侧弹出 tooltip 提示完整的菜单名称，方便在折叠状态下快速识别菜单项。
+
 ```ts
 new Menu({
   collapsed: true,

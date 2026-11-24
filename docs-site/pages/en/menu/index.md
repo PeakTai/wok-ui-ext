@@ -65,6 +65,8 @@ new Menu({
 
 ## Collapsed Mode
 
+In collapsed mode, only icons are displayed. Hovering over an icon reveals a tooltip on the right showing the full menu label, making it easy to identify items without expanding the menu.
+
 ```ts
 new Menu({
   collapsed: true,

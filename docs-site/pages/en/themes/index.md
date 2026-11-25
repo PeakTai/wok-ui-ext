@@ -137,6 +137,7 @@ Set by `applyTheme()`, used by custom components.
 | `--text-muted` | Muted text |
 | `--text-placeholder` | Placeholder text |
 | `--text-disabled` | Disabled text |
+| `--text-inverse` | Inverse text (on dark or primary backgrounds) |
 
 **Border Colors**
 
@@ -156,6 +157,7 @@ Set by `applyTheme()`, used by custom components.
 | `--bg-sidebar` | Sidebar background |
 | `--bg-hover` | Hover state background |
 | `--bg-active` | Active state background |
+| `--bg-mask` | Mask background (modals, drawers, loading) |
 
 **Shadows**
 
@@ -197,6 +199,45 @@ Set by `applyTheme()`, used by custom components.
 | Variable | Default |
 |------|--------|
 | `--transition-speed` | 0.15s |
+
+### Spacing (Fixed Baseline)
+
+Spacing variables are a globally fixed design baseline defined in the style entry. They **do not change with themes and cannot be modified via `applyTheme()` / `setTheme()`**, which keeps spacing identical across all themes.
+
+Padding — `--padding-*`
+
+| Variable | Usage |
+|------|------|
+| `--padding-xxs` | Extra tight: vertical padding of small controls, adjacent elements |
+| `--padding-xs` | Tooltips, compact popovers, vertical padding of controls |
+| `--padding-sm` | List items, tags, compact blocks |
+| `--padding-md` | Cards, default content areas, horizontal padding of controls |
+| `--padding-lg` | Modals, drawers, panels |
+| `--padding-xl` | Large blocks |
+| `--padding-xxl` | Page headers, result pages |
+
+Gaps — `--gap-*`
+
+| Variable | Usage |
+|------|------|
+| `--gap-xxs` | Adjacent elements |
+| `--gap-xs` | Icon and text, button groups |
+| `--gap-sm` | Block-level elements in the same group |
+| `--gap-md` | Tabs, loading groups |
+| `--gap-lg` | Sections, form groups |
+| `--gap-xl` | Page-level blocks |
+
+To directly create spacing, use the [Spacer](/en/spacer.html) components, whose sizes come from the `--gap-*` variables above.
+
+### Line Height (Fixed Baseline)
+
+Like spacing, line-height variables are defined in the style entry. They **do not change with themes and cannot be modified via `applyTheme()` / `setTheme()`**, keeping text rhythm consistent across all themes.
+
+| Variable | Value | Usage |
+|----------|-------|-------|
+| `--line-height-sm` | 1.4 | Compact short text: popovers, titles, small text |
+| `--line-height-md` | 1.5 | Default body text + controls |
+| `--line-height-lg` | 1.6 | Multi-line paragraphs: alerts, panels, emphasis |
 
 ### Usage Example
 

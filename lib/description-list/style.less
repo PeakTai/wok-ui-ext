@@ -30,7 +30,7 @@
     font-size: var(--font-size-small);
     color: var(--text-primary);
     word-break: break-word;
-    line-height: 1.5;
+    line-height: var(--line-height-md);
   }
 
   // 无边框：间距通过单元格 padding 控制
@@ -39,28 +39,28 @@
     &.layout-horizontal {
       td.wok-ui-ext-description-label,
       td.wok-ui-ext-description-content {
-        padding: 6px 0;
+        padding: var(--padding-xs) 0;
       }
 
       td.wok-ui-ext-description-label {
-        padding-right: 8px;
+        padding-right: var(--padding-xs);
         overflow: hidden;
         text-overflow: ellipsis;
       }
 
       td.wok-ui-ext-description-content {
-        padding-right: var(--dl-gap, 24px);
+        padding-right: var(--dl-gap, var(--gap-lg));
       }
     }
 
     // 标题在上：label 与 content 各占一行
     &:not(.layout-horizontal) {
       td.wok-ui-ext-description-label {
-        padding: 6px calc(var(--dl-gap, 24px) / 2) 0;
+        padding: var(--padding-xs) calc(var(--dl-gap, var(--gap-lg)) / 2) 0;
       }
 
       td.wok-ui-ext-description-content {
-        padding: 6px calc(var(--dl-gap, 24px) / 2) var(--dl-gap, 24px);
+        padding: var(--padding-xs) calc(var(--dl-gap, var(--gap-lg)) / 2) var(--dl-gap, var(--gap-lg));
       }
     }
   }
@@ -68,7 +68,7 @@
   // 带边框：外框由外层容器提供（圆角完整），内部网格由单元格右/下边框组成
   &.bordered {
     td {
-      padding: 12px 16px;
+      padding: var(--padding-sm) var(--padding-md);
       border-right: 1px solid var(--border-light);
       border-bottom: 1px solid var(--border-light);
     }

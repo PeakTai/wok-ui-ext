@@ -1,9 +1,9 @@
 .wok-ui-ext-tag {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--gap-xs);
   height: 24px;
-  padding: 0 12px;
+  padding: 0 var(--padding-sm);
   border-radius: var(--radius-full);
   border: 1px solid transparent;
   background-color: var(--border-light);
@@ -21,7 +21,7 @@
     flex-shrink: 0;
 
     & > .wok-ui-svg-icon {
-      font-size: 12px;
+      font-size: var(--font-size-xs);
     }
   }
 
@@ -96,12 +96,12 @@
   // 尺寸
   &.wok-ui-ext-tag-small {
     height: 20px;
-    padding: 0 8px;
+    padding: 0 var(--padding-xs);
   }
 
   &.wok-ui-ext-tag-large {
     height: 32px;
-    padding: 0 16px;
+    padding: 0 var(--padding-md);
     font-size: var(--font-size-small);
   }
 
@@ -114,7 +114,7 @@
   &.selected {
     background-color: var(--color-primary);
     border-color: var(--color-primary);
-    color: #fff;
+    color: var(--text-inverse);
 
     &.wok-ui-ext-tag-success {
       background-color: var(--color-success);
@@ -137,7 +137,7 @@
     }
 
     .wok-ui-ext-tag-close {
-      color: #fff;
+      color: var(--text-inverse);
     }
   }
 
@@ -157,7 +157,7 @@
     }
 
     & > .wok-ui-svg-icon {
-      font-size: 11px;
+      font-size: var(--font-size-xs);
     }
   }
 

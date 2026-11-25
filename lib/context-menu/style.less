@@ -10,14 +10,14 @@
   z-index: 1100;
 
   & > .wok-ui-ext-context-menu-item {
-    padding: 10px 20px;
+    padding: var(--padding-sm) var(--padding-md);
     cursor: pointer;
     background-color: var(--bg-card);
     border-bottom: 1px solid var(--color-border);
     font-size: var(--font-size-body);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--gap-xs);
 
     &:last-child {
       border-bottom: none;
@@ -29,12 +29,12 @@
 
     &.active {
       background: var(--color-primary);
-      color: white;
+      color: var(--text-inverse);
       pointer-events: none;
       cursor: default;
 
       .icon {
-        color: white;
+        color: var(--text-inverse);
       }
     }
 

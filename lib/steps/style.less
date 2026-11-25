@@ -48,7 +48,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 0 8px;
+  padding: 0 var(--padding-xs);
   box-sizing: border-box;
 }
 
@@ -60,9 +60,9 @@
   justify-content: center;
   width: @step-icon-size;
   height: @step-icon-size;
-  font-size: 14px;
+  font-size: var(--font-size-small);
   font-weight: var(--font-weight-medium);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   box-sizing: border-box;
   background: var(--bg-content);
   border: 1px solid @step-tail-color;
@@ -96,22 +96,22 @@
 
 // ─── 主体 ────────────────────────────────────────────
 .wok-ui-ext-step-body {
-  margin-top: 8px;
-  padding: 0 8px;
+  margin-top: var(--gap-xs);
+  padding: 0 var(--padding-xs);
   text-align: center;
   box-sizing: border-box;
 }
 
 .wok-ui-ext-step-title {
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-md);
   color: var(--text-primary);
 }
 
 .wok-ui-ext-step-description {
-  margin-top: 4px;
-  font-size: 12px;
-  line-height: 1.5;
+  margin-top: var(--gap-xxs);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-md);
   color: var(--text-secondary);
 }
 
@@ -137,7 +137,7 @@
   .wok-ui-ext-step-icon {
     border-color: @step-primary;
     background: @step-primary;
-    color: #fff;
+    color: var(--text-inverse);
   }
 
   .wok-ui-ext-step-title {
@@ -161,7 +161,7 @@
   .wok-ui-ext-step-icon {
     border-color: @step-danger;
     background: @step-danger;
-    color: #fff;
+    color: var(--text-inverse);
   }
 
   .wok-ui-ext-step-title,
@@ -231,7 +231,7 @@
   .wok-ui-ext-step-body {
     flex: 1;
     margin-top: 0;
-    margin-left: 12px;
+    margin-left: var(--gap-sm);
     padding: 0;
     text-align: left;
   }

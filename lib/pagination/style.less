@@ -1,6 +1,6 @@
 .wok-ui-ext-pagination {
   display: inline-flex;
-  gap: 8px;
+  gap: var(--gap-xs);
   flex-wrap: wrap;
   align-items: center;
 
@@ -17,7 +17,7 @@
 
   // 简洁模式
   &.wok-ui-ext-pagination-simple {
-    gap: 4px;
+    gap: var(--gap-xxs);
 
     .wok-ui-ext-page-item.wok-ui-ext-btn {
       width: 28px;
@@ -27,7 +27,7 @@
     .wok-ui-ext-page-info {
       min-width: 60px;
       text-align: center;
-      font-size: 14px;
+      font-size: var(--font-size-small);
       color: var(--text-secondary);
       white-space: nowrap;
     }

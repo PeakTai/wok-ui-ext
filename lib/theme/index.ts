@@ -73,6 +73,7 @@ export function applyTheme(name: ThemeName): void {
   style.setProperty('--text-muted', config.textMuted)
   style.setProperty('--text-placeholder', config.textPlaceholder)
   style.setProperty('--text-disabled', config.textDisabled)
+  style.setProperty('--text-inverse', config.textInverse)
 
   /* 边框颜色 */
   style.setProperty('--border-light', config.borderLight)
@@ -86,6 +87,7 @@ export function applyTheme(name: ThemeName): void {
   style.setProperty('--bg-sidebar', config.bgSidebar)
   style.setProperty('--bg-hover', config.bgHover)
   style.setProperty('--bg-active', config.bgActive)
+  style.setProperty('--bg-mask', config.bgMask)
 
   /* 阴影 */
   style.setProperty('--shadow-sm', config.shadowSm)

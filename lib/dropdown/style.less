@@ -10,18 +10,18 @@
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--color-border);
   min-width: 180px;
-  padding: 8px 0;
+  padding: var(--padding-xs) 0;
   overflow: hidden;
 
   .wok-ui-ext-dropdown-item {
-    padding: 10px 20px;
+    padding: var(--padding-sm) var(--padding-md);
     font-size: var(--font-size-small);
     color: var(--text-secondary);
     cursor: pointer;
     transition: background var(--transition-speed) ease;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--gap-xs);
 
     &:hover {
       background: var(--bg-hover);
@@ -29,11 +29,11 @@
 
     &.active {
       background: var(--color-primary);
-      color: white;
+      color: var(--text-inverse);
       pointer-events: none;
 
       i {
-        color: white;
+        color: var(--text-inverse);
       }
     }
 

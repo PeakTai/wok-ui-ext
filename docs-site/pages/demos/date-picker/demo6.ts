@@ -1,5 +1,5 @@
 import { Spacer, HBox, FullRenderingModule } from 'wok-ui'
-import { DatePicker, DateRangePicker } from 'wok-ui-ext'
+import { DatePicker, DateRangePicker, showToast } from 'wok-ui-ext'
 
 export default class Demo6 extends FullRenderingModule {
   constructor() {
@@ -14,12 +14,12 @@ export default class Demo6 extends FullRenderingModule {
           new DatePicker({
             placeholder: 'Single Date',
             onChange: date => {
-              console.log('Single date selected:', date)
+              showToast({ type: 'info', text: `已选日期: ${date ?? '清空'}` })
             }
           }),
           new DateRangePicker({
             onChange: range => {
-              console.log('Range selected:', range)
+              showToast({ type: 'info', text: `已选范围: ${range?.[0] ?? '...'} ~ ${range?.[1] ?? '...'}` })
             }
           })
         ] })

@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(8, 20, 40, 0.6);
+  background: var(--bg-mask);
   backdrop-filter: blur(5px);
   display: flex;
   align-items: center;
@@ -34,19 +34,19 @@
     }
 
     .wok-ui-ext-modal-header {
-      padding: 20px 24px 8px 24px;
+      padding: var(--padding-md) var(--padding-lg) var(--padding-xs) var(--padding-lg);
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-shrink: 0;
 
       h3 {
-        font-size: 20px;
-        font-weight: 600;
+        font-size: var(--font-size-title-large);
+        font-weight: var(--font-weight-semibold);
         color: var(--text-primary);
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: var(--gap-xs);
 
         svg {
           font-size: 20px;
@@ -77,19 +77,19 @@
     }
 
     .wok-ui-ext-modal-body {
-      padding: 8px 24px 24px 24px;
+      padding: var(--padding-xs) var(--padding-lg) var(--padding-lg) var(--padding-lg);
       color: var(--text-secondary);
-      font-size: 16px;
-      line-height: 1.5;
+      font-size: var(--font-size-body);
+      line-height: var(--line-height-md);
       flex-grow: 1;
       overflow: auto;
     }
 
     .wok-ui-ext-modal-footer {
-      padding: 16px 24px;
+      padding: var(--padding-md) var(--padding-lg);
       display: flex;
       justify-content: flex-end;
-      gap: 12px;
+      gap: var(--gap-sm);
       border-top: 1px solid var(--border-light);
       flex-shrink: 0;
     }

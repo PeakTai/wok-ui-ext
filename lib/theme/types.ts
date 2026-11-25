@@ -29,6 +29,7 @@ export interface ThemeConfig {
   textMuted: string
   textPlaceholder: string
   textDisabled: string
+  textInverse: string
   borderLight: string
   borderMedium: string
   borderDark: string
@@ -38,6 +39,7 @@ export interface ThemeConfig {
   bgSidebar: string
   bgHover: string
   bgActive: string
+  bgMask: string
   shadowSm: string
   shadowMd: string
   shadowLg: string

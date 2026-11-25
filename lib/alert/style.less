@@ -1,12 +1,12 @@
 .wok-ui-ext-alert {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
-  padding: 14px 16px;
+  gap: var(--gap-sm);
+  padding: var(--padding-sm) var(--padding-md);
   border-radius: var(--radius-md);
   border: 1px solid transparent;
   font-size: var(--font-size-small);
-  line-height: 1.6;
+  line-height: var(--line-height-lg);
   position: relative;
   transition: opacity var(--transition-speed), transform var(--transition-speed);
 
@@ -35,7 +35,7 @@
   &-title {
     font-weight: var(--font-weight-semibold);
     font-size: var(--font-size-body);
-    margin-bottom: 4px;
+    margin-bottom: var(--gap-xxs);
   }
 
   &-content {
@@ -68,12 +68,12 @@
 
     &:hover {
       opacity: 1;
-      background: rgba(0, 0, 0, 0.08);
+      background: var(--bg-hover);
     }
 
     &:active {
       opacity: 1;
-      background: rgba(0, 0, 0, 0.14);
+      background: var(--bg-active);
     }
   }
 

@@ -3,18 +3,18 @@
   // 带边框模式
   &.bordered {
     border: 1px solid var(--border-light);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-lg);
   }
 
   // 尺寸
   &.small .wok-ui-ext-list-item {
-    padding: 8px 12px;
+    padding: var(--padding-xs) var(--padding-sm);
   }
   &.large .wok-ui-ext-list-item {
-    padding: 16px 20px;
+    padding: var(--padding-md);
   }
   .wok-ui-ext-list-item {
-    padding: 12px 16px;
+    padding: var(--padding-sm) var(--padding-md);
     border-bottom: 1px solid var(--border-light);
 
     &:last-child {
@@ -23,6 +23,23 @@
 
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: var(--gap-sm);
+
+    .wok-ui-ext-list-item-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .wok-ui-ext-list-item-title {
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .wok-ui-ext-list-item-desc {
+      margin-top: 2px; // 标题与描述的紧凑间距
+      font-size: var(--font-size-small);
+      color: var(--text-tertiary);
+    }
   }
 }

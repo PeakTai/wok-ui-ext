@@ -37,9 +37,6 @@ export class DateRangePicker extends FormInput {
         innerText: this.rangeText(),
         postHandle: el => {
           this.textEl = el
-          if (!this.value) {
-            el.parentElement?.classList.add('placeholder')
-          }
         }
       },
       onClick: () => {
@@ -48,6 +45,9 @@ export class DateRangePicker extends FormInput {
       },
       postHandle: el => {
         this.triggerEl = el
+        if (!this.value) {
+          el.classList.add('placeholder')
+        }
       }
     })
   }
@@ -67,9 +67,9 @@ export class DateRangePicker extends FormInput {
     if (this.textEl) {
       this.textEl.innerText = this.rangeText()
       if (this.value) {
-        this.textEl.parentElement?.classList.remove('placeholder')
+        this.triggerEl.classList.remove('placeholder')
       } else {
-        this.textEl.parentElement?.classList.add('placeholder')
+        this.triggerEl.classList.add('placeholder')
       }
     }
   }

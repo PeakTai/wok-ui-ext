@@ -1,11 +1,11 @@
 // 结果页
 .wok-ui-ext-result {
   text-align: center;
-  padding: 48px 24px;
+  padding: var(--padding-xxl) var(--padding-lg);
 
   .wok-ui-ext-result-icon {
     font-size: 64px;
-    margin-bottom: 20px;
+    margin-bottom: var(--gap-lg);
     line-height: 1;
 
     svg {
@@ -14,35 +14,35 @@
     }
 
     &.success {
-      color: var(--color-success, #52c41a);
+      color: var(--color-success);
     }
     &.error {
-      color: var(--color-danger, #ff4d4f);
+      color: var(--color-danger);
     }
     &.info {
-      color: var(--color-primary, var(--brand));
+      color: var(--color-primary);
     }
     &.warning {
-      color: var(--color-warning, #faad14);
+      color: var(--color-warning);
     }
   }
 
   .wok-ui-ext-result-title {
-    font-size: var(--font-size-large);
+    font-size: var(--font-size-title);
     color: var(--text-primary);
-    font-weight: 600;
-    margin-bottom: 8px;
-    line-height: 1.4;
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--gap-xs);
+    line-height: var(--line-height-sm);
   }
 
   .wok-ui-ext-result-subtitle {
-    font-size: var(--font-size-normal);
+    font-size: var(--font-size-body);
     color: var(--text-tertiary);
-    margin-bottom: 24px;
-    line-height: 1.5;
+    margin-bottom: var(--gap-lg);
+    line-height: var(--line-height-md);
   }
 
   .wok-ui-ext-result-extra {
-    margin-top: 8px;
+    margin-top: var(--gap-xs);
   }
 }

@@ -1,13 +1,13 @@
 // 树
 ul.wok-ui-ext-tree {
   font-size: var(--font-size-small);
-  line-height: 1.5;
+  line-height: var(--line-height-md);
   user-select: none;
   list-style: none;
 
   // 节点
   li.wok-ui-ext-tree-node {
-    margin-top: 4px;
+    margin-top: var(--gap-xxs);
     overflow: hidden;
 
     // 节点信息
@@ -15,19 +15,19 @@ ul.wok-ui-ext-tree {
       overflow: hidden;
       display: flex;
       align-items: center;
-      padding: 10px 12px 10px 8px;
+      padding: var(--padding-sm) var(--padding-sm) var(--padding-sm) var(--padding-xs);
       border-radius: var(--wok-ui-ext-tree-node-radius, var(--radius-md));
       color: var(--text-secondary);
       font-size: var(--font-size-small);
       transition: background var(--transition-speed) ease,
         border-radius var(--transition-speed) ease;
-      gap: 8px;
+      gap: var(--gap-xs);
 
       // 折叠图标
       .wok-ui-ext-icon-fold {
         text-align: center;
         color: var(--color-primary);
-        font-size: 15px;
+        font-size: var(--font-size-body);
         cursor: pointer;
         transition: color var(--transition-speed);
         flex-shrink: 0;
@@ -88,10 +88,10 @@ ul.wok-ui-ext-tree {
   // 拖动图标，顶点是事件的坐标点，通过偏移变换，将图标展示在中间
   .wok-ui-ext-tree-node-dragging-img {
     position: fixed;
-    padding: 10px 12px 10px 24px;
+    padding: var(--padding-sm) var(--padding-sm) var(--padding-sm) var(--padding-lg);
     text-align: center;
     min-width: 150px;
-    font-size: 1rem;
+    font-size: var(--font-size-body);
     opacity: 0.8;
     cursor: move;
     user-select: none;
@@ -123,10 +123,10 @@ ul.wok-ui-ext-tree {
       &.wok-ui-ext-moving-in {
         background-color: var(--color-primary);
         border-radius: var(--wok-ui-ext-tree-selected-radius, var(--radius-xl));
-        color: white;
+        color: var(--text-inverse);
 
         .wok-ui-ext-icon-fold {
-          color: white !important;
+          color: var(--text-inverse) !important;
         }
       }
     }

@@ -4,12 +4,12 @@
 
   .wok-ui-ext-tabs-nav {
     display: flex;
-    gap: 16px;
+    gap: var(--gap-md);
     border-bottom: 2px solid var(--border-medium);
 
     .wok-ui-ext-tabs-tab {
-      padding: 12px 24px;
-      font-weight: 600;
+      padding: var(--padding-sm) var(--padding-lg);
+      font-weight: var(--font-weight-semibold);
       color: var(--text-tertiary);
       cursor: pointer;
       border: none;
@@ -43,6 +43,6 @@
   }
 
   .wok-ui-ext-tabs-content {
-    padding: 16px 0;
+    padding: var(--padding-md) 0;
   }
 }

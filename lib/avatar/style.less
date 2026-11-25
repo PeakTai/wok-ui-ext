@@ -11,12 +11,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--color-primary-soft, #e2edff); // 占位背景
-  color: var(--color-primary, #2d7ee9); // 图标颜色
+  background-color: var(--color-primary-soft); // 占位背景
+  color: var(--color-primary); // 图标颜色
   border-radius: var(--radius-circle, 50%);
   overflow: hidden; // 保证图片圆角裁切
   flex-shrink: 0; // 防止在 flex 布局中被压缩
-  border: 2px solid white;
+  border: 2px solid var(--text-inverse);
   box-shadow: var(--shadow-sm);
 
   // 图片样式（当有头像时）

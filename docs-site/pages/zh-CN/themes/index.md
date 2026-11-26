@@ -239,6 +239,30 @@ setTheme('default', {
 | `--line-height-md` | 1.5 | 默认正文 + 控件 |
 | `--line-height-lg` | 1.6 | 多行段落：alert、面板、强调信息 |
 
+### JS/TS 访问
+
+间距相关的 token 在 JS/TS 侧也有一份对应常量，便于给 `HBox` / `VBox` / `Grid` 等容器组件的 `gap` 参数传值，或拼接内联样式。
+
+```ts
+import { tokens } from 'wok-ui-ext'
+
+new HBox({ gap: tokens.gap.md })        // gap: 16px
+new VBox({ gap: tokens.gap.sm })        // gap: 12px
+new Grid({ gap: { row: tokens.gap.lg, col: tokens.gap.md } })
+
+// 拼接内联样式
+someDiv.style.padding = `${tokens.padding.lg}px`
+```
+
+可用字段：
+
+| 字段 | 档位 | 单位 |
+|------|------|------|
+| `tokens.padding` | `xxs` / `xs` / `sm` / `md` / `lg` / `xl` / `xxl` | px |
+| `tokens.gap` | `xxs` / `xs` / `sm` / `md` / `lg` / `xl` | px |
+
+字段值与上文 CSS 变量表一一对应，修改 token 时两侧会同步更新。
+
 ### 使用示例
 
 ```less

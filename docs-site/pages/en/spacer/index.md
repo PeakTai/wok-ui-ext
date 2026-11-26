@@ -61,3 +61,5 @@ new HSpacerTight()
 ## Relation to Spacing Tokens
 
 All spacers take their sizes from the global `--gap-*` variables. Spacing is a fixed design baseline: it does not change with themes and cannot be modified via `applyTheme()` / `setTheme()`. To adjust it globally, override these variables in your style entry. See the Spacing section of Themes for the full variable list.
+
+To pass `gap` to layout components like `HBox` / `VBox` from JS/TS, use the `tokens` constant — values match `--gap-*`. See the [JS/TS Access](/en/themes.html) section of Themes.

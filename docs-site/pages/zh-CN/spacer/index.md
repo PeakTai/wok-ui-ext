@@ -61,3 +61,5 @@ new HSpacerTight()
 ## 与间距 token 的关系
 
 所有垫片的尺寸均取自全局间距变量 `--gap-*`。间距是固定的设计基准，不随主题变化，也不能通过 `applyTheme()` / `setTheme()` 修改；若确需整体调整，只能在样式入口覆盖这些变量。具体变量见「主题设置」的间距小节。
+
+若要在 JS/TS 侧给 `HBox` / `VBox` 等容器组件的 `gap` 参数传值，可使用 `tokens` 常量，取值与 `--gap-*` 一致，详见「主题设置」的 [JS/TS 访问](/zh-CN/themes.html) 小节。

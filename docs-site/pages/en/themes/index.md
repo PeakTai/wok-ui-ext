@@ -239,6 +239,30 @@ Like spacing, line-height variables are defined in the style entry. They **do no
 | `--line-height-md` | 1.5 | Default body text + controls |
 | `--line-height-lg` | 1.6 | Multi-line paragraphs: alerts, panels, emphasis |
 
+### JS/TS Access
+
+Spacing tokens also have a JS/TS counterpart, useful for passing `gap` to layout components like `HBox` / `VBox` / `Grid`, or building inline styles.
+
+```ts
+import { tokens } from 'wok-ui-ext'
+
+new HBox({ gap: tokens.gap.md })        // gap: 16px
+new VBox({ gap: tokens.gap.sm })        // gap: 12px
+new Grid({ gap: { row: tokens.gap.lg, col: tokens.gap.md } })
+
+// Build inline styles
+someDiv.style.padding = `${tokens.padding.lg}px`
+```
+
+Available fields:
+
+| Field | Tiers | Unit |
+|-------|-------|------|
+| `tokens.padding` | `xxs` / `xs` / `sm` / `md` / `lg` / `xl` / `xxl` | px |
+| `tokens.gap` | `xxs` / `xs` / `sm` / `md` / `lg` / `xl` | px |
+
+Values match the CSS variable tables above; the two sides stay in sync when tokens change.
+
 ### Usage Example
 
 ```less

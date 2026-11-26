@@ -1,0 +1,1 @@
+import{L as e,O as t,z as n}from"./markdown-BXKUiBla.js";var r=class extends n{constructor(n){super(`wok-ui-ext-empty-state`),n.noBorder&&this.el.classList.add(`no-border`),this.addChild(new t,30,{tag:`p`,className:`desc`,innerText:n.text||e().buildMsg(`empty-text`)})}};export{r as t};

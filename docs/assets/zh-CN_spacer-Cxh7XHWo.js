@@ -17,4 +17,4 @@ import{$ as e,I as t,n,r,t as i}from"./markdown-c_ik2Bm2.js";import{n as a,t as 
 new HSpacerTight()
 \`\`\`
 
-<br>`),new o,new i("<br>\n\n## 与间距 token 的关系\n\n所有垫片的尺寸均取自全局间距变量 `--gap-*`。间距是固定的设计基准，不随主题变化，也不能通过 `applyTheme()` / `setTheme()` 修改；若确需整体调整，只能在样式入口覆盖这些变量。具体变量见「主题设置」的间距小节。")]}};(async()=>{t(),r(),await e().setLang(`zh-CN`),new s().mount(document.body)})();
+<br>`),new o,new i("<br>\n\n## 与间距 token 的关系\n\n所有垫片的尺寸均取自全局间距变量 `--gap-*`。间距是固定的设计基准，不随主题变化，也不能通过 `applyTheme()` / `setTheme()` 修改；若确需整体调整，只能在样式入口覆盖这些变量。具体变量见「主题设置」的间距小节。\n\n若要在 JS/TS 侧给 `HBox` / `VBox` 等容器组件的 `gap` 参数传值，可使用 `tokens` 常量，取值与 `--gap-*` 一致，详见「主题设置」的 [JS/TS 访问](/zh-CN/themes.html) 小节。")]}};(async()=>{t(),r(),await e().setLang(`zh-CN`),new s().mount(document.body)})();

@@ -11,7 +11,10 @@ export type TextAlign = 'left' | 'center' | 'right'
  */
 interface TextOptions {
   text: SubModulesOpt
+  /** 文本对齐方式 */
   align?: TextAlign
+  /** 自定义文字颜色，支持任意合法 CSS 颜色值 */
+  color?: string
   onClick?: (evt: MouseEvent) => void
 }
 
@@ -31,6 +34,9 @@ abstract class HeadingComponent extends Module {
     if (options.align) {
       this.el.style.textAlign = options.align
     }
+    if (options.color) {
+      this.el.style.color = options.color
+    }
     if (options.onClick) {
       this.el.addEventListener('click', options.onClick)
       this.el.classList.add('clickable')
@@ -49,6 +55,9 @@ abstract class SpanComponent extends Module {
     this.addChild(...buildSubModules(options.text))
     if (options.align) {
       this.el.style.textAlign = options.align
+    }
+    if (options.color) {
+      this.el.style.color = options.color
     }
     if (options.onClick) {
       this.el.addEventListener('click', options.onClick)
@@ -152,7 +161,7 @@ export class MutedText extends SpanComponent {
  * 用于禁用状态的文字显示
  */
 export class DisabledText extends Module {
-  constructor(opts: string | Omit<TextOptions, 'onClick'>) {
+  constructor(opts: string | Omit<TextOptions, 'onClick' | 'color'>) {
     super(document.createElement('span'))
     const options = typeof opts === 'string' ? { text: opts } : opts
     this.el.classList.add('wok-ui-ext-text-disabled')

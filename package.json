@@ -1,7 +1,7 @@
 {
   "name": "wok-ui-ext",
-  "version": "0.7.1",
-  "description": "wok-ui 的扩展库，提供一套科技蓝风格 + 多主题的组件库，覆盖常用的组件",
+  "version": "0.8.0",
+  "description": "wok-ui 的扩展库，提供一套科技蓝风格 + 多主题的组件库，覆盖常用的组件。An extension library for wok-ui, providing a tech-blue style, multi-theme component library that covers commonly used components.",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",

@@ -106,6 +106,37 @@ new BodyText({ text: 'Right Aligned', align: 'right' })
 
 <br>
 
+## Color
+
+Set the text color via the `color` parameter. Any valid CSS color value is supported.
+
+The most common case is to read a color from the theme, so the text color stays consistent with the current theme:
+
+```ts
+import { getTheme, BodyText } from 'wok-ui-ext'
+
+const { primary, success, danger } = getTheme()
+new BodyText({ text: 'Primary text', color: primary })
+new BodyText({ text: 'Success text', color: success })
+new BodyText({ text: 'Danger text', color: danger })
+```
+
+You can also pass any color value directly:
+
+```ts
+new BodyText({ text: 'Any color', color: '#ff6b35' })
+new BodyText({ text: 'Any color', color: 'rgb(120, 80, 255)' })
+```
+
+<br>
+
+```demo @docs/pages/demos/text/demo8.ts
+```
+
+<br>
+
+> `DisabledText` represents the disabled state. To keep the state semantics consistent, it does not support `color`.
+
 ## Click Event
 
 Handle text clicks via the `onClick` callback.
@@ -132,6 +163,7 @@ All text components support the same parameters:
 |------|------|--------|------|
 | text | `SubModulesOpt` | — | Text content, supports strings, modules, or module arrays (e.g. embed icons) |
 | align | `'left' \| 'center' \| 'right'` | — | Alignment |
+| color | `string` | — | Text color, accepts any CSS color value; read theme colors via `getTheme()`. Not supported by `DisabledText` |
 | onClick | `(evt: MouseEvent) => void` | — | Click callback |
 
 ## Component List

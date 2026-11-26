@@ -106,6 +106,37 @@ new BodyText({ text: 'Right Aligned', align: 'right' })
 
 <br>
 
+## 颜色
+
+通过 `color` 参数指定文本颜色，支持任意合法的 CSS 颜色值。
+
+最常见的场景是从主题中获取颜色值，这样文本颜色能与当前主题保持一致：
+
+```ts
+import { getTheme, BodyText } from 'wok-ui-ext'
+
+const { primary, success, danger } = getTheme()
+new BodyText({ text: '主色文本', color: primary })
+new BodyText({ text: '成功色文本', color: success })
+new BodyText({ text: '危险色文本', color: danger })
+```
+
+也可以直接指定任意颜色值：
+
+```ts
+new BodyText({ text: '任意颜色', color: '#ff6b35' })
+new BodyText({ text: '任意颜色', color: 'rgb(120, 80, 255)' })
+```
+
+<br>
+
+```demo @docs/pages/demos/text/demo8.ts
+```
+
+<br>
+
+> `DisabledText` 用于表达禁用状态，为保证状态语义一致，不支持指定 `color`。
+
 ## 点击事件
 
 通过 `onClick` 回调处理文本点击。
@@ -132,6 +163,7 @@ new BodyText({
 |------|------|--------|------|
 | text | `SubModulesOpt` | — | 文本内容，支持字符串、模块或模块数组（可嵌入图标等） |
 | align | `'left' \| 'center' \| 'right'` | — | 对齐方式 |
+| color | `string` | — | 文字颜色，可传任意 CSS 颜色值，建议从 `getTheme()` 获取主题色；`DisabledText` 不支持 |
 | onClick | `(evt: MouseEvent) => void` | — | 点击回调 |
 
 ## 组件列表

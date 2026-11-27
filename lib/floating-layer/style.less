@@ -2,6 +2,6 @@
 .wok-ui-ext-floating-layer {
   position: fixed;
   box-sizing: border-box;
-  // 低于 modal 遮罩（1000），浮层不会盖住弹窗
-  z-index: 900;
+  // 高于 overlay（modal / drawer），保证面板内弹出的浮层不被遮住
+  z-index: var(--z-index-floating);
 }

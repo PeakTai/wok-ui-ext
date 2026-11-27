@@ -6,8 +6,8 @@
   border: 1px solid var(--color-border);
   max-width: 300px;
   max-height: 100vh;
-  // 高于 floating-layer 默认的 900（modal 遮罩 1000 之上的菜单层级），双 class 提升特异性
-  z-index: 1100;
+  // 与其他浮层同属 floating 层，双 class 提升特异性
+  z-index: var(--z-index-floating);
 
   & > .wok-ui-ext-context-menu-item {
     padding: var(--padding-sm) var(--padding-md);

@@ -37,6 +37,17 @@
   --line-height-sm: 1.4;  // 紧凑短文本：气泡、标题、小字
   --line-height-md: 1.5;  // 默认正文 + 控件
   --line-height-lg: 1.6;  // 多行段落：alert、面板、强调信息
+
+  // ----- 层级档位（统一收口，组件禁止写死 z-index）-----
+  // overlay 层：Modal 与 Drawer 共用，互相嵌套时由 DOM 追加顺序决定谁在上
+  --z-index-overlay: 1000;
+  // 浮层：挂到 body 的 tooltip / popover / dropdown / date-picker / context-menu，
+  // 必须高于 overlay，才能保证抽屉、弹窗内的浮层不被遮住
+  --z-index-floating: 1100;
+  // 全局反馈：toast 永远浮在最上层业务遮罩之上
+  --z-index-toast: 1200;
+  // 全屏 loading：最高优先级，阻塞一切交互
+  --z-index-loading: 2000;
 }
 
 * {
